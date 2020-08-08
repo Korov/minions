@@ -10,3 +10,14 @@ services:
       - "MYSQL_ROOT_PASSWORD=root123"
     ports:
       - "3306:3306"
+
+  demo:
+    container_name: demo
+    build:
+      context: ./
+      dockerfile: demo-test
+    image: demo:1.0
+    ports:
+      - "8080:8080"
+    links:
+      - mysql:mysql-minions.com

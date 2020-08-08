@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+logging:
+  config: classpath:logback.xml
+  level:
+    root: INFO
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+
+mybatis:
+  type-aliases-package: org.minions.common.moedel.demo
+  mapper-locations:
+    - classpath:mapper/*Mapper.xml
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/demo?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true&allowPublicKeyRetrieval=true
+    username: root
+    password: root123
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  application:
+    name: minions-demo

@@ -2,7 +2,9 @@
 
 demo项目
 
-## 打包
+## 开发环境
+
+### 打包
 
 首先进入项目路径下，执行以下命令
 
@@ -12,7 +14,10 @@ demo项目
 #linux系统
 ./gradlew build -x test
 ```
-打包之后将各个module中的build中的libs中的jar包放入project_files的libs中
+
+### 启动mysql
+
+开发环境只会启动mysql
 
 ```bash
 #windows
@@ -31,3 +36,35 @@ docker-compose -f ./project_files/docker-compose-dev.yaml rm
 ```
 
 等待一段时间之后进入`localhost:8080/demo/get/1`查看服务是否正常启动
+
+## 测试环境
+
+### 打包
+
+首先进入项目路径下，执行以下命令
+
+```bash
+#windows系统
+.\gradlew build -x test -Dprofile=test
+#linux系统
+./gradlew build -x test -Dprofile=test
+```
+
+测试环境会启动所有服务
+
+```
+#windows
+docker-compose -f .\project_files\docker-compose-test.yaml build
+docker-compose -f .\project_files\docker-compose-test.yaml up -d
+docker-compose -f .\project_files\docker-compose-test.yaml ps
+docker-compose -f .\project_files\docker-compose-test.yaml stop
+docker-compose -f .\project_files\docker-compose-test.yaml rm
+
+#linux
+docker-compose -f ./project_files/docker-compose-test.yaml build
+docker-compose -f ./project_files/docker-compose-test.yaml up -d
+docker-compose -f ./project_files/docker-compose-test.yaml ps
+docker-compose -f ./project_files/docker-compose-test.yaml stop
+docker-compose -f ./project_files/docker-compose-test.yaml rm
+```
+
