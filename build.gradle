@@ -1,0 +1,82 @@
+buildscript {
+    ext {
+        springCloudVersion = "Hoxton.RELEASE"
+        springBootVersion = "2.3.2.RELEASE"
+        swagger2Version = "3.0.0"
+        lombokVersion = "1.18.12"
+        fastjsonVersion = "1.2.62"
+        snakeyamlVersion = "1.25"
+        validationApiVersion = "2.0.1.Final"
+        mysqlConnectorVersion = "8.0.21"
+        mybatisVersion = "2.1.3"
+        spotbugsVersion = "4.5.0"
+        dependencyManagementVersion = "1.0.9.RELEASE"
+    }
+    repositories {
+        mavenLocal()
+        maven {
+            url "https://maven.aliyun.com/repository/central"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/gradle-plugin"
+        }
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath "gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:${spotbugsVersion}"
+        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
+        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+    }
+}
+
+//所有项目共用的设置
+allprojects {
+    group 'org.minions'
+    version '0.0.1-SNAPSHOT'
+
+    // 此插件来实现类似maven中的dependencyManagement功能
+    apply plugin: "io.spring.dependency-management"
+    apply plugin: 'jacoco'
+
+    //设置项目字符集为UTF-8
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+        // 指定编译代码的版本
+        sourceCompatibility = 11
+    }
+
+
+    repositories {
+        mavenLocal()
+        maven {
+            url "https://maven.aliyun.com/repository/central"
+        }
+        maven {
+            url "https://maven.aliyun.com/repository/gradle-plugin"
+        }
+    }
+
+    dependencyManagement {
+        imports {
+            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        }
+    }
+}
+
+// 此配置对所有的子模块起作用
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'com.github.spotbugs'
+
+    test {
+        useJUnitPlatform {
+            includeEngines 'junit-jupiter'
+        }
+        finalizedBy jacocoTestReport
+    }
+
+    jacocoTestReport {
+        dependsOn test // tests are required to run before generating the report
+    }
+}

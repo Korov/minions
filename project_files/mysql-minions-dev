@@ -1,0 +1,13 @@
+FROM mysql:8.0.21
+
+MAINTAINER korov<korov9@163.com>
+
+WORKDIR /
+
+COPY sql/prod /docker-entrypoint-initdb.d
+COPY sql/test /docker-entrypoint-initdb.d
+
+ENTRYPOINT ["docker-entrypoint.sh"]
+
+EXPOSE 3306
+CMD ["mysqld"]

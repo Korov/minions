@@ -1,0 +1,23 @@
+version: "3"
+services:
+  mysql:
+    container_name: mysql-minions
+    build:
+      context: ./
+      dockerfile: mysql-minions-dev
+    image: mysql-minions:1.0
+    environment:
+      - "MYSQL_ROOT_PASSWORD=root123"
+    ports:
+      - "3307:3306"
+
+  demo:
+    container_name: demo
+    build:
+      context: ./
+      dockerfile: demo-dev
+    image: demo:1.0
+    ports:
+      - "8080:8080"
+    links:
+      - mysql:mysql-minions-dev

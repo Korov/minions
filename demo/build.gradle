@@ -1,0 +1,22 @@
+apply plugin: "org.springframework.boot"
+
+dependencies {
+    compile project(':common')
+    compile "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+    testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
+    compile "org.springframework.boot:spring-boot-starter-web"
+    compile "mysql:mysql-connector-java:${mysqlConnectorVersion}"
+    compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
+    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
+        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
+    }
+    runtimeClasspath "org.springframework.boot:spring-boot-starter-actuator"
+    runtimeClasspath "org.springframework.boot:spring-boot-devtools"
+}
+
+task explodedJar(type: Copy) {
+    from file("/build/libs/demo-0.0.1-SNAPSHOT.jar")
+    into file("$buildDir/project_files/libs")
+}

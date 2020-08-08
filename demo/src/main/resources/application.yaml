@@ -1,0 +1,30 @@
+server:
+  port: 8080
+  # servlet:
+    # 为所有的controller添加一个统一前缀
+    # context-path: /service/user
+
+#Development Environment
+logging:
+  config: classpath:logback.xml
+  level:
+    root: INFO
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+
+mybatis:
+  type-aliases-package: org.minions.common.moedel.demo    # 所有Entity别名类所在包
+  mapper-locations:
+    - classpath:mapper/*Mapper.xml
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver            # mysql驱动包
+    url: jdbc:mysql://mysql-minions-dev:3306/demo?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true            # 数据库名称
+    username: root
+    password: root123
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  application:
+    name: minions-demo

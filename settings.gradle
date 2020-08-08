@@ -1,0 +1,4 @@
+rootProject.name = 'minions'
+include 'demo'
+include 'common'
+

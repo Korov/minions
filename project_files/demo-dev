@@ -1,0 +1,21 @@
+FROM openjdk:11-slim
+
+MAINTAINER korov<korov9@163.com>
+
+ENV APP_HOME /app
+
+#Create base app folder
+RUN mkdir $APP_HOME
+#Create folder to save configuration files
+RUN mkdir $APP_HOME/config
+#Create folder with application logs
+RUN mkdir $APP_HOME/log
+
+WORKDIR $APP_HOME
+
+COPY libs/demo*.jar /app.jar
+
+RUN bash -c 'touch /app.jar'
+EXPOSE 8080
+
+ENTRYPOINT ["java", "-Djava.security.egd=file:/dev/./urandom", "-jar", "/app.jar" ]
