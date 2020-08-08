@@ -24,8 +24,3 @@ task copyJar(type: Copy) {
 }
 
 build.finalizedBy(copyJar)
-
-def profileName = System.getProperty("profile") ?: "dev"
-processResources {
-    filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [profileName: profileName]
-}

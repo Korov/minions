@@ -79,4 +79,9 @@ subprojects {
     jacocoTestReport {
         dependsOn test // tests are required to run before generating the report
     }
+
+    def profileName = System.getProperty("profile") ?: "dev"
+    processResources {
+        filter org.apache.tools.ant.filters.ReplaceTokens, tokens: [profileName: profileName]
+    }
 }
