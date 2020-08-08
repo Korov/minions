@@ -30,3 +30,4 @@ docker-compose -f ./project_files/docker-compose-dev.yaml stop
 docker-compose -f ./project_files/docker-compose-dev.yaml rm
 ```
 
+等待一段时间之后进入`localhost:8080/demo/get/1`查看服务是否正常启动
