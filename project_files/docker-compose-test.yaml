@@ -6,10 +6,14 @@ services:
       context: ./
       dockerfile: mysql-minions-test
     image: mysql-minions:1.0
+    hostname: mysql-minions
     environment:
       - "MYSQL_ROOT_PASSWORD=root123"
     ports:
       - "3306:3306"
+    networks:
+      minions:
+        ipv4_address: 172.31.0.12
 
   demo:
     container_name: demo
@@ -17,7 +21,16 @@ services:
       context: ./
       dockerfile: demo-test
     image: demo:1.0
+    hostname: demo
     ports:
       - "8080:8080"
     links:
       - mysql:mysql-minions.com
+    networks:
+      minions:
+        ipv4_address: 172.31.0.13
+
+networks:
+  minions:
+    external:
+      name: minions
