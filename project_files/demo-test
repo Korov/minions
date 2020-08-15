@@ -1,6 +1,6 @@
 FROM openjdk:11-slim
 
-MAINTAINER korov<korov9@163.com>
+LABEL author="korov" email="korov9@163.com" date="2020-08-16"
 
 ENV APP_HOME /app
 

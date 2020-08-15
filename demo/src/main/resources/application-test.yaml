@@ -16,7 +16,7 @@ spring:
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://mysql-minions.com:5432/postgres
+    url: jdbc:postgresql://postgres-minions.com:5432/postgres
     username: postgres
     password: postgres
   devtools:

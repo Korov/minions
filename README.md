@@ -13,6 +13,10 @@ demo项目
 ./gradlew build -x test
 ```
 
+```bash
+docker network create --driver bridge --subnet 172.31.0.0/16 minions
+```
+
 ## 开发环境
 
 开发环境只会启动mysql
