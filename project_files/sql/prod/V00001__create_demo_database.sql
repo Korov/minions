@@ -1,11 +1,6 @@
-DROP DATABASE IF EXISTS `demo`;
-
-CREATE DATABASE `demo` CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-
-USE `demo`;
-
-CREATE TABLE `demo` (
-    `id` INT AUTO_INCREMENT COMMENT '用户ID',
-    `name` VARCHAR(128) NOT NULL COMMENT '用户名',
-    PRIMARY KEY (`id`)
-)ENGINE = InnoDB DEFAULT CHARSET utf8mb4 COMMENT '测试用表';
+DROP TABLE IF EXISTS demo;
+CREATE TABLE demo
+(
+    id   serial PRIMARY KEY,
+    name VARCHAR(255)
+);

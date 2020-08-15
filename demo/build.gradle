@@ -7,7 +7,7 @@ dependencies {
     testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
     compile "org.springframework.boot:spring-boot-starter-web"
-    compile "mysql:mysql-connector-java:${mysqlConnectorVersion}"
+    compile "org.postgresql:postgresql:${postgresVersion}"
     compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

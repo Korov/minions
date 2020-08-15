@@ -14,10 +14,11 @@ mybatis:
 
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://mysql-minions.com:3306/demo?characterEncoding=utf8&useSSL=false&serverTimezone=UTC&rewriteBatchedStatements=true
-    username: root
-    password: root123
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://mysql-minions.com:5432/postgres
+    username: postgres
+    password: postgres
   devtools:
     restart:
       enabled: true

@@ -1,6 +1,6 @@
-FROM mysql:8.0.21
+FROM postgres:12.4
 
-MAINTAINER korov<korov9@163.com>
+LABEL author="korov" email="korov9@163.com" date="2020-08-16"
 
 WORKDIR /
 
@@ -9,5 +9,5 @@ COPY sql/test /docker-entrypoint-initdb.d
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-EXPOSE 3306
-CMD ["mysqld"]
+EXPOSE 5432
+CMD ["postgres"]

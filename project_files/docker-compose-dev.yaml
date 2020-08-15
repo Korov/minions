@@ -1,12 +1,12 @@
 version: "3.8"
 services:
-  mysql:
-    container_name: mysql-minions
+  postgres:
+    container_name: postgres-minions
     build:
       context: ./
-      dockerfile: mysql-minions-test
-    image: mysql-minions:1.0
+      dockerfile: postgres-minions-test
+    image: postgres-minions:1.0
     environment:
-      - "MYSQL_ROOT_PASSWORD=root123"
+      - "POSTGRES_PASSWORD=postgres"
     ports:
-      - "3306:3306"
+      - "5432:5432"

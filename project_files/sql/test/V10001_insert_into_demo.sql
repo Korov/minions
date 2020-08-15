@@ -1,3 +1,2 @@
-USE `demo`;
-
-INSERT INTO `demo`(`name`) VALUES ('minions');
+INSERT INTO demo(name)
+VALUES ('minions');
