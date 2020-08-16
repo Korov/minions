@@ -41,7 +41,7 @@ docker-compose -f ./project_files/docker-compose-dev.yaml rm
 
 ## 测试环境
 
-测试环境会启动所有服务
+启动测试环境之前需要打包生成最新的服务器jar包，测试环境会启动所有服务
 
 ```bash
 #windows
@@ -58,4 +58,50 @@ docker-compose -f ./project_files/docker-compose-test.yaml ps
 docker-compose -f ./project_files/docker-compose-test.yaml stop
 docker-compose -f ./project_files/docker-compose-test.yaml rm
 ```
+
+# 技术
+
+## Spring Boot
+
+版本：2.3.2.RELEASE
+
+## JDK
+
+openjdk 11.0.7
+
+## Gradle
+
+版本：6.5.1
+
+## 数据库
+
+### PostgresSQL
+
+帐号：postgres
+
+密码：postgres
+
+端口：5432
+
+### MongoDB
+
+帐号：admin
+
+密码：mongo
+
+端口：27017
+
+### Redis
+
+密码：redis
+
+端口：6379
+
+## Zookeeper
+
+端口：2181
+
+## Kafka
+
+端口9092
 
