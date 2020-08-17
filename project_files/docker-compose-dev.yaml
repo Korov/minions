@@ -2,10 +2,7 @@ version: "3.8"
 services:
   postgres:
     container_name: postgres-minions
-    build:
-      context: ./
-      dockerfile: postgres-minions-test
-    image: postgres-minions:1.0
+    image: postgres:12.4
     environment:
       - "POSTGRES_PASSWORD=postgres"
     ports:

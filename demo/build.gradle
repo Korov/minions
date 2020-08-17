@@ -8,6 +8,7 @@ dependencies {
     testCompileOnly "org.projectlombok:lombok:${lombokVersion}"
     compile "org.springframework.boot:spring-boot-starter-web"
     compile "org.postgresql:postgresql:${postgresVersion}"
+    compile "org.flywaydb:flyway-core:${flywayVersion}"
     compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'

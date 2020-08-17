@@ -25,3 +25,6 @@ spring:
       additional-paths: src/main/java
   application:
     name: minions-demo
+
+  flyway:
+    baseline-on-migrate: true
