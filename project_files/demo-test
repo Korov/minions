@@ -4,12 +4,7 @@ LABEL author="korov" email="korov9@163.com" date="2020-08-16"
 
 ENV APP_HOME /app
 
-#Create base app folder
 RUN mkdir $APP_HOME
-#Create folder to save configuration files
-RUN mkdir $APP_HOME/config
-#Create folder with application logs
-RUN mkdir $APP_HOME/log
 
 WORKDIR $APP_HOME
 

@@ -13,6 +13,8 @@ then
   docker-compose -f ./project_files/docker-compose-test.yaml stop
   docker-compose -f ./project_files/docker-compose-test.yaml rm --force
   docker rmi demo:1.0
+  rm -rf ./project_files/libs/
+  ./gradlew clean build -x test
   docker-compose -f ./project_files/docker-compose-test.yaml build
   docker-compose -f ./project_files/docker-compose-test.yaml up -d
   docker-compose -f ./project_files/docker-compose-test.yaml ps
