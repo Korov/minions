@@ -1,9 +1,10 @@
 package org.minions.demo.mapper;
 
-import java.util.List;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
-import org.minions.common.moedel.demo.Demo;
+import org.minions.common.model.demo.Demo;
+
+import java.util.List;
 
 @Mapper
 public interface DemoMapper {

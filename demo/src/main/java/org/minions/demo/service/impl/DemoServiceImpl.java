@@ -1,6 +1,6 @@
 package org.minions.demo.service.impl;
 
-import org.minions.common.moedel.demo.Demo;
+import org.minions.common.model.demo.Demo;
 import org.minions.demo.mapper.DemoMapper;
 import org.minions.demo.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;

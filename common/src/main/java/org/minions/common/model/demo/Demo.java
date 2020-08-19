@@ -1,4 +1,4 @@
-package org.minions.common.moedel.demo;
+package org.minions.common.model.demo;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
