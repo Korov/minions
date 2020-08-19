@@ -27,6 +27,7 @@ buildscript {
         classpath "gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:${spotbugsVersion}"
         classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
         classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
+        classpath group: 'gradle.plugin.com.thinkimi.gradle', name: 'mybatis-generator-plugin', version: '2.2'
     }
 }
 
