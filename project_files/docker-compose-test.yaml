@@ -23,6 +23,10 @@ services:
       - "8080:8080"
     links:
       - postgres:postgres-minions.com
+      - mongo:mongo-minions.com
+      - redis:redis-minions.com
+      - zookeeper:zookeeper-minions.com
+      - kafka:kafka-minions.com
     networks:
       minions:
         ipv4_address: 172.31.0.13
