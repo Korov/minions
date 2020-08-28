@@ -58,7 +58,7 @@ services:
 
   zookeeper:
     container_name: zookeeper--minions
-    image: wurstmeister/zookeeper:3.4.6
+    image: zookeeper:3.5.8
     hostname: zookeeper-minions
     ports:
       - "2181:2181"
