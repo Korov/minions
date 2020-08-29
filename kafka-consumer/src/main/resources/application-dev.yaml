@@ -1,0 +1,53 @@
+server:
+  port: 8081
+
+logging:
+  config: classpath:logback.xml
+  level:
+    root: INFO
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+
+mybatis:
+  type-aliases-package: org.minions.common.moedel.kafka
+  mapper-locations:
+    - classpath:mapper/*Mapper.xml
+
+spring:
+  datasource:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  application:
+    name: minions-kafka
+
+  flyway:
+    baseline-on-migrate: true
+    locations: classpath:db/migration,classpath:db/test
+
+  kafka:
+    bootstrap-servers: localhost:9092
+
+    producer:
+      retries: 3
+      batch-size: 323804
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: -1
+      linger: 10
+    consumer:
+      group-id: minions
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 100
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      max-poll-records: 1
+    listener:
+      concurrency: 1

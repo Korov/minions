@@ -1,7 +1,7 @@
 buildscript {
     ext {
         springCloudVersion = "Hoxton.RELEASE"
-        springBootVersion = "2.3.2.RELEASE"
+        springBootVersion = "2.3.3.RELEASE"
         swagger2Version = "3.0.0"
         lombokVersion = "1.18.12"
         fastjsonVersion = "1.2.62"

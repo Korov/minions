@@ -57,7 +57,7 @@ services:
         ipv4_address: 172.31.0.15
 
   zookeeper:
-    container_name: zookeeper--minions
+    container_name: zookeeper-minions
     image: zookeeper:3.5.8
     hostname: zookeeper-minions
     ports:

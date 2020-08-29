@@ -26,7 +26,7 @@ services:
       redis-server --requirepass redis --appendonly yes
 
   zookeeper:
-    container_name: zookeeper--minions
+    container_name: zookeeper-minions
     image: zookeeper:3.5.8
     ports:
       - "2181:2181"

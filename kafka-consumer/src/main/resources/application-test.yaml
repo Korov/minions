@@ -1,0 +1,29 @@
+server:
+  port: 8080
+
+logging:
+  config: classpath:logback.xml
+  level:
+    root: INFO
+    org.springframework.web.servlet.DispatcherServlet: DEBUG
+
+mybatis:
+  type-aliases-package: org.minions.common.moedel.demo
+  mapper-locations:
+    - classpath:mapper/*Mapper.xml
+
+spring:
+  datasource:
+    platform: postgres
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://postgres-minions.com:5432/postgres
+    username: postgres
+    password: postgres
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main/java
+  application:
+    name: minions-demo
+  flyway:
+    baseline-on-migrate: true
