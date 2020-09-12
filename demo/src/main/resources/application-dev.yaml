@@ -16,8 +16,8 @@ spring:
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/postgres
-    username: postgres
+    url: jdbc:postgresql://localhost:5432/minions
+    username: minions
     password: postgres
   devtools:
     restart:

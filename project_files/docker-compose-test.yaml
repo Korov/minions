@@ -6,6 +6,8 @@ services:
     hostname: postgres-minions
     environment:
       - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_DB=minions"
+      - "POSTGRES_USER=minions"
     ports:
       - "5432:5432"
     networks:

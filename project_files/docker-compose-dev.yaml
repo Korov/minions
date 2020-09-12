@@ -5,6 +5,8 @@ services:
     image: postgres:12.4
     environment:
       - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_DB=minions"
+      - "POSTGRES_USER=minions"
     ports:
       - "5432:5432"
 
