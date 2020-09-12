@@ -67,7 +67,7 @@ openjdk 11.0.7
 
 ### PostgresSQL
 
-帐号：postgres
+帐号：minions
 
 密码：postgres
 
