@@ -347,4 +347,10 @@
       be_restrained_hero = #{beRestrainedHero,jdbcType=VARCHAR}
     where hero_id = #{heroId,jdbcType=NUMERIC}
   </update>
+
+  <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from hero_infos
+  </select>
 </mapper>

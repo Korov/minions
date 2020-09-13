@@ -2,6 +2,7 @@ package org.minions.common.dto.kafka;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.annotation.JSONField;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +11,9 @@ import lombok.ToString;
 import org.minions.common.model.kafka.HeroInfoModel;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Database Table Remarks:
@@ -55,55 +58,111 @@ public class HeroInfoDTO {
      */
 
     @JSONField(name = "name")
+    @JsonProperty("name")
     private String name;
     @JSONField(name = "title")
+    @JsonProperty("title")
     private String title;
     @JSONField(name = "half_img")
+    @JsonProperty("half_img")
     private String halfImg;
     @JSONField(name = "background_story")
+    @JsonProperty("background_story")
     private String backgroundStory;
     @JSONField(name = "levels")
+    @JsonProperty("levels")
     private LevelsDTO levels;
     @JSONField(name = "diamond_price")
+    @JsonProperty("diamond_price")
     private String diamondPrice;
     @JSONField(name = "gold_price")
+    @JsonProperty("gold_price")
     private String goldPrice;
     @JSONField(name = "ticket_price")
+    @JsonProperty("ticket_price")
     private String ticketPrice;
     @JSONField(name = "text_price")
+    @JsonProperty("text_price")
     private String textPrice;
     @JSONField(name = "hero_id")
+    @JsonProperty("hero_id")
     private String heroId;
     @JSONField(name = "big_img")
+    @JsonProperty("big_img")
     private String bigImg;
     @JSONField(name = "history_intro")
+    @JsonProperty("history_intro")
     private String historyIntro;
     @JSONField(name = "skill_tips")
+    @JsonProperty("skill_tips")
     private String skillTips;
     @JSONField(name = "recommend_summoner_skill_tips")
+    @JsonProperty("recommend_summoner_skill_tips")
     private String recommendSummonerSkillTips;
     @JSONField(name = "hero_tips")
+    @JsonProperty("hero_tips")
     private String heroTips;
     @JSONField(name = "melee_tips")
+    @JsonProperty("melee_tips")
     private String meleeTips;
     @JSONField(name = "type")
+    @JsonProperty("type")
     private List<String> type;
     @JSONField(name = "recommend_summoner_skill")
+    @JsonProperty("recommend_summoner_skill")
     private List<RecommendSummonerSkillDTO> recommendSummonerSkill;
     @JSONField(name = "rec_inscriptions")
+    @JsonProperty("rec_inscriptions")
     private List<RecInscriptionsDTO> recInscriptions;
     @JSONField(name = "skin_imgs")
+    @JsonProperty("skin_imgs")
     private List<SkinImgsDTO> skinImgs;
     @JSONField(name = "skill_list")
+    @JsonProperty("skill_list")
     private List<SkillListDTO> skillList;
     @JSONField(name = "equip_choice")
+    @JsonProperty("equip_choice")
     private List<EquipChoiceDTO> equipChoice;
     @JSONField(name = "partner_hero")
+    @JsonProperty("partner_hero")
     private List<PartnerHeroDTO> partnerHero;
     @JSONField(name = "restrained_hero")
+    @JsonProperty("restrained_hero")
     private List<RestrainedHeroDTO> restrainedHero;
     @JSONField(name = "be_restrained_hero")
+    @JsonProperty("be_restrained_hero")
     private List<BeRestrainedHeroDTO> beRestrainedHero;
+
+    public HeroInfoDTO(HeroInfoModel model) {
+        heroId = model.getHeroId().toString();
+        beRestrainedHero = JSONObject.parseArray(model.getBeRestrainedHero(), BeRestrainedHeroDTO.class);
+        bigImg = model.getBigImg();
+        equipChoice = JSONObject.parseArray(model.getEquipChoice(), EquipChoiceDTO.class);
+        diamondPrice = model.getHeroDiamondPrice().toString();
+        diamondPrice = diamondPrice.substring(0, diamondPrice.indexOf("."));
+        goldPrice = model.getHeroGoldPrice().toString();
+        goldPrice = goldPrice.substring(0, goldPrice.indexOf("."));
+        levels = JSONObject.parseObject(model.getHeroLevels(), LevelsDTO.class);
+        name = model.getHeroName();
+        backgroundStory = model.getHeroStory();
+        ticketPrice = model.getHeroTicketPrice().toString();
+        ticketPrice = ticketPrice.substring(0, ticketPrice.indexOf("."));
+        heroTips = model.getHeroTips();
+        type = JSONObject.parseArray(model.getHeroType(), String.class);
+        historyIntro = model.getHistoryIntro();
+        meleeTips = model.getMeleeTips();
+        partnerHero = JSONObject.parseArray(model.getPartnerHero(), PartnerHeroDTO.class);
+        recInscriptions = JSONObject.parseArray(model.getRecInscriptions(), RecInscriptionsDTO.class);
+        recommendSummonerSkill = JSONObject.parseArray(model.getRecommendSummonerSkill(), RecommendSummonerSkillDTO.class);
+        recommendSummonerSkillTips = model.getRecommendSummonerSkillTips();
+        skillList = JSONObject.parseArray(model.getSkillList(), SkillListDTO.class);
+        skillTips = model.getSkillTips();
+        skinImgs = JSONObject.parseArray(model.getSkinImgs(), SkinImgsDTO.class);
+        title = Optional.ofNullable(title).orElse("");
+        halfImg = Optional.ofNullable(halfImg).orElse("");
+        textPrice = Optional.ofNullable(textPrice).orElse("");
+        restrainedHero = Optional.ofNullable(restrainedHero).orElse(new ArrayList<>());
+    }
 
     public HeroInfoModel getInfo() {
         HeroInfoModel model = new HeroInfoModel();
@@ -112,7 +171,6 @@ public class HeroInfoDTO {
         model.setEquipChoice(JSONObject.toJSONString(equipChoice));
         model.setHeroDiamondPrice(BigDecimal.valueOf(Long.parseLong(diamondPrice)));
         model.setHeroGoldPrice(BigDecimal.valueOf(Long.parseLong(goldPrice)));
-        model.setHeroImg(bigImg);
         model.setHeroLevels(JSONObject.toJSONString(levels));
         model.setHeroName(name);
         model.setHeroNickname(name);
@@ -143,12 +201,16 @@ public class HeroInfoDTO {
          */
 
         @JSONField(name = "survival")
+        @JsonProperty("survival")
         private String survival;
         @JSONField(name = "attack")
+        @JsonProperty("attack")
         private String attack;
         @JSONField(name = "skill")
+        @JsonProperty("skill")
         private String skill;
         @JSONField(name = "difficulty")
+        @JsonProperty("difficulty")
         private String difficulty;
     }
 
@@ -162,10 +224,13 @@ public class HeroInfoDTO {
          */
 
         @JSONField(name = "name")
+        @JsonProperty("name")
         private String name;
         @JSONField(name = "icon")
+        @JsonProperty("icon")
         private String icon;
         @JSONField(name = "description")
+        @JsonProperty("description")
         private String description;
     }
 
@@ -178,8 +243,10 @@ public class HeroInfoDTO {
          */
 
         @JSONField(name = "title")
+        @JsonProperty("title")
         private String title;
         @JSONField(name = "list")
+        @JsonProperty("list")
         private List<ListDTO> list;
 
         @NoArgsConstructor
@@ -193,12 +260,16 @@ public class HeroInfoDTO {
              */
 
             @JSONField(name = "name")
+            @JsonProperty("name")
             private String name;
             @JSONField(name = "level")
+            @JsonProperty("level")
             private String level;
             @JSONField(name = "icon")
+            @JsonProperty("icon")
             private String icon;
             @JSONField(name = "attrs")
+            @JsonProperty("attrs")
             private String attrs;
         }
     }
@@ -212,8 +283,10 @@ public class HeroInfoDTO {
          */
 
         @JSONField(name = "skin_name")
+        @JsonProperty("skin_name")
         private String skinName;
         @JSONField(name = "big_img")
+        @JsonProperty("big_img")
         private String bigImg;
     }
 
@@ -232,20 +305,28 @@ public class HeroInfoDTO {
          */
 
         @JSONField(name = "name")
+        @JsonProperty("name")
         private String name;
         @JSONField(name = "icon")
+        @JsonProperty("icon")
         private String icon;
         @JSONField(name = "description")
+        @JsonProperty("description")
         private String description;
         @JSONField(name = "intro")
+        @JsonProperty("intro")
         private String intro;
         @JSONField(name = "tags")
+        @JsonProperty("tags")
         private String tags;
         @JSONField(name = "cd")
+        @JsonProperty("cd")
         private String cd;
         @JSONField(name = "mana_cost")
+        @JsonProperty("mana_cost")
         private String manaCost;
         @JSONField(name = "attrs")
+        @JsonProperty("attrs")
         private List<?> attrs;
     }
 
@@ -259,10 +340,13 @@ public class HeroInfoDTO {
          */
 
         @JSONField(name = "title")
+        @JsonProperty("title")
         private String title;
         @JSONField(name = "description")
+        @JsonProperty("description")
         private String description;
         @JSONField(name = "list")
+        @JsonProperty("list")
         private List<ListDTO> list;
 
         @NoArgsConstructor
@@ -274,8 +358,10 @@ public class HeroInfoDTO {
              */
 
             @JSONField(name = "equip_id")
+            @JsonProperty("equip_id")
             private String equipId;
             @JSONField(name = "icon")
+            @JsonProperty("icon")
             private String icon;
         }
     }
@@ -290,10 +376,13 @@ public class HeroInfoDTO {
          */
 
         @JSONField(name = "hero_id")
+        @JsonProperty("hero_id")
         private String heroId;
         @JSONField(name = "name")
+        @JsonProperty("name")
         private String name;
         @JSONField(name = "icon")
+        @JsonProperty("icon")
         private String icon;
     }
 
@@ -307,10 +396,13 @@ public class HeroInfoDTO {
          */
 
         @JSONField(name = "hero_id")
+        @JsonProperty("hero_id")
         private String heroId;
         @JSONField(name = "name")
+        @JsonProperty("name")
         private String name;
         @JSONField(name = "icon")
+        @JsonProperty("icon")
         private String icon;
     }
 
@@ -324,10 +416,13 @@ public class HeroInfoDTO {
          */
 
         @JSONField(name = "hero_id")
+        @JsonProperty("hero_id")
         private String heroId;
         @JSONField(name = "name")
+        @JsonProperty("name")
         private String name;
         @JSONField(name = "icon")
+        @JsonProperty("icon")
         private String icon;
     }
 }

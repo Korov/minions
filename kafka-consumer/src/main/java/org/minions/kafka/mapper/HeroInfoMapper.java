@@ -3,6 +3,8 @@ package org.minions.kafka.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.minions.common.model.kafka.HeroInfoModel;
 
+import java.util.List;
+
 @Mapper
 public interface HeroInfoMapper {
     /**
@@ -52,4 +54,6 @@ public interface HeroInfoMapper {
      * @mbg.generated Sun Sep 13 17:22:56 CST 2020
      */
     int updateByPrimaryKey(HeroInfoModel record);
+
+    List<HeroInfoModel> selectAll();
 }
