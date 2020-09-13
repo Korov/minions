@@ -110,14 +110,14 @@ public class HeroInfoDTO {
         model.setBeRestrainedHero(JSONObject.toJSONString(beRestrainedHero));
         model.setBigImg(bigImg);
         model.setEquipChoice(JSONObject.toJSONString(equipChoice));
-        model.setHeroDiamondPrice(BigDecimal.valueOf(Long.valueOf(diamondPrice)));
-        model.setHeroGoldPrice(BigDecimal.valueOf(Long.valueOf(goldPrice)));
+        model.setHeroDiamondPrice(BigDecimal.valueOf(Long.parseLong(diamondPrice)));
+        model.setHeroGoldPrice(BigDecimal.valueOf(Long.parseLong(goldPrice)));
         model.setHeroImg(bigImg);
         model.setHeroLevels(JSONObject.toJSONString(levels));
         model.setHeroName(name);
         model.setHeroNickname(name);
         model.setHeroStory(backgroundStory);
-        model.setHeroTicketPrice(BigDecimal.valueOf(Long.valueOf(ticketPrice)));
+        model.setHeroTicketPrice(BigDecimal.valueOf(Long.parseLong(ticketPrice)));
         model.setHeroTips(heroTips);
         model.setHeroType(JSONObject.toJSONString(type));
         model.setHistoryIntro(historyIntro);

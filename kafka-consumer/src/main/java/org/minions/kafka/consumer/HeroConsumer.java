@@ -11,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Optional;
 
 /**
@@ -31,7 +29,6 @@ public class HeroConsumer {
     @KafkaListener(id = "minions01", topics = "hero", containerFactory = "kafkaListenerContainerFactory")
     public void listen(ConsumerRecord<?, ?> record) {
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
-        List<HeroInfoModel> models = new ArrayList<>(100);
         if (kafkaMessage.isPresent()) {
             String message = kafkaMessage.get().toString();
             String result = message.replaceAll("'", "\"");

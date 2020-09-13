@@ -33,6 +33,25 @@ services:
       minions:
         ipv4_address: 172.31.0.13
 
+  kafka-consumer:
+    container_name: kafka-consumer
+    build:
+      context: ./
+      dockerfile: kafka-consumer-test
+    image: kafka-consumer:1.0
+    hostname: kafka-consumer
+    ports:
+      - "8081:8081"
+    links:
+      - postgres:postgres-minions.com
+      - mongo:mongo-minions.com
+      - redis:redis-minions.com
+      - zookeeper:zookeeper-minions.com
+      - kafka:kafka-minions.com
+    networks:
+      minions:
+        ipv4_address: 172.31.0.18
+
   mongo:
     container_name: mongo-minions
     image: mongo:4.4.0

@@ -6,6 +6,7 @@ import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
 import org.apache.kafka.common.serialization.StringSerializer;
+import org.minions.common.constant.Constant;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -56,7 +57,7 @@ public class KafkaConfig {
 
     private Map<String, Object> producerConfigs() {
 
-        Map<String, Object> props = new HashMap<>();
+        Map<String, Object> props = new HashMap<>(Constant.MAP_INIT_SIZE);
         props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         //设置重试次数
         props.put(ProducerConfig.RETRIES_CONFIG, retries);
@@ -76,10 +77,6 @@ public class KafkaConfig {
         props.put(ProducerConfig.LINGER_MS_CONFIG, 10485760);
         //设置broker响应时间，如果broker在60秒之内还是没有返回给producer确认消息，则认为发送失败
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 60000);
-        //指定拦截器(value为对应的class)
-        //props.put(ProducerConfig.INTERCEPTOR_CLASSES_CONFIG, "com.te.handler.KafkaProducerInterceptor");
-        //设置压缩算法(默认是木有压缩算法的)
-        // props.put(ProducerConfig.COMPRESSION_TYPE_CONFIG, "lz4");
         props.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 16000000);
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 2000000);
         return props;
@@ -88,7 +85,7 @@ public class KafkaConfig {
 
     @Bean
     KafkaAdmin kafkaAdmin() {
-        Map<String, Object> props = new HashMap<>();
+        Map<String, Object> props = new HashMap<>(Constant.MAP_INIT_SIZE);
         //配置Kafka实例的连接地址
         //kafka的地址，不是zookeeper
         props.put(AdminClientConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
@@ -103,7 +100,7 @@ public class KafkaConfig {
      */
     @Bean
     public AdminClient adminClient() {
-        return AdminClient.create(kafkaAdmin().getConfig());
+        return AdminClient.create(kafkaAdmin().getConfigurationProperties());
     }
 
 
@@ -120,15 +117,12 @@ public class KafkaConfig {
 
     @Bean
     Map<String, Object> consumerConfigs() {
-        Map<String, Object> props = new HashMap<>();
+        Map<String, Object> props = new HashMap<>(Constant.MAP_INIT_SIZE);
         props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, autoCommit);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
         props.put(ConsumerConfig.MAX_POLL_RECORDS_CONFIG, maxPollRecords);
-//        props.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, 180000);
-//        props.put(ConsumerConfig.REQUEST_TIMEOUT_MS_CONFIG, 900000);
-//        props.put(ConsumerConfig.MAX_POLL_INTERVAL_MS_CONFIG, 900000);
         props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);
         return props;
@@ -141,8 +135,6 @@ public class KafkaConfig {
         factory.setConsumerFactory(new DefaultKafkaConsumerFactory<>(consumerConfigs()));
         //设置为批量消费，每个批次数量在Kafka配置参数中设置ConsumerConfig.MAX_POLL_RECORDS_CONFIG
         factory.setBatchListener(true);
-        // set the retry template
-        // factory.setRetryTemplate(retryTemplate());
         factory.getContainerProperties().setAckMode(ContainerProperties.AckMode.MANUAL);
         return factory;
     }
