@@ -4,13 +4,13 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.minions.demo.TestAnnotation;
+import org.minions.demo.DemoApplicationTest;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 
-class DemoControllerTest extends TestAnnotation {
+class DemoControllerTest extends DemoApplicationTest {
     @Test
     void getDemo() throws Exception {
         String response = mockMvc.perform(MockMvcRequestBuilders.get("/demo/get/1"))

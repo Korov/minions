@@ -8,7 +8,7 @@ logging:
     org.springframework.web.servlet.DispatcherServlet: DEBUG
 
 mybatis:
-  type-aliases-package: org.minions.common.moedel.kafka
+  type-aliases-package: org.minions.common.model.kafka
   mapper-locations:
     - classpath:mapper/*Mapper.xml
 
@@ -16,7 +16,7 @@ spring:
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://localhost:5432/minions
+    url: jdbc:postgresql://localhost:5432/minions?currentSchema=kafka
     username: minions
     password: postgres
   devtools:

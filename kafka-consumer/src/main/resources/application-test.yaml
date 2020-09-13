@@ -27,3 +27,26 @@ spring:
     name: minions-demo
   flyway:
     baseline-on-migrate: true
+    locations: classpath:db/migration
+
+  kafka:
+    bootstrap-servers: kafka-minions.com:9092
+
+    producer:
+      retries: 3
+      batch-size: 323804
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      acks: -1
+      linger: 10
+    consumer:
+      group-id: minions
+      auto-offset-reset: earliest
+      enable-auto-commit: true
+      auto-commit-interval: 100
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      max-poll-records: 1
+    listener:
+      concurrency: 1
