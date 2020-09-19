@@ -38,10 +38,10 @@ elif [ ${env} = "test" ]
 then
   if [ ${action} = "up" ]
   then
+    docker network create --driver bridge --subnet 172.31.0.0/16 minions
     docker-compose -f ./project_files/docker-compose-test.yaml stop
     docker-compose -f ./project_files/docker-compose-test.yaml rm --force
     docker rmi demo:1.0
-    docker rmi spider-minions:1.0
     docker rmi kafka-consumer:1.0
     rm -rf ./project_files/libs/
     docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle:6.5.1-jdk11 gradle build -x test
@@ -49,9 +49,13 @@ then
     docker-compose -f ./project_files/docker-compose-test.yaml build
     docker-compose -f ./project_files/docker-compose-test.yaml up -d
     docker-compose -f ./project_files/docker-compose-test.yaml ps
+    docker rmi spider-minions:1.0
+    docker build -f ./project_files/spiders/Dockerfile -t spider-minions:1.0 ./project_files/spiders
+    docker run --rm -it --name=spider-minions --network=minions --link=kafka-minions:kafka-minions.com spider-minions:1.0
   else
     docker-compose -f ./project_files/docker-compose-test.yaml stop
     docker-compose -f ./project_files/docker-compose-test.yaml rm --force
     docker-compose -f ./project_files/docker-compose-test.yaml ps
+    docker network rm minions
   fi
 fi
