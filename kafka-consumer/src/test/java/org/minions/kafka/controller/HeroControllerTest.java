@@ -11,9 +11,8 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 /**
  * @author korov
- * @date 2020/9/13
  */
-class HeroControllerTest extends KafkaConsumersTest {
+public class HeroControllerTest extends KafkaConsumersTest {
 
     @Test
     void getHeros() throws Exception {

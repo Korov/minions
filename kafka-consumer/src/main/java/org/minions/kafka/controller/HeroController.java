@@ -11,7 +11,6 @@ import java.util.List;
 
 /**
  * @author korov
- * @date 2020/9/13
  */
 @RestController
 public class HeroController {

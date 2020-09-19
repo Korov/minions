@@ -8,7 +8,6 @@ import org.minions.common.utils.StringUtil;
 
 /**
  * @author korov
- * @date 2020/9/13
  */
 @Data
 @ToString

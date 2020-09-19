@@ -8,7 +8,6 @@ import org.springframework.test.web.servlet.MockMvc;
 
 /**
  * @author korov
- * @date 2020/8/29
  */
 @SpringBootTest
 @AutoConfigureMockMvc

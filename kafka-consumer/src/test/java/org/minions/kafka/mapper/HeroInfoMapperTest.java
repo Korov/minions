@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  * @author korov
- * @date 2020/9/13
  */
 public class HeroInfoMapperTest extends KafkaConsumersTest {
 

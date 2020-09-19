@@ -8,7 +8,6 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 /**
  * @author korov
- * @date 2020/8/29
  */
 @EnableSwagger2
 @SpringBootApplication

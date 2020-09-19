@@ -1,17 +1,17 @@
 buildscript {
     ext {
-        springCloudVersion = "Hoxton.RELEASE"
+        springCloudVersion = "Hoxton.SR8"
         springBootVersion = "2.3.3.RELEASE"
         swagger2Version = "3.0.0"
         lombokVersion = "1.18.12"
-        fastjsonVersion = "1.2.62"
-        snakeyamlVersion = "1.25"
+        fastjsonVersion = "1.2.73"
+        snakeyamlVersion = "1.27"
         validationApiVersion = "2.0.1.Final"
-        postgresVersion = "42.2.14"
+        postgresVersion = "42.2.16"
         mybatisVersion = "2.1.3"
         spotbugsVersion = "4.5.0"
-        dependencyManagementVersion = "1.0.9.RELEASE"
-        flywayVersion = "6.5.4"
+        dependencyManagementVersion = "1.0.10.RELEASE"
+        flywayVersion = "6.5.6"
     }
     repositories {
         mavenLocal()
@@ -39,6 +39,7 @@ allprojects {
     // 此插件来实现类似maven中的dependencyManagement功能
     apply plugin: "io.spring.dependency-management"
     apply plugin: 'jacoco'
+    apply plugin: 'idea'
 
     //设置项目字符集为UTF-8
     tasks.withType(JavaCompile) {
@@ -62,6 +63,13 @@ allprojects {
         imports {
             mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
             mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+        }
+    }
+
+    idea {
+        module {
+            downloadJavadoc = true
+            downloadSources = true
         }
     }
 }
