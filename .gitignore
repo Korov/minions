@@ -71,4 +71,6 @@ testem.log
 # System Files
 Thumbs.db
 *.exe
+/**/venv
+/**/__pycache__
 
