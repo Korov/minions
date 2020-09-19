@@ -11,9 +11,7 @@ import lombok.ToString;
 import org.minions.common.model.kafka.HeroInfoModel;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 /**
  * Database Table Remarks:
@@ -158,10 +156,10 @@ public class HeroInfoDTO {
         skillList = JSONObject.parseArray(model.getSkillList(), SkillListDTO.class);
         skillTips = model.getSkillTips();
         skinImgs = JSONObject.parseArray(model.getSkinImgs(), SkinImgsDTO.class);
-        title = Optional.ofNullable(title).orElse("");
-        halfImg = Optional.ofNullable(halfImg).orElse("");
-        textPrice = Optional.ofNullable(textPrice).orElse("");
-        restrainedHero = Optional.ofNullable(restrainedHero).orElse(new ArrayList<>());
+        title = "";
+        halfImg = "";
+        textPrice = "";
+        restrainedHero = JSONObject.parseArray(model.getBeRestrainedHero(), RestrainedHeroDTO.class);
     }
 
     public HeroInfoModel getInfo() {
