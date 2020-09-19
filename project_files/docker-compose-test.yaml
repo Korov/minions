@@ -52,6 +52,16 @@ services:
       minions:
         ipv4_address: 172.31.0.18
 
+  spider:
+    container_name: spider-minions
+    build:
+      context: .
+      dockerfile: spiders/Dockerfile
+    image: spider-minions:1.0
+    hostname: spider
+    links:
+      - kafka:kafka-minions.com
+
   mongo:
     container_name: mongo-minions
     image: mongo:4.4.0

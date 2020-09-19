@@ -8,6 +8,4 @@ WORKDIR /
 
 RUN pip install -i https://mirrors.aliyun.com/pypi/simple/ -r requirements.txt
 
-ENTRYPOINT [ "python3" ]
-
-CMD [ "begin.py" ]
+CMD ["export SCRAPY_PROJECT=test && scrapy crawl hero"]
