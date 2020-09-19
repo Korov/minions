@@ -10,9 +10,6 @@ services:
       - "POSTGRES_USER=minions"
     ports:
       - "5432:5432"
-    networks:
-      minions:
-        ipv4_address: 172.31.0.12
 
   demo:
     container_name: demo
@@ -29,9 +26,6 @@ services:
       - redis:redis-minions.com
       - zookeeper:zookeeper-minions.com
       - kafka:kafka-minions.com
-    networks:
-      minions:
-        ipv4_address: 172.31.0.13
 
   mongo:
     container_name: mongo-minions
@@ -42,9 +36,6 @@ services:
       - "MONGO_INITDB_ROOT_PASSWORD=mongo"
     ports:
       - "27017:27017"
-    networks:
-      minions:
-        ipv4_address: 172.31.0.14
 
   redis:
     container_name: redis-minions
@@ -54,9 +45,6 @@ services:
       - 6379:6379
     command:
       redis-server --requirepass redis --appendonly yes
-    networks:
-      minions:
-        ipv4_address: 172.31.0.15
 
   zookeeper:
     container_name: zookeeper-minions
@@ -64,9 +52,6 @@ services:
     hostname: zookeeper-minions
     ports:
       - "2181:2181"
-    networks:
-      minions:
-        ipv4_address: 172.31.0.16
 
   kafka:
     container_name: kafka-minions
@@ -80,9 +65,6 @@ services:
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
     links:
       - zookeeper:zookeeper
-    networks:
-      minions:
-        ipv4_address: 172.31.0.17
 
   kafka-consumer:
     container_name: kafka-consumer
@@ -99,9 +81,6 @@ services:
       - redis:redis-minions.com
       - zookeeper:zookeeper-minions.com
       - kafka:kafka-minions.com
-    networks:
-      minions:
-        ipv4_address: 172.31.0.18
 
   spider:
     container_name: spider-minions
@@ -112,11 +91,3 @@ services:
     hostname: spider
     links:
       - kafka:kafka-minions.com
-    networks:
-      minions:
-        ipv4_address: 172.31.0.19
-
-networks:
-  minions:
-    external:
-      name: minions

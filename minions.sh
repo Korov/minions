@@ -38,8 +38,6 @@ elif [ ${env} = "test" ]
 then
   if [ ${action} = "up" ]
   then
-    docker network rm minions
-    docker network create --driver bridge --subnet 172.31.0.0/16 minions
     docker-compose -f ./project_files/docker-compose-test.yaml stop
     docker-compose -f ./project_files/docker-compose-test.yaml rm --force
     docker rmi demo:1.0
@@ -52,6 +50,5 @@ then
     docker-compose -f ./project_files/docker-compose-test.yaml stop
     docker-compose -f ./project_files/docker-compose-test.yaml rm --force
     docker-compose -f ./project_files/docker-compose-test.yaml ps
-    docker network rm minions
   fi
 fi
