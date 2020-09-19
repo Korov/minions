@@ -33,35 +33,6 @@ services:
       minions:
         ipv4_address: 172.31.0.13
 
-  kafka-consumer:
-    container_name: kafka-consumer
-    build:
-      context: ./
-      dockerfile: kafka-consumer-test
-    image: kafka-consumer:1.0
-    hostname: kafka-consumer
-    ports:
-      - "8081:8081"
-    links:
-      - postgres:postgres-minions.com
-      - mongo:mongo-minions.com
-      - redis:redis-minions.com
-      - zookeeper:zookeeper-minions.com
-      - kafka:kafka-minions.com
-    networks:
-      minions:
-        ipv4_address: 172.31.0.18
-
-  spider:
-    container_name: spider-minions
-    build:
-      context: .
-      dockerfile: spiders/Dockerfile
-    image: spider-minions:1.0
-    hostname: spider
-    links:
-      - kafka:kafka-minions.com
-
   mongo:
     container_name: mongo-minions
     image: mongo:4.4.0
@@ -112,6 +83,38 @@ services:
     networks:
       minions:
         ipv4_address: 172.31.0.17
+
+  kafka-consumer:
+    container_name: kafka-consumer
+    build:
+      context: ./
+      dockerfile: kafka-consumer-test
+    image: kafka-consumer:1.0
+    hostname: kafka-consumer
+    ports:
+      - "8081:8081"
+    links:
+      - postgres:postgres-minions.com
+      - mongo:mongo-minions.com
+      - redis:redis-minions.com
+      - zookeeper:zookeeper-minions.com
+      - kafka:kafka-minions.com
+    networks:
+      minions:
+        ipv4_address: 172.31.0.18
+
+  spider:
+    container_name: spider-minions
+    build:
+      context: .
+      dockerfile: spiders/Dockerfile
+    image: spider-minions:1.0
+    hostname: spider
+    links:
+      - kafka:kafka-minions.com
+    networks:
+      minions:
+        ipv4_address: 172.31.0.19
 
 networks:
   minions:
