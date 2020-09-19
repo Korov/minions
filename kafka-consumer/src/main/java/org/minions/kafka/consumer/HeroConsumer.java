@@ -31,9 +31,7 @@ public class HeroConsumer {
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
         if (kafkaMessage.isPresent()) {
             String message = kafkaMessage.get().toString();
-            String result = message.replaceAll("'", "\"");
-            result = result.replaceAll("None,", "");
-            HeroInfoDTO infoDTO = JSONObject.parseObject(result, HeroInfoDTO.class);
+            HeroInfoDTO infoDTO = JSONObject.parseObject(message, HeroInfoDTO.class);
             HeroInfoModel infoModel = infoDTO.getInfo();
             heroInfoMapper.insert(infoModel);
             logger.info("listen consumer the message. record: {}, message: {}!", record, message);
