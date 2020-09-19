@@ -1,6 +1,8 @@
 package org.minions.common.vo;
 
 import com.alibaba.fastjson.JSON;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.ToString;
 import org.minions.common.constant.Constant;
@@ -11,10 +13,14 @@ import org.minions.common.utils.StringUtil;
  */
 @Data
 @ToString
+@ApiModel(value = "返回数据的格式")
 public class ResultVo<T> {
 
+    @ApiModelProperty(value = "1表示执行成功，0表示执行失败")
     private Integer code;
+    @ApiModelProperty(value = "description")
     private String description;
+    @ApiModelProperty(value = "execute result")
     private T data;
 
     public ResultVo() {

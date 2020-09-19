@@ -49,6 +49,12 @@ docker-compose -f .\project_files\docker-compose-test.yaml rm
 
 等待一段时间之后进入`localhost:8080/demo/get/1`查看服务是否正常启动
 
+## 接口文档
+
+demo的接口文档：`http://localhost:8080/swagger-ui/index.html`
+
+kafka消费者接口文档：`http://localhost:8081/swagger-ui/index.html`
+
 # 技术
 
 ## Spring Boot
