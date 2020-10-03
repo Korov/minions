@@ -50,7 +50,7 @@ then
     docker-compose -f ./project_files/docker-compose-${evn}.yaml ps
     docker rmi spider-minions:1.0
     docker build -f ./project_files/spiders/Dockerfile -t spider-minions:1.0 ./project_files/spiders
-    docker run --rm -it --name=spider-minions --network=minions --link=kafka-minions:kafka-minions.com spider-minions:1.0
+    docker run -it --name=spider-minions --network=minions --link=kafka-minions:kafka-minions.com -p 6800:6800 spider-minions:1.0
   else
     docker-compose -f ./project_files/docker-compose-${env}.yaml stop
     docker-compose -f ./project_files/docker-compose-${env}.yaml rm --force >/dev/null

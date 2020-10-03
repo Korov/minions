@@ -27,7 +27,6 @@ scrapy list
 运行指定爬虫
 scrapy crawl hero
 
-
 项目部署
 首先开启服务
 pip install scrapyd
@@ -39,3 +38,4 @@ scrapyd-deploy minions_spider -p minions_spider -v v1
 
 更换环境
 export SCRAPY_PROJECT=test
+

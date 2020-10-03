@@ -1,2 +1,4 @@
 Scrapy==2.3.0
 kafka-python==2.0.1
+scrapyd==1.2.1
+scrapyd-client==1.1.0
