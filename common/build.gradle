@@ -6,6 +6,7 @@ dependencies {
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     compile "com.alibaba:fastjson:${fastjsonVersion}"
     compile "org.yaml:snakeyaml:${snakeyamlVersion}"
+    compile "com.squareup.okhttp3:okhttp:${okhttpVersion}"
     compile "io.springfox:springfox-boot-starter:${swaggerVersion}"
     compile "javax.validation:validation-api:${validationApiVersion}"
     compile "org.springframework.boot:spring-boot-starter-logging"

@@ -50,3 +50,11 @@ spring:
       max-poll-records: 1
     listener:
       concurrency: 1
+
+
+
+minions:
+  spider:
+    host: spider-minions.com
+    port: 6800
+    project: test

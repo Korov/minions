@@ -3,6 +3,7 @@ buildscript {
         springCloudVersion = "Hoxton.SR8"
         springBootVersion = "2.3.3.RELEASE"
         swaggerVersion = "3.0.0"
+        okhttpVersion = "4.9.0"
         lombokVersion = "1.18.12"
         fastjsonVersion = "1.2.73"
         snakeyamlVersion = "1.27"
