@@ -6,6 +6,7 @@ import org.minions.common.utils.HttpUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
+@Profile("test")
 public class RunnerSchedule implements ApplicationRunner {
     @Value("${minions.spider.host}")
     private String host;
