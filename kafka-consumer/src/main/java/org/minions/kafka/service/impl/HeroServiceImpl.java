@@ -20,7 +20,7 @@ public class HeroServiceImpl implements HeroService {
     private HeroInfoMapper heroInfoMapper;
 
     @Override
-    public List<HeroInfoDTO> getHeros() {
+    public List<HeroInfoDTO> getHero() {
         List<HeroInfoModel> models = heroInfoMapper.selectAll();
         List<HeroInfoDTO> dtos = new ArrayList<>(Constant.COLLECTION_INIT_SIZE);
         models.forEach(heroInfoModel -> {

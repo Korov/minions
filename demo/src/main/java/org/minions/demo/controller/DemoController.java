@@ -4,6 +4,7 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.minions.common.constant.Constant;
 import org.minions.common.vo.ResultVo;
+import org.minions.common.vo.ResultVoBuilder;
 import org.minions.demo.service.DemoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,6 @@ public class DemoController {
     @ApiOperation(value = "获取用户名", notes = "目前只有id为1的用户")
     @GetMapping(value = "/demo/get/{id}")
     public ResultVo<String> getDemo(@PathVariable(value = "id") Integer id) {
-        return new ResultVo<String>(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, "Hello " + demoService.queryDemoById(id).getName());
+        return ResultVoBuilder.buildSuccessVo();
     }
 }

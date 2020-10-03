@@ -8,5 +8,5 @@ import java.util.List;
  * @author korov
  */
 public interface HeroService {
-    List<HeroInfoDTO> getHeros();
+    List<HeroInfoDTO> getHero();
 }

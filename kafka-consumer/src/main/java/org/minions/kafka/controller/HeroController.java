@@ -24,7 +24,7 @@ public class HeroController {
     @ApiOperation(value = "获取所有英雄信息", notes = "不需要参数", httpMethod = "GET")
     @GetMapping("/kafka/hero")
     public ResultVo<List<HeroInfoDTO>> getHeros() {
-        List<HeroInfoDTO> dtos = heroService.getHeros();
-        return new ResultVo<List<HeroInfoDTO>>(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, dtos);
+        List<HeroInfoDTO> hero = heroService.getHero();
+        return new ResultVo<List<HeroInfoDTO>>(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, hero);
     }
 }
