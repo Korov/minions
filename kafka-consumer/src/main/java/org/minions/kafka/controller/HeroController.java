@@ -2,6 +2,7 @@ package org.minions.kafka.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.minions.common.constant.Constant;
 import org.minions.common.dto.kafka.HeroInfoDTO;
 import org.minions.common.vo.ResultVo;
 import org.minions.kafka.service.HeroService;
@@ -22,10 +23,8 @@ public class HeroController {
 
     @ApiOperation(value = "获取所有英雄信息", notes = "不需要参数", httpMethod = "GET")
     @GetMapping("/kafka/hero")
-    public ResultVo getHeros() {
+    public ResultVo<List<HeroInfoDTO>> getHeros() {
         List<HeroInfoDTO> dtos = heroService.getHeros();
-        ResultVo resultVo = ResultVo.getSuccess();
-        resultVo.setData(dtos);
-        return resultVo;
+        return new ResultVo<List<HeroInfoDTO>>(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, dtos);
     }
 }

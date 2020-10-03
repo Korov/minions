@@ -1,9 +1,12 @@
 package org.minions.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
+import org.minions.common.constant.Constant;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -12,6 +15,7 @@ import java.util.concurrent.TimeUnit;
  * @author korov
  * @date 2020/10/3
  */
+@Slf4j
 public class HttpUtil {
     //http连接查询接口数据POST
     public static JSONObject postSpider(String host, int port, String project, String spider) {
@@ -25,13 +29,17 @@ public class HttpUtil {
         //创建一个Request
         Request request = new Request.Builder().post(requestBody).url(url).build();
         JSONObject resultForJson = null;
-        try (Response response = okhttp.newCall(request).execute()){
+        try (Response response = okhttp.newCall(request).execute()) {
             if (!response.isSuccessful()) {
-                throw new IOException("unexpected code.." + response);
+                log.error("post spider failed!");
             }
-            String result = response.body().string();
+            String result = Constant.BLACK;
+            ResponseBody body = response.body();
+            if (body != null) {
+                result = body.string();
+            }
             resultForJson = JSONObject.parseObject(result);
-        } catch (IOException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return resultForJson;

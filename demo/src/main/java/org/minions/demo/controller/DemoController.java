@@ -18,7 +18,7 @@ public class DemoController {
 
     @ApiOperation(value = "获取用户名", notes = "目前只有id为1的用户")
     @GetMapping(value = "/demo/get/{id}")
-    public ResultVo getDemo(@PathVariable(value = "id") Integer id) {
-        return new ResultVo(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, "Hello " + demoService.queryDemoById(id).getName());
+    public ResultVo<String> getDemo(@PathVariable(value = "id") Integer id) {
+        return new ResultVo<String>(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, "Hello " + demoService.queryDemoById(id).getName());
     }
 }
