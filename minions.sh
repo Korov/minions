@@ -27,7 +27,7 @@ then
     docker-compose -f ./project_files/docker-compose-dev.yaml stop
     docker-compose -f ./project_files/docker-compose-dev.yaml rm --force > /dev/null
     docker rmi spider-minions:1.0
-    docker-compose -f ./project_files/docker-compose-dev.yaml up -d > /dev/null
+    docker-compose -f ./project_files/docker-compose-dev.yaml up -d --remove-orphans > /dev/null
     docker-compose -f ./project_files/docker-compose-dev.yaml ps
   else
     docker-compose -f ./project_files/docker-compose-dev.yaml stop
@@ -48,7 +48,7 @@ then
     docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle:6.5.1-jdk11 gradle build -x test
     docker run --rm -u gradle -v "$PWD"/project_files/spiders:/home/gradle/project -w /home/gradle/project gradle:6.5.1-jdk11 gradle build -x test
     docker-compose -f ./project_files/docker-compose-test.yaml build > /dev/null
-    docker-compose -f ./project_files/docker-compose-test.yaml up -d
+    docker-compose -f ./project_files/docker-compose-test.yaml up -d --remove-orphans
     docker-compose -f ./project_files/docker-compose-test.yaml ps
   else
     docker-compose -f ./project_files/docker-compose-test.yaml stop
