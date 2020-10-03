@@ -1,7 +1,7 @@
 buildscript {
     ext {
         springCloudVersion = "Hoxton.SR8"
-        springBootVersion = "2.3.3.RELEASE"
+        springBootVersion = "2.3.4.RELEASE"
         swaggerVersion = "3.0.0"
         okhttpVersion = "4.9.0"
         lombokVersion = "1.18.12"
@@ -79,6 +79,27 @@ allprojects {
 subprojects {
     apply plugin: 'java'
     apply plugin: 'com.github.spotbugs'
+
+    spotbugsMain {
+        ignoreFailures = true
+        reports {
+            html {
+                enabled = true
+                destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+                stylesheet = 'fancy-hist.xsl'
+            }
+        }
+    }
+    spotbugsTest {
+        ignoreFailures = true
+        reports {
+            html {
+                enabled = true
+                destination = file("$buildDir/reports/spotbugs/test/spotbugs.html")
+                stylesheet = 'fancy-hist.xsl'
+            }
+        }
+    }
 
     test {
         useJUnitPlatform {
