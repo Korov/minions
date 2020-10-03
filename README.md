@@ -19,7 +19,6 @@ demo项目
 
 ```bash
 #windows
-docker-compose -f .\project_files\docker-compose-dev.yaml build
 docker-compose -f .\project_files\docker-compose-dev.yaml up -d
 docker-compose -f .\project_files\docker-compose-dev.yaml ps
 docker-compose -f .\project_files\docker-compose-dev.yaml stop

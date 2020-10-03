@@ -1,7 +1,7 @@
 package org.minions.common.constant;
 
 public class Constant {
-    public static final String SPACE = "";
+    public static final String BLACK = "";
     public static final int OPERATION_SUCCESS = 1;
     public static final int OPERATION_FAIL = 0;
     public static final String DESCRIPTION_SUCCESS = "Operation Success";

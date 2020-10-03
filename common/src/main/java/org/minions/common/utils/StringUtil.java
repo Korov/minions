@@ -24,10 +24,10 @@ public class StringUtil {
 
     public static String concat(String... values) {
         if (null == values) {
-            return Constant.SPACE;
+            return Constant.BLACK;
         }
 
-        return String.join(Constant.SPACE, values);
+        return String.join(Constant.BLACK, values);
     }
 
     public static boolean fuzzyMatch(@NotNull String separate, @NotNull String matchValue, @NotNull String anotherValue) {

@@ -24,7 +24,6 @@ public class ResultVo<T> {
     private T data;
 
     public ResultVo() {
-        super();
     }
 
     public ResultVo(Integer code, String description, T data) {
@@ -49,9 +48,9 @@ public class ResultVo<T> {
         if (StringUtil.isEmpty(vo)) {
             return getFail();
         }
-        ResultVo<T> tableData = JSON.parseObject(vo, ResultVo.class);
-        if (tableData != null) {
-            return tableData;
+        ResultVo<T> resultVo = JSON.parseObject(vo, ResultVo.class);
+        if (resultVo != null) {
+            return resultVo;
         }
         return getFail();
     }

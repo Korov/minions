@@ -82,8 +82,10 @@ subprojects {
     apply plugin: 'java'
     apply plugin: 'com.github.spotbugs'
 
-    spotbugsMain {
+    spotbugs {
         ignoreFailures = true
+    }
+    spotbugsMain {
         reports(({
             html {
                 enabled = true
@@ -93,7 +95,6 @@ subprojects {
         } as Closure<NamedDomainObjectContainer<? extends SpotBugsReport>>))
     }
     spotbugsTest {
-        ignoreFailures = true
         reports(({
             html {
                 enabled = true
