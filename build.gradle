@@ -1,3 +1,5 @@
+import com.github.spotbugs.snom.SpotBugsReport
+
 buildscript {
     ext {
         springCloudVersion = "Hoxton.SR8"
@@ -82,23 +84,23 @@ subprojects {
 
     spotbugsMain {
         ignoreFailures = true
-        reports {
+        reports(({
             html {
                 enabled = true
                 destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
                 stylesheet = 'fancy-hist.xsl'
             }
-        }
+        } as Closure<NamedDomainObjectContainer<? extends SpotBugsReport>>))
     }
     spotbugsTest {
         ignoreFailures = true
-        reports {
+        reports(({
             html {
                 enabled = true
                 destination = file("$buildDir/reports/spotbugs/test/spotbugs.html")
                 stylesheet = 'fancy-hist.xsl'
             }
-        }
+        } as Closure<NamedDomainObjectContainer<? extends SpotBugsReport>>))
     }
 
     test {
@@ -112,3 +114,4 @@ subprojects {
         dependsOn test // tests are required to run before generating the report
     }
 }
+
