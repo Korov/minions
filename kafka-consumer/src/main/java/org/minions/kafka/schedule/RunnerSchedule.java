@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Slf4j
 @Component
-@Profile("test")
+@Profile({"test", "prod"})
 public class RunnerSchedule implements ApplicationRunner {
     @Value("${minions.spider.host}")
     private String host;
