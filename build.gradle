@@ -17,13 +17,13 @@ buildscript {
         flywayVersion = "6.5.6"
     }
     repositories {
-        mavenLocal()
         maven {
             url "https://maven.aliyun.com/repository/central"
         }
         maven {
             url "https://maven.aliyun.com/repository/gradle-plugin"
         }
+        mavenLocal()
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
