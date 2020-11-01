@@ -1,6 +1,7 @@
 package org.minions.common.utils;
 
 import com.alibaba.fastjson.JSONObject;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.Test;
  */
 class HttpUtilTest {
 
+    @Disabled
     @Test
     void httpPostConnect() {
         JSONObject result = HttpUtil.postSpider("172.16.193.141", 6800, "test", "hero");

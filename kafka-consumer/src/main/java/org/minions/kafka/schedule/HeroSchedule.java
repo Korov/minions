@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @date 2020/10/3
  */
 @Component
-@Profile({"test", "prod"})
+@Profile({"dev", "test"})
 public class HeroSchedule {
     @Scheduled(cron = "0 0/2 8-20 * * ?")
     public void spiderHero() {
