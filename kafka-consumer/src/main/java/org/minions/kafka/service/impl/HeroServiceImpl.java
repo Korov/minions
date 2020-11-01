@@ -16,8 +16,12 @@ import java.util.List;
  */
 @Service
 public class HeroServiceImpl implements HeroService {
-    @Autowired
     private HeroInfoMapper heroInfoMapper;
+
+    @Autowired
+    public void setHeroInfoMapper(HeroInfoMapper heroInfoMapper) {
+        this.heroInfoMapper = heroInfoMapper;
+    }
 
     @Override
     public List<HeroInfoDTO> getHero() {

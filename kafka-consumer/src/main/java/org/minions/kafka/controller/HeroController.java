@@ -18,8 +18,12 @@ import java.util.List;
 @Api(tags = "英雄信息",value = "HeroController")
 @RestController
 public class HeroController {
-    @Autowired
     private HeroService heroService;
+
+    @Autowired
+    public void setHeroService(HeroService heroService) {
+        this.heroService = heroService;
+    }
 
     @ApiOperation(value = "获取所有英雄信息", notes = "不需要参数", httpMethod = "GET")
     @GetMapping("/kafka/hero")

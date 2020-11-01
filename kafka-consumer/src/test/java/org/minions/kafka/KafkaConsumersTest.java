@@ -12,8 +12,13 @@ import org.springframework.test.web.servlet.MockMvc;
 @SpringBootTest
 @AutoConfigureMockMvc
 public class KafkaConsumersTest {
-    @Autowired
     protected MockMvc mockMvc;
+
+    @Autowired
+    public void setMockMvc(MockMvc mockMvc) {
+        this.mockMvc = mockMvc;
+    }
+
     @Test
     public void loadContext() {
         System.out.println("Applications start success!");
