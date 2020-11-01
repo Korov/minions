@@ -2,7 +2,6 @@ package org.minions.demo.controller;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.minions.common.constant.Constant;
 import org.minions.common.vo.ResultVo;
 import org.minions.common.vo.ResultVoBuilder;
 import org.minions.demo.service.DemoService;
@@ -14,8 +13,12 @@ import org.springframework.web.bind.annotation.RestController;
 @Api(tags = "测试用接口", value = "目前只有id为1的用户")
 @RestController
 public class DemoController {
-    @Autowired
     private DemoService demoService;
+
+    @Autowired
+    public void setDemoService(DemoService demoService) {
+        this.demoService = demoService;
+    }
 
     @ApiOperation(value = "获取用户名", notes = "目前只有id为1的用户")
     @GetMapping(value = "/demo/get/{id}")
