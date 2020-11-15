@@ -11,6 +11,8 @@ pip install -r requirements.txt
 运行之前需要修改`minions_spider/settings.py`中的`BOOTSTRAP_SERVERS`为对应的kafka端口
 
 ```
+# 查看所有爬虫
+scrapy list
 scrapy crawl hero
 ```
 
