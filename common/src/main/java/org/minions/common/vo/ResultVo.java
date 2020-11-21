@@ -15,6 +15,12 @@ import org.minions.common.utils.StringUtil;
 @ApiModel(value = "返回数据的格式")
 public class ResultVo<T> {
 
+    public static final int CODE_SUCCESS = 1;
+    public static final int CODE_FAILED = 0;
+
+    public static final String DES_SUCCESS = "success";
+    public static final String DES_FAILED = "failed";
+
     @ApiModelProperty(value = "1表示执行成功，0表示执行失败")
     private Integer code;
     @ApiModelProperty(value = "description")
