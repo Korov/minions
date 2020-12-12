@@ -29,6 +29,6 @@ public class HeroController {
     @GetMapping("/kafka/hero")
     public ResultVo<List<HeroInfoDTO>> getHeros() {
         List<HeroInfoDTO> hero = heroService.getHero();
-        return new ResultVo<List<HeroInfoDTO>>(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, hero);
+        return new ResultVo<>(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, hero);
     }
 }
