@@ -28,9 +28,6 @@ public class KafkaConfig {
     @Value("${spring.kafka.bootstrap-servers}")
     private String bootstrapServers;
 
-    @Value("${spring.kafka.consumer.group-id}")
-    private String groupId;
-
     @Value("${spring.kafka.consumer.enable-auto-commit}")
     private Boolean autoCommit;
 
@@ -73,12 +70,11 @@ public class KafkaConfig {
         //producer端的消息确认机制,-1和all都表示消息不仅要写入本地的leader中还要写入对应的副本中
         //单个brok 推荐使用'1'
         props.put(ProducerConfig.ACKS_CONFIG, "-1");
-        //单条消息的最大值以字节为单位,默认值为1048576
-        props.put(ProducerConfig.LINGER_MS_CONFIG, 10485760);
+        //producer端能够发送的最大消息的大小，默认值为1048576字节
+        props.put(ProducerConfig.MAX_REQUEST_SIZE_CONFIG, 10485760);
         //设置broker响应时间，如果broker在60秒之内还是没有返回给producer确认消息，则认为发送失败
         props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 60000);
         props.put(ProducerConfig.DELIVERY_TIMEOUT_MS_CONFIG, 16000000);
-        props.put(ProducerConfig.REQUEST_TIMEOUT_MS_CONFIG, 2000000);
         return props;
     }
 
@@ -116,7 +112,6 @@ public class KafkaConfig {
     @Bean
     Map<String, Object> consumerConfigs() {
         Map<String, Object> props = new HashMap<>(Constant.MAP_INIT_SIZE);
-        props.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);
         props.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, autoCommit);
         props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapServers);
