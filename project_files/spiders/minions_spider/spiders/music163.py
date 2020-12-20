@@ -1,4 +1,5 @@
 import scrapy
+from scrapy import Selector
 
 
 class hero(scrapy.Spider):
@@ -8,6 +9,6 @@ class hero(scrapy.Spider):
     ]
 
     def _parse(self, response, **kwargs):
-        print("start")
-        print(response.url.split("/"))
-        print("end")
+        # selector = Selector(response.body)
+        print(response)
+        print("debug")
