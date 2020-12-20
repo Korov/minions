@@ -15,6 +15,7 @@ buildscript {
         spotbugsVersion = "4.5.0"
         dependencyManagementVersion = "1.0.10.RELEASE"
         flywayVersion = "6.5.6"
+        scalaLibraryVersion = "2.12.11"
     }
     repositories {
         mavenCentral()

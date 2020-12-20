@@ -16,6 +16,7 @@ dependencies {
     }
     compile "org.springframework.kafka:spring-kafka"
     testCompile "org.springframework.kafka:spring-kafka-test"
+    testCompile "org.scala-lang:scala-library:${scalaLibraryVersion}"
     runtimeClasspath "org.springframework.boot:spring-boot-starter-actuator"
     runtimeClasspath "org.springframework.boot:spring-boot-devtools"
 }

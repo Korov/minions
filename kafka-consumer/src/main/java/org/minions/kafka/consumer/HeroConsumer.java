@@ -20,8 +20,12 @@ import java.util.Optional;
 public class HeroConsumer {
     private static final Logger logger = LoggerFactory.getLogger(HeroConsumer.class);
 
-    @Autowired
     private HeroInfoMapper heroInfoMapper;
+
+    @Autowired
+    public void setHeroInfoMapper(HeroInfoMapper heroInfoMapper) {
+        this.heroInfoMapper = heroInfoMapper;
+    }
 
     /**
      * 会根据id生成一个消费者信息存储在kafka端
@@ -34,7 +38,7 @@ public class HeroConsumer {
             HeroInfoDTO infoDTO = JSONObject.parseObject(message, HeroInfoDTO.class);
             HeroInfoModel infoModel = infoDTO.getInfo();
             heroInfoMapper.insert(infoModel);
-            logger.info("listen consumer the message. record: {}, message: {}!", record, message);
+            logger.info("listen consumer the message. key: {}, message: {}!", record.key(), message);
         }
 
     }
