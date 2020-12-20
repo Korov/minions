@@ -1,3 +1,0 @@
-[scrapy]
-settings = minions_spider.test_settings
-

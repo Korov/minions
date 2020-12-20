@@ -74,3 +74,5 @@ Thumbs.db
 /**/venv
 /**/__pycache__
 
+/**/project.egg-info
+
