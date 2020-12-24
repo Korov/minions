@@ -2,16 +2,18 @@
 
 ## 安装依赖
 
-```
+```bash
 #请使用python 3.8
 pip install -r requirements.txt
+#解析js需要用到splash
+docker run -p 8050:8050 --name -d splash-minions scrapinghub/splash:3.5.0
 ```
 
 ## 运行爬虫
 
 运行之前需要修改`minions_spider/settings.py`中的`BOOTSTRAP_SERVERS`为对应的kafka端口
 
-```
+```bash
 # 查看所有爬虫
 scrapy list
 scrapy crawl hero
