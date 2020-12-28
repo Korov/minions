@@ -75,4 +75,7 @@ Thumbs.db
 /**/__pycache__
 
 /**/project.egg-info
+/**/spiders/dbs/
+/**/eggs/
+
 

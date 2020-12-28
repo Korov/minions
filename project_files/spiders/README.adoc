@@ -1,0 +1,54 @@
+= minions spiders =
+Korov9 <korov9@163.com>
+v1.0 2020-12-28
+:doctype: book
+
+minions项目的数据来源
+
+== 安装依赖 ==
+
+[source, bash]
+----
+#请使用python 3.8
+pip install -r requirements.txt
+#解析js需要用到splash，暂时未用到此组件
+docker run -p 8050:8050 --name -d splash-minions scrapinghub/splash:3.5.0
+----
+
+== 运行爬虫 ==
+
+[source, bash]
+----
+# 查看所有爬虫
+scrapy list
+# 执行名称未 hero 的爬虫
+scrapy crawl hero
+----
+
+== 其他命令 ==
+
+[source, bash]
+----
+# 更新依赖文件
+pip freeze > requirements.txt
+
+# 安装依赖
+pip install -r requirements.txt
+
+# 查看当前爬虫
+scrapy list
+# 运行指定爬虫
+scrapy crawl hero
+
+# 项目部署 安装scrapyd
+pip install scrapyd
+# 启动scrapyd
+scrapyd
+
+pip install -r requirements.txt
+# 使用scrapy-client将项目部署到scrapyd中
+scrapyd-deploy minions_spider -p minions_spider -v v1
+
+# 更换环境
+export SCRAPY_PROJECT=test
+----
