@@ -22,19 +22,16 @@ class hero(scrapy.Spider):
         second_key = 'nienienienienien'
         h_encText = self.AES_encrypt(key=first_key, text=first_param)
         h_encText = self.AES_encrypt(key=second_key, text=h_encText)
-        return h_encText.decode()
+        return h_encText
 
     def AES_encrypt(self, key, text):
         iv = '0102030405060708'
-        # pad = 16 - len(text) % 16
-        # text += str(pad * chr(pad).encode())
-        while len(text) % 16 != 0:  # 补足字符串长度为16的倍数
-            text += (16 - len(text) % 16) * chr(16 - len(text) % 16)
-        # text = str.encode(text)
+        pad = 16 - len(text) % 16
+        text = text + (pad * chr(pad))
         encryptor = AES.new(key, AES.MODE_CBC, iv)
         encrypt_text = encryptor.encrypt(text)
         encrypt_text = base64.b64encode(encrypt_text)
-        return encrypt_text
+        return encrypt_text.decode('utf-8')
 
     def Nie_get_encSecKey(self):
         encSrcKey = "6469da86a183fc2fc9df65ac98f67138c8d3048d0626714fe646ecb564d4f8cd386a9c9618bb8a4f2929e50ba32e8991266aba783975e39cc7cf8a61cc3ba76c81c64a3414f38d604ca1bf9f4647c29cd92d5b362eff15cf7bb1e3a52df798a52aafac2f09420a68af9686e2c1a294ccf426b5aac64899486011fc7eca8e79b8"
@@ -61,34 +58,30 @@ class hero(scrapy.Spider):
             }
             url = "http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + str(id) + "?csrf_token="
             r1 = rs.post(url, headers=headers, data=data).content
-            json_1 = json.loads(r1)
+            json_1 = json.loads(r1.decode('utf-8'))
             if "hotComments" in json_1:
                 fp.write("最热评论:" + '\r\n')
-                print
+
                 u"最热评论" + str(len(json_1["hotComments"]))
                 for i in range(0, len(json_1["hotComments"]) - 1):
                     HotReview = json_1["hotComments"][i]['user']['nickname'] + " : " + json_1["hotComments"][i][
                         'content'] + " (" + str(json_1["hotComments"][i]['likedCount']) + ") " + time.strftime(
                         "%Y-%m-%d %H:%M:%S", time.localtime(float(str(json_1['hotComments'][i]['time'])[0:10])))
-                    print
-                    HotReview
-                    fp.write(HotReview.encode('utf-8') + '\r\n')
-                    print
+
+                    fp.write(HotReview + '\r\n')
+
                 fp.write("最新评论:" + '\r\n')
-            print
-            print
+
             u"最新评论" + str(len(json_1['comments']))
             ReviewKeep += len(json_1['comments'])
             for i in range(0, len(json_1['comments'])):
                 NewReview = json_1['comments'][i]['user']['nickname'] + " : " + json_1['comments'][i][
                     'content'] + " (" + str(json_1["comments"][i]['likedCount']) + ") " + time.strftime(
                     "%Y-%m-%d %H:%M:%S", time.localtime(float(str(json_1['comments'][i]['time'])[0:10])))
-                print
-                NewReview
-                fp.write(NewReview.encode('utf-8') + '\r\n')
-                print
+
+                fp.write(NewReview + '\r\n')
+
         fp.close()
-        print
         str(ReviewKeep) + u" 条评论已经保存在 " + KeepFile
 
     def parse(self, response, **kwargs):
