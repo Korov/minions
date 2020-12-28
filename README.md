@@ -98,10 +98,10 @@ openjdk 11.0.7
 
 ## Kafka
 
-端口9092
+端口：9092
 
 # 数据来源
 
-项目中的数据来源与爬虫获取，爬虫项目地址：`https://github.com/Korov/minions_spider`
+项目中的数据来源与爬虫获取，爬虫项目地址：`./project_files/spiders`（使用PyCharm开发）
 
 可以按照项目说明发送数据
