@@ -27,7 +27,7 @@ public class Music163Consumer {
         this.musicRawMapper = musicRawMapper;
     }
 
-    @KafkaListener(id = "minions_music_01", topics = "music_163", containerFactory = "kafkaListenerContainerFactory")
+    @KafkaListener(id = "minions_music_02", topics = "music_163", containerFactory = "kafkaListenerContainerFactory")
     public void listen(ConsumerRecord<String, String> record) {
         Optional<String> kafkaMessage = Optional.ofNullable(record.value());
         String key = record.key();
