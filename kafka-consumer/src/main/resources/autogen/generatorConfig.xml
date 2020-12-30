@@ -103,13 +103,18 @@
             注意：大小写敏感问题。
          -->
         <table tableName="hero_infos" domainObjectName="HeroInfoModel"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false" delimitIdentifiers="false">
+               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
+               enableSelectByExample="true" selectByExampleQueryId="true" delimitIdentifiers="true">
         </table>
 
         <table tableName="hero_weapon" domainObjectName="HeroWeaponModel"
-               enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false"
-               enableSelectByExample="false" selectByExampleQueryId="false" delimitIdentifiers="false">
+               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
+               enableSelectByExample="true" selectByExampleQueryId="true" delimitIdentifiers="true">
+        </table>
+
+        <table tableName="music_raw" domainObjectName="MusicRaw"
+               enableCountByExample="true" enableUpdateByExample="true" enableDeleteByExample="true"
+               enableSelectByExample="true" selectByExampleQueryId="true" delimitIdentifiers="true">
         </table>
 
     </context>

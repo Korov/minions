@@ -25,7 +25,7 @@ public class EmbeddedKafkaTest extends KafkaConsumersTest {
     public void sendMsg() {
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate
                 .send("hero", "test", "time: " + System.currentTimeMillis());
-        future.addCallback(new ListenableFutureCallback<SendResult<String, String>>() {
+        future.addCallback(new ListenableFutureCallback<>() {
 
             @Override
             public void onFailure(Throwable throwable) {
