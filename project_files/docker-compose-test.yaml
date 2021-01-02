@@ -115,6 +115,7 @@ services:
       - "6800:6800"
     links:
       - kafka:kafka-minions.com
+      - mongo:mongo-minions.com
     networks:
       minions:
         ipv4_address: 172.31.0.19

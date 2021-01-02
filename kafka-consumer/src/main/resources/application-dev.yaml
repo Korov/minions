@@ -25,6 +25,9 @@ spring:
       additional-paths: src/main/java
   application:
     name: minions-kafka
+  data:
+    mongodb:
+      uri: mongodb://admin:mongo@localhost:27017/admin
 
   flyway:
     baseline-on-migrate: true

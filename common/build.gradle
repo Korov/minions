@@ -10,6 +10,7 @@ dependencies {
     compile "io.springfox:springfox-boot-starter:${swaggerVersion}"
     compile "javax.validation:validation-api:${validationApiVersion}"
     compile "org.springframework.boot:spring-boot-starter-logging"
+    compile "org.springframework.boot:spring-boot-starter-data-mongodb"
     testCompile('org.springframework.boot:spring-boot-starter-test') {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }

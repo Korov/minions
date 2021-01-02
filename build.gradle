@@ -2,8 +2,8 @@ import com.github.spotbugs.snom.SpotBugsReport
 
 buildscript {
     ext {
-        springCloudVersion = "Hoxton.SR8"
-        springBootVersion = "2.3.6.RELEASE"
+        springCloudVersion = "Hoxton.SR9"
+        springBootVersion = "2.3.7.RELEASE"
         swaggerVersion = "3.0.0"
         okhttpVersion = "4.9.0"
         lombokVersion = "1.18.12"
