@@ -62,8 +62,11 @@ class hero(scrapy.Spider):
         total_count = self.get_total_review_count(id)
         page_size = 20
         page_num = int(total_count / page_size)
+
         if total_count % page_size != 0:
             page_num += 1
+
+        comment_count = 0
         for start_page in range(1, page_num + 1):
             if start_page == page_num:
                 page_size = total_count % page_size
@@ -77,7 +80,13 @@ class hero(scrapy.Spider):
             }
             url = "http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + str(id) + "?csrf_token="
             time.sleep(random.randint(5,10))
-            logging.info("total count {}, start page {}, pages size {}".format(total_count, start_page, page_size))
+            comment_count = comment_count + page_size
+            left_comment_count = total_count - comment_count
+            logging.info("song id {}, total count {}, start page {}, pages size {}, read comment count {}, left comment count {}".format(id, total_count, start_page, page_size, comment_count, left_comment_count))
+
+            if (left_comment_count < 0):
+                break
+
             r1 = rs.post(url, headers=headers, data=data).content
             json_1 = json.loads(r1.decode('utf-8'))
             kafka_producer.send_msg(topic='music_163', key=id, msg=json.dumps(json_1, ensure_ascii=False))
@@ -91,10 +100,7 @@ class hero(scrapy.Spider):
 
     def parse_song(self, response, **kwargs):
         songs = response.selector.xpath("//ul[@class='f-hide']//li/a")
-        end_index = 5
-        if len(songs) < end_index:
-            end_index = len(songs)
-        for index in range(0, end_index):
+        for index in range(0, len(songs)):
             song = songs[index]
             song_id = str(song.attrib['href']).split('=')[1]
             self.send_comment(id=song_id)
