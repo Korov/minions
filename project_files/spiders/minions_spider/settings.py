@@ -7,6 +7,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 import datetime
+import os
 
 BOT_NAME = 'minions_spider'
 
@@ -99,6 +100,11 @@ BOOTSTRAP_SERVERS = 'localhost:9092'
 
 SPLASH_URL = 'http://localhost:8050'
 
+is_exists = os.path.exists("logs")
+if not is_exists:
+    os.mkdir("logs")
+
 now = datetime.datetime.now()
 LOG_FILE = "logs/spider_{}_{}_{}.log".format(now.year, now.month, now.day)
 LOG_LEVEL = 'INFO'
+LOG_STDOUT = True
