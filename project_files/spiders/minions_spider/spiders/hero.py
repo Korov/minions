@@ -1,4 +1,5 @@
 import json
+import logging
 
 import scrapy
 
@@ -24,7 +25,7 @@ class hero(scrapy.Spider):
             yield scrapy.Request(url=url, headers=headers, callback=self.parse_heros)
 
     def hero_info(self, hero_id):
-        self.log('hero_id')
+        logging.info(hero_id)
         headers = {'Accept-Charset': 'UTF-8',
                    'Accept-Encoding': 'gzip,deflate',
                    'User-Agent': 'Dalvik/2.1.0 (Linux; U; Android 6.0.1; MI 5 MIUI/V8.1.6.0.MAACNDI)',

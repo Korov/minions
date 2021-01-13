@@ -6,6 +6,7 @@
 #     https://docs.scrapy.org/en/latest/topics/settings.html
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import datetime
 
 BOT_NAME = 'minions_spider'
 
@@ -97,3 +98,7 @@ DOWNLOADER_MIDDLEWARES = {
 BOOTSTRAP_SERVERS = 'localhost:9092'
 
 SPLASH_URL = 'http://localhost:8050'
+
+now = datetime.datetime.now()
+LOG_FILE = "logs/spider_{}_{}_{}.log".format(now.year, now.month, now.day)
+LOG_LEVEL = 'INFO'

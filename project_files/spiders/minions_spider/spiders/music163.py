@@ -6,7 +6,7 @@ import requests as rs
 from Crypto.Cipher import AES
 import base64
 import json
-import os
+import logging
 from minions_spider.kafkatool import kafka_producer
 
 # 参考https://github.com/niechaojun/NetEaseCloudCrawer
@@ -76,7 +76,8 @@ class hero(scrapy.Spider):
                 'Cookie': 'JSESSIONID-WYYY=vDeNaw5OspW8kcNaX%5CsngVIwR3Z%2FigZ0HHGIb2duQgPm%2FFhGpQs6c26bKN3xf9tOatRbKk1JlTpJCiNsrZCsACk%2BN296WbpNc%2Fn96i8Ih6NYvHkjqXRR165SZAxv9YkkSAzfH9WTgCnyJUV6PEB9mm%2BJsduyy0B%5Cf2S7zXIdbls2hHY7%3A1519467798967; _iuqxldmzr_=32; _ntes_nnid=fc7bf97086aab1c7e5ea7559945fc3fe,1519465998987; _ntes_nuid=fc7bf97086aab1c7e5ea7559945fc3fe; __utma=94650624.1089055467.1519466000.1519466000.1519466000.1; __utmz=94650624.1519466000.1.1.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; _ngd_tid=izuEtMCQO5AHgNjd7VBI%2FItSs427hfCz',
             }
             url = "http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + str(id) + "?csrf_token="
-            time.sleep(random.randint(10,15))
+            time.sleep(random.randint(5,10))
+            logging.info("total count {}, start page {}, pages size {}".format(total_count, start_page, page_size))
             r1 = rs.post(url, headers=headers, data=data).content
             json_1 = json.loads(r1.decode('utf-8'))
             kafka_producer.send_msg(topic='music_163', key=id, msg=json.dumps(json_1, ensure_ascii=False))
