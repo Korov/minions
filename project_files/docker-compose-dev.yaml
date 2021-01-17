@@ -52,17 +52,17 @@ services:
 
   jobmanager:
     image: flink:scala_2.12-java11
-    container_name: flink-jobmanager
+    container_name: flink-jobmanager-minions
     expose:
       - "6123"
     ports:
-      - "8081:8081"
+      - "18081:8081"
     command: jobmanager
     environment:
       - JOB_MANAGER_RPC_ADDRESS=jobmanager
   taskmanager:
     image: flink:scala_2.12-java11
-    container_name: flink-taskmanager
+    container_name: flink-taskmanager-minions
     expose:
       - "6121"
       - "6122"
