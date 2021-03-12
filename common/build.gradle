@@ -12,5 +12,7 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-data-mongodb"
     testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.0-M4-groovy-3.0'
+    testImplementation group: 'org.codehaus.groovy', name: 'groovy', version: '3.0.7'
 }
 
