@@ -14,6 +14,9 @@ dependencies {
     testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
         exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
     }
+    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.0-M4-groovy-3.0'
+    testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.0-M4-groovy-3.0'
+    testImplementation group: 'org.codehaus.groovy', name: 'groovy', version: '3.0.7'
     runtimeClasspath "org.springframework.boot:spring-boot-starter-actuator"
     runtimeClasspath "org.springframework.boot:spring-boot-devtools"
 }
