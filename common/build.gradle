@@ -11,8 +11,6 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-validation"
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-data-mongodb"
-    testCompile('org.springframework.boot:spring-boot-starter-test') {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
 }
 

@@ -11,9 +11,7 @@ dependencies {
     compile "org.postgresql:postgresql:${postgresVersion}"
     compile "org.flywaydb:flyway-core:${flywayVersion}"
     compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     compile "org.springframework.kafka:spring-kafka"
     testCompile "org.springframework.kafka:spring-kafka-test"
     testCompile "org.scala-lang:scala-library:${scalaLibraryVersion}"

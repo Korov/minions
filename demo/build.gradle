@@ -11,9 +11,7 @@ dependencies {
     compile "org.postgresql:postgresql:${postgresVersion}"
     compile "org.flywaydb:flyway-core:${flywayVersion}"
     compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
-    testCompile("org.springframework.boot:spring-boot-starter-test:${springBootVersion}") {
-        exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
-    }
+    testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
     testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.0-M4-groovy-3.0'
     testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.0-M4-groovy-3.0'
     testImplementation group: 'org.codehaus.groovy', name: 'groovy', version: '3.0.7'
