@@ -8,7 +8,7 @@ dependencies {
     compile "org.yaml:snakeyaml:${snakeyamlVersion}"
     compile "com.squareup.okhttp3:okhttp:${okhttpVersion}"
     compile "io.springfox:springfox-boot-starter:${swaggerVersion}"
-    compile "javax.validation:validation-api:${validationApiVersion}"
+    compile "org.springframework.boot:spring-boot-starter-validation"
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-data-mongodb"
     testCompile('org.springframework.boot:spring-boot-starter-test') {
