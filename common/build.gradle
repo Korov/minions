@@ -2,17 +2,17 @@ plugins {
 }
 
 dependencies {
-    compile "org.projectlombok:lombok:${lombokVersion}"
-    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
-    compile "com.alibaba:fastjson:${fastjsonVersion}"
-    compile "org.yaml:snakeyaml:${snakeyamlVersion}"
-    compile "com.squareup.okhttp3:okhttp:${okhttpVersion}"
-    compile "io.springfox:springfox-boot-starter:${swaggerVersion}"
-    compile "org.springframework.boot:spring-boot-starter-validation"
-    compile "org.springframework.boot:spring-boot-starter-logging"
-    compile "org.springframework.boot:spring-boot-starter-data-mongodb"
-    testCompile "org.springframework.boot:spring-boot-starter-test"
-    testImplementation "org.spockframework:spock-core:2.0-M4-groovy-3.0"
-    testImplementation "org.codehaus.groovy:groovy:3.0.7"
+    compile("org.projectlombok:lombok:${lombokVersion}")
+    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    compile("com.alibaba:fastjson:${fastjsonVersion}")
+    compile("org.yaml:snakeyaml:${snakeyamlVersion}")
+    compile("com.squareup.okhttp3:okhttp:${okhttpVersion}")
+    compile("io.springfox:springfox-boot-starter:${swaggerVersion}")
+    compile("org.springframework.boot:spring-boot-starter-validation")
+    compile("org.springframework.boot:spring-boot-starter-logging")
+    compile("org.springframework.boot:spring-boot-starter-data-mongodb")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
+    testImplementation("org.spockframework:spock-core:2.0-M4-groovy-3.0")
+    testImplementation("org.codehaus.groovy:groovy:3.0.7")
 }
 

@@ -19,30 +19,30 @@ buildscript {
     repositories {
         mavenLocal()
         maven {
-            url "https://maven.aliyun.com/repository/central"
+            url("https://maven.aliyun.com/repository/central")
         }
         maven {
-            url "https://maven.aliyun.com/repository/gradle-plugin"
+            url("https://maven.aliyun.com/repository/gradle-plugin")
         }
     }
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-        classpath "gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:${spotbugsVersion}"
-        classpath "io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}"
-        classpath "org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}"
-        classpath "gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.2"
+        classpath("gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:${spotbugsVersion}")
+        classpath("io.spring.gradle:dependency-management-plugin:${dependencyManagementVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
+        classpath("gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.2")
     }
 }
 
 //所有项目共用的设置
 allprojects {
-    group "org.minions"
-    version "0.0.1-SNAPSHOT"
+    group("org.minions")
+    version("0.0.1-SNAPSHOT")
 
     // 此插件来实现类似maven中的dependencyManagement功能
-    apply plugin: "io.spring.dependency-management"
-    apply plugin: "jacoco"
-    apply plugin: "idea"
+    apply(plugin: "io.spring.dependency-management")
+    apply(plugin: "jacoco")
+    apply(plugin: "idea")
 
     //设置项目字符集为UTF-8
     tasks.withType(JavaCompile) {
@@ -55,17 +55,17 @@ allprojects {
     repositories {
         mavenLocal()
         maven {
-            url "https://maven.aliyun.com/repository/central"
+            url("https://maven.aliyun.com/repository/central")
         }
         maven {
-            url "https://maven.aliyun.com/repository/gradle-plugin"
+            url("https://maven.aliyun.com/repository/gradle-plugin")
         }
     }
 
     dependencyManagement {
         imports {
-            mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
-            mavenBom "org.springframework.boot:spring-boot-dependencies:${springBootVersion}"
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:${springBootVersion}")
         }
     }
 
@@ -79,8 +79,8 @@ allprojects {
 
 // 此配置对所有的子模块起作用
 subprojects {
-    apply plugin: "java"
-    apply plugin: "com.github.spotbugs"
+    apply(plugin: "java")
+    apply(plugin: "com.github.spotbugs")
 
     spotbugs {
         ignoreFailures = true
@@ -106,13 +106,13 @@ subprojects {
 
     test {
         useJUnitPlatform {
-            includeEngines "junit-jupiter"
+            includeEngines("junit-jupiter")
         }
-        finalizedBy jacocoTestReport
+        finalizedBy(jacocoTestReport)
     }
 
     jacocoTestReport {
-        dependsOn test // tests are required to run before generating the report
+        dependsOn(test) // tests are required to run before generating the report
     }
 }
 
