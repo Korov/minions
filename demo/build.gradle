@@ -2,7 +2,7 @@ apply plugin: "org.springframework.boot"
 apply plugin: "com.thinkimi.gradle.MybatisGenerator"
 
 dependencies {
-    compile project(':common')
+    compile project(":common")
     compile "org.projectlombok:lombok:${lombokVersion}"
     annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
     testAnnotationProcessor "org.projectlombok:lombok:${lombokVersion}"
@@ -12,9 +12,9 @@ dependencies {
     compile "org.flywaydb:flyway-core:${flywayVersion}"
     compile "org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}"
     testCompile "org.springframework.boot:spring-boot-starter-test:${springBootVersion}"
-    testImplementation group: 'org.spockframework', name: 'spock-core', version: '2.0-M4-groovy-3.0'
-    testImplementation group: 'org.spockframework', name: 'spock-spring', version: '2.0-M4-groovy-3.0'
-    testImplementation group: 'org.codehaus.groovy', name: 'groovy', version: '3.0.7'
+    testImplementation "org.spockframework:spock-core:2.0-M4-groovy-3.0"
+    testImplementation "org.spockframework:spock-spring:2.0-M4-groovy-3.0"
+    testImplementation "org.codehaus.groovy:groovy:3.0.7"
     runtimeClasspath "org.springframework.boot:spring-boot-starter-actuator"
     runtimeClasspath "org.springframework.boot:spring-boot-devtools"
 }
@@ -34,11 +34,11 @@ configurations {
 
 mybatisGenerator {
     verbose = true
-    configFile = 'src/main/resources/autogen/generatorConfig.xml'
+    configFile = "src/main/resources/autogen/generatorConfig.xml"
 
     // optional, here is the override dependencies for the plugin or you can add other database dependencies.
     dependencies {
-        mybatisGenerator 'org.mybatis.generator:mybatis-generator-core:1.3.7'
-        mybatisGenerator 'org.postgresql:postgresql:42.2.6'
+        mybatisGenerator "org.mybatis.generator:mybatis-generator-core:1.3.7"
+        mybatisGenerator "org.postgresql:postgresql:42.2.6"
     }
 }
