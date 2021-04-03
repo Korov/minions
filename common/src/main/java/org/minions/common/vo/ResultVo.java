@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.ToString;
 import org.minions.common.utils.StringUtil;
 
+
 /**
  * @author korov
  */
@@ -42,7 +43,7 @@ public class ResultVo<T> {
     }
 
     public static <T> ResultVo<T> getResultVo(String vo, Class<T> clazz) {
-        if (StringUtil.isEmpty(vo)) {
+        if (StringUtil.Companion.isEmpty(vo)) {
             return new ResultVo<>();
         }
         JSONObject jsonObject = JSONObject.parseObject(vo);
