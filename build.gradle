@@ -107,7 +107,7 @@ subprojects {
 
     test {
         useJUnitPlatform {
-            includeEngines("junit-jupiter")
+            includeEngines("junit-jupiter", "spek2")
         }
         finalizedBy(jacocoTestReport)
     }
