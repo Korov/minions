@@ -1,5 +1,6 @@
 package org.minions.common.utils;
 
+
 import org.minions.common.constant.Constant;
 
 import javax.validation.constraints.NotNull;
@@ -9,10 +10,7 @@ import java.util.stream.Collectors;
 
 public class StringUtil {
     public static boolean isEmpty(String value) {
-        if (value == null || value.length() == 0) {
-            return false;
-        }
-        return true;
+        return value != null && value.length() != 0;
     }
 
     public static boolean equals(String value, String anotherValue) {
@@ -34,6 +32,6 @@ public class StringUtil {
         List<String> matchValues = Arrays.stream(matchValue.split(separate)).collect(Collectors.toList());
         List<String> anotherValues = Arrays.stream(anotherValue.split(separate)).collect(Collectors.toList());
         matchValues.retainAll(anotherValues);
-        return matchValues.size() > 0 ? true : false;
+        return matchValues.size() > 0;
     }
 }

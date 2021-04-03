@@ -5,8 +5,6 @@ import lombok.extern.slf4j.Slf4j;
 import okhttp3.*;
 import org.minions.common.constant.Constant;
 
-import java.io.IOException;
-import java.util.Objects;
 import java.util.concurrent.TimeUnit;
 
 /**
