@@ -15,6 +15,7 @@ buildscript {
         dependencyManagementVersion = "1.0.11.RELEASE"
         flywayVersion = "7.7.0"
         scalaLibraryVersion = "2.13.5"
+        kotlinVersion = "1.4.32"
     }
     repositories {
         mavenLocal()
