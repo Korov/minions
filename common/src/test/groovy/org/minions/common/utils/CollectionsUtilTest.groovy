@@ -13,12 +13,15 @@ class CollectionsUtilTest extends Specification {
 
     def "test isEmpty"() {
         given:
-        def emptyList = new ArrayList();
-        def notEmptyList = new ArrayList();
+        def list;
         when:
-        notEmptyList.add("aaa")
+        list = new ArrayList()
         then:
-        CollectionsUtil.isEmpty(emptyList)
+        CollectionsUtil.isEmpty(list)
+
+        when:
+        list.add("aaa")
+        then:
         !CollectionsUtil.isEmpty(notEmptyList)
     }
 
