@@ -5,7 +5,7 @@ import spock.lang.Specification
 /**
  * @author zhu.lei* @date 2021-03-13 03:33
  */
-class CollectionsUtilTest extends Specification {
+/*class CollectionsUtilTest extends Specification {
 
     def setup() {
         println("setup")
@@ -62,7 +62,7 @@ class CollectionsUtilTest extends Specification {
     def cleanup() {
         println 'clean up'
     }
-}
+}*/
 
 
 abstract class BaseSpec extends Specification {

@@ -1,5 +1,6 @@
 package org.minions.demo.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.minions.common.model.demo.Demo;
@@ -24,6 +25,7 @@ public class DemoController {
     @GetMapping(value = "/demo/get/{id}")
     public ResultVo<Demo> getDemo(@PathVariable(value = "id") Integer id) {
         Demo demo = demoService.queryDemoById(id);
-        return new ResultVo<>(ResultVo.CODE_SUCCESS, ResultVo.DES_SUCCESS, demo);
+        ResultVo resultVo = new ResultVo<>(ResultVo.CODE_SUCCESS, ResultVo.DES_SUCCESS, demo);
+        return resultVo;
     }
 }
