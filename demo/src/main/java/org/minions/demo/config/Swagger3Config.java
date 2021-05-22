@@ -34,7 +34,6 @@ public class Swagger3Config {
                 .description("demo接口文档")
                 .contact(new Contact("Korov", "https://github.com/Korov", "korov9@163.com"))
                 .version("1.0")
-                .version("1.0")
                 .build();
     }
 }
