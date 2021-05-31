@@ -21,7 +21,7 @@ services:
 
   redis:
     container_name: redis-minions
-    image: redis:6.0.6
+    image: redis:6.2.3-alpine
     ports:
       - 6379:6379
     command:
@@ -29,7 +29,7 @@ services:
 
   zookeeper:
     container_name: zookeeper-minions
-    image: zookeeper:3.5.8
+    image: zookeeper:3.5.9
     ports:
       - "2181:2181"
 
