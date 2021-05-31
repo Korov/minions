@@ -2,7 +2,7 @@ version: "3.8"
 services:
   postgres:
     container_name: postgres-minions
-    image: postgres:12.4
+    image: postgres:13.3-alpine
     hostname: postgres-minions
     environment:
       - "POSTGRES_PASSWORD=postgres"
@@ -35,7 +35,7 @@ services:
 
   mongo:
     container_name: mongo-minions
-    image: mongo:4.4.0
+    image: mongo:4.4.6
     hostname: mongo-minions
     environment:
       - "MONGO_INITDB_ROOT_USERNAME=admin"
@@ -48,7 +48,7 @@ services:
 
   redis:
     container_name: redis-minions
-    image: redis:6.0.6
+    image: redis:6.2.3-alpine
     hostname: redis-minions
     ports:
       - 6379:6379
@@ -60,7 +60,7 @@ services:
 
   zookeeper:
     container_name: zookeeper-minions
-    image: zookeeper:3.5.8
+    image: zookeeper:3.5.9
     hostname: zookeeper-minions
     ports:
       - "2181:2181"
@@ -70,7 +70,7 @@ services:
 
   kafka:
     container_name: kafka-minions
-    image: wurstmeister/kafka:2.12-2.5.0
+    image: wurstmeister/kafka:2.13-2.6.0
     hostname: kafka-minions
     ports:
       - 9092:9092
