@@ -1,18 +1,3 @@
-val springbootVersion: String by rootProject.extra
-val springCloudVersion: String by rootProject.extra
-val swaggerVersion: String by rootProject.extra
-val okhttpVersion: String by rootProject.extra
-val lombokVersion: String by rootProject.extra
-val fastjsonVersion: String by rootProject.extra
-val snakeyamlVersion: String by rootProject.extra
-val postgresVersion: String by rootProject.extra
-val mybatisVersion: String by rootProject.extra
-val spotbugsVersion: String by rootProject.extra
-val dependencyManagementVersion: String by rootProject.extra
-val flywayVersion: String by rootProject.extra
-val scalaLibraryVersion: String by rootProject.extra
-val kotlinVersion: String by rootProject.extra
-
 plugins {
     id("org.springframework.boot")
     id("com.thinkimi.gradle.MybatisGenerator")
