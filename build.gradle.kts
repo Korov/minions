@@ -33,6 +33,7 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springbootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE")
         classpath("gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.2")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
     }
 }
 

@@ -14,7 +14,7 @@ val scalaLibraryVersion: String by rootProject.extra
 val kotlinVersion: String by rootProject.extra
 
 plugins {
-    id("org.jetbrains.kotlin.jvm") version "1.4.32"
+    id("org.jetbrains.kotlin.jvm")
     id("groovy")
     id("org.springframework.boot")
     id("com.thinkimi.gradle.MybatisGenerator")
