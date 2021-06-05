@@ -51,6 +51,7 @@ allprojects {
     val dependencyManagementVersion: String by rootProject.extra
     val flywayVersion: String by rootProject.extra
     val scalaLibraryVersion: String by rootProject.extra
+    val kotlinVersion: String by rootProject.extra
     group = "org.minions"
     version = "0.0.1-SNAPSHOT"
 
