@@ -66,7 +66,6 @@ import spock.lang.Specification
 
 
 abstract class BaseSpec extends Specification {
-    private static final long serialVersionUID = 123456L
     def x = { println 'base field initializer' }()
 
     def setupSpec() { println 'base setupSpec()' }
@@ -84,7 +83,6 @@ abstract class BaseSpec extends Specification {
 }
 
 class DerivedSpec extends BaseSpec {
-    private static final long serialVersionUID = 1234567L
     def y = { println 'derived field initializer' }()
 
     def setupSpec() { println 'derived setupSpec()' }

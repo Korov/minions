@@ -22,6 +22,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.junit.platform:junit-platform-launcher")
     testImplementation("org.junit.jupiter:junit-jupiter-engine")
+    testImplementation(platform("org.spockframework:spock-bom:2.0-groovy-3.0"))
     testImplementation("org.spockframework:spock-core")
 }
 
@@ -52,7 +53,7 @@ spotbugs {
 
 tasks.test {
     useJUnitPlatform {
-        includeEngines("junit-jupiter")
+        includeEngines("junit-jupiter", "spek2")
     }
     finalizedBy(tasks.jacocoTestReport)  // report is always generated after tests run
 }
