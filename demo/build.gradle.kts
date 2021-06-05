@@ -1,18 +1,3 @@
-val springbootVersion: String by rootProject.extra
-val springCloudVersion: String by rootProject.extra
-val swaggerVersion: String by rootProject.extra
-val okhttpVersion: String by rootProject.extra
-val lombokVersion: String by rootProject.extra
-val fastjsonVersion: String by rootProject.extra
-val snakeyamlVersion: String by rootProject.extra
-val postgresVersion: String by rootProject.extra
-val mybatisVersion: String by rootProject.extra
-val spotbugsVersion: String by rootProject.extra
-val dependencyManagementVersion: String by rootProject.extra
-val flywayVersion: String by rootProject.extra
-val scalaLibraryVersion: String by rootProject.extra
-val kotlinVersion: String by rootProject.extra
-
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("groovy")
@@ -22,20 +7,20 @@ plugins {
 
 dependencies {
     implementation(project(":common"))
-    implementation("org.projectlombok:lombok:${lombokVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testImplementation("org.projectlombok:lombok:${lombokVersion}")
+    implementation("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
+    testAnnotationProcessor("org.projectlombok:lombok")
+    testImplementation("org.projectlombok:lombok")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.postgresql:postgresql:${postgresVersion}")
-    implementation("org.flywaydb:flyway-core:${flywayVersion}")
-    implementation("com.alibaba:fastjson:${fastjsonVersion}")
-    implementation("io.springfox:springfox-boot-starter:${swaggerVersion}")
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
+    implementation("org.postgresql:postgresql")
+    implementation("org.flywaydb:flyway-core")
+    implementation("com.alibaba:fastjson")
+    implementation("io.springfox:springfox-boot-starter")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.spockframework:spock-core:2.0-M4-groovy-3.0")
-    testImplementation("org.spockframework:spock-spring:2.0-M4-groovy-3.0")
-    testImplementation("org.codehaus.groovy:groovy:3.0.7")
+    testImplementation("org.spockframework:spock-core")
+    testImplementation("org.spockframework:spock-spring")
+    testImplementation("org.codehaus.groovy:groovy")
     testImplementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation("org.springframework.boot:spring-boot-devtools")
 }
