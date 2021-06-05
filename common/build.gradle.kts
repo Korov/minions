@@ -42,3 +42,49 @@ dependencies {
     testImplementation("org.spockframework:spock-core")
 }
 
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+idea {
+    module {
+        isDownloadJavadoc = true
+        isDownloadSources = true
+    }
+}
+
+spotbugs {
+    showProgress.set(true)
+    ignoreFailures.set(true)
+    effort.set(com.github.spotbugs.snom.Effort.MAX)
+    tasks.spotbugsMain {
+        ignoreFailures = true
+        reports.create("html") {
+            isEnabled = true
+            destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+            setStylesheet("fancy-hist.xsl")
+        }
+    }
+
+    /*tasks.spotbugsTest {
+        ignoreFailures = true
+        reports.create("html") {
+            isEnabled = true
+            destination = file("$buildDir/reports/spotbugs/test/spotbugs.html")
+            setStylesheet("fancy-hist.xsl")
+        }
+    }*/
+}
+
+tasks.test {
+    useJUnitPlatform {
+        includeEngines("junit-jupiter")
+    }
+    finalizedBy(tasks.jacocoTestReport)  // report is always generated after tests run
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)  // tests are required to run before generating the report
+}
+

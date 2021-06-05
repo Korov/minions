@@ -101,7 +101,6 @@ allprojects {
 subprojects {
     apply {
         plugin("jacoco")
-        plugin("org.springframework.boot")
         plugin("com.github.spotbugs")
     }
 }

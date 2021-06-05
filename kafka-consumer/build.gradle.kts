@@ -27,13 +27,16 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.postgresql:postgresql:42.2.19")
     implementation("org.flywaydb:flyway-core:7.7.0")
+    implementation("com.alibaba:fastjson:${fastjsonVersion}")
+    implementation("io.springfox:springfox-boot-starter:${swaggerVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.kafka:spring-kafka")
     testImplementation("org.springframework.kafka:spring-kafka-test")
     testImplementation("org.scala-lang:scala-library:2.13.5")
-    runtimeClasspath("org.springframework.boot:spring-boot-starter-actuator")
-    runtimeClasspath("org.springframework.boot:spring-boot-devtools")
+    testImplementation("org.springframework.boot:spring-boot-starter-actuator")
+    testImplementation("org.springframework.boot:spring-boot-devtools")
 }
 
 tasks.register<Copy>("copyJarKafkaConsumer") {
@@ -60,4 +63,47 @@ mybatisGenerator {
         mybatisGenerator("org.mybatis.generator:mybatis-generator-core:1.3.7")
         mybatisGenerator("org.postgresql:postgresql:42.2.6")
     }
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_11
+    targetCompatibility = JavaVersion.VERSION_11
+}
+
+idea {
+    module {
+        isDownloadJavadoc = true
+        isDownloadSources = true
+    }
+}
+
+spotbugs {
+    showProgress.set(true)
+    ignoreFailures.set(true)
+    tasks.spotbugsMain {
+        reports.create("html") {
+            isEnabled = true
+            destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+            setStylesheet("fancy-hist.xsl")
+        }
+    }
+
+    tasks.spotbugsTest {
+        reports.create("html") {
+            isEnabled = true
+            destination = file("$buildDir/reports/spotbugs/test/spotbugs.html")
+            setStylesheet("fancy-hist.xsl")
+        }
+    }
+}
+
+tasks.test {
+    useJUnitPlatform {
+        includeEngines("junit-jupiter")
+    }
+    finalizedBy(tasks.jacocoTestReport)  // report is always generated after tests run
+}
+
+tasks.jacocoTestReport {
+    dependsOn(tasks.test)  // tests are required to run before generating the report
 }
