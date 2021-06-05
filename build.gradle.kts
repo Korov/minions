@@ -91,9 +91,22 @@ allprojects {
             // mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}")
             mavenBom("org.springframework.boot:spring-boot-dependencies:${springbootVersion}")
+            mavenBom("org.spockframework:spock-bom:2.0-groovy-3.0")
+            mavenBom("org.junit:junit-bom:5.7.2")
         }
         dependencies {
             dependency("com.squareup.okhttp3:okhttp:4.9.1")
+            dependency("org.codehaus.groovy:groovy:3.0.7")
+            dependency("org.projectlombok:lombok:${lombokVersion}")
+            dependency("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3")
+            dependency("org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.4.32")
+            dependency("com.alibaba:fastjson:${fastjsonVersion}")
+            dependency("org.yaml:snakeyaml:${snakeyamlVersion}")
+            dependency("io.springfox:springfox-boot-starter:${swaggerVersion}")
+            dependency("com.google.guava:guava:30.1.1-jre")
+            dependency("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+            dependency("org.spekframework.spek2:spek-dsl-jvm:2.0.15")
+            dependency("org.spekframework.spek2:spek-runner-junit5:2.0.15")
         }
     }
 }
