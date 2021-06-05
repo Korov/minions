@@ -10,7 +10,7 @@ minions项目的数据来源
 [source, bash]
 ----
 #请使用python 3.8
-pip install -r requirements.txt
+pipenv install
 #解析js需要用到splash，暂时未用到此组件
 docker run -p 8050:8050 --name -d splash-minions scrapinghub/splash:3.5.0
 ----
@@ -29,11 +29,11 @@ scrapy crawl hero
 
 [source, bash]
 ----
-# 更新依赖文件
-pip freeze > requirements.txt
+# 更新需要更新的依赖
+pipenv update --outdated
 
-# 安装依赖
-pip install -r requirements.txt
+# 安装某个依赖
+pipenv install <package>
 
 # 查看当前爬虫
 scrapy list
@@ -41,11 +41,10 @@ scrapy list
 scrapy crawl hero
 
 # 项目部署 安装scrapyd
-pip install scrapyd
+pipenv install scrapyd
 # 启动scrapyd
 scrapyd
 
-pip install -r requirements.txt
 # 使用scrapy-client将项目部署到scrapyd中
 scrapyd-deploy minions_spider -p minions_spider -v v1
 

@@ -1,0 +1,18 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+kafka-python = "==2.0.2"
+scrapyd = "==1.2.1"
+scrapyd-client = "==1.1.0"
+scrapy-splash = "==0.7.2"
+requests = "==2.25.1"
+pycrypto = "==2.6.1"
+Scrapy = "==2.4.1"
+
+[dev-packages]
+
+[requires]
+python_version = "3.8"
