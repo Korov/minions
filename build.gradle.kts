@@ -107,6 +107,7 @@ allprojects {
             dependency("com.google.guava:guava:30.1.1-jre")
             dependency("org.postgresql:postgresql:${postgresVersion}")
             dependency("org.flywaydb:flyway-core:${flywayVersion}")
+            dependency("org.scala-lang:scala-library:2.13.5")
             dependency("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
             dependency("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
             dependency("org.spekframework.spek2:spek-dsl-jvm:2.0.15")
