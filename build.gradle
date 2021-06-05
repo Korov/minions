@@ -49,9 +49,12 @@ allprojects {
     tasks.withType(JavaCompile) {
         options.encoding = "UTF-8"
         // 指定编译代码的版本
-        sourceCompatibility = 11
+        sourceCompatibility = JavaVersion.VERSION_11
     }
 
+    tasks.withType(Javadoc) {
+        options.encoding = "UTF-8"
+    }
 
     repositories {
         mavenLocal()
