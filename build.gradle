@@ -2,15 +2,15 @@ import com.github.spotbugs.snom.SpotBugsReport
 
 buildscript {
     ext {
-        springCloudVersion = "2020.0.1"
-        springBootVersion = "2.4.3"
+        springCloudVersion = "2020.0.3"
+        springBootVersion = "2.4.6"
         swaggerVersion = "3.0.0"
         lombokVersion = "1.18.18"
         fastjsonVersion = "1.2.75"
         snakeyamlVersion = "1.28"
         postgresVersion = "42.2.19"
         mybatisVersion = "2.1.4"
-        spotbugsVersion = "4.6.0"
+        spotbugsVersion = "4.7.1"
         dependencyManagementVersion = "1.0.11.RELEASE"
         flywayVersion = "7.7.0"
         scalaLibraryVersion = "2.13.5"
