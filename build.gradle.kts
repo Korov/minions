@@ -7,10 +7,10 @@ buildscript {
     repositories {
         mavenLocal()
         maven {
-            setUrl("https://maven.aliyun.com/repository/central")
+            url = uri("https://maven.aliyun.com/repository/central")
         }
         maven {
-            setUrl("https://maven.aliyun.com/repository/gradle-plugin")
+            url = uri("https://maven.aliyun.com/repository/gradle-plugin")
         }
     }
 
@@ -33,10 +33,10 @@ allprojects {
     repositories {
         mavenLocal()
         maven {
-            setUrl("https://maven.aliyun.com/repository/central")
+            url = uri("https://maven.aliyun.com/repository/central")
         }
         maven {
-            setUrl("https://maven.aliyun.com/repository/gradle-plugin")
+            url = uri("https://maven.aliyun.com/repository/gradle-plugin")
         }
     }
 
