@@ -1,5 +1,5 @@
 = minions =
-Korov9 <korov9@163.com>
+Korov <korov9@163.com>
 v1.0 2020-12-28
 :doctype: book
 
