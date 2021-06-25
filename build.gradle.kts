@@ -86,7 +86,7 @@ allprojects {
             dependency("org.jetbrains.kotlin:kotlin-reflect:1.4.32")
             dependency("org.spekframework.spek2:spek-dsl-jvm:2.0.15")
             dependency("org.spekframework.spek2:spek-runner-junit5:2.0.15")
-            dependency("com.baomidou.mybatis-plus-boot-starter:3.4.3.1")
+            dependency("com.baomidou:mybatis-plus-boot-starter:3.4.3.1")
         }
     }
 }
