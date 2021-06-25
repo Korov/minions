@@ -15,6 +15,7 @@ dependencies {
     implementation("org.postgresql:postgresql")
     implementation("org.flywaydb:flyway-core")
     implementation("com.alibaba:fastjson")
+    implementation("com.baomidou.mybatis-plus-boot-starter")
     implementation("io.springfox:springfox-boot-starter")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

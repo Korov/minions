@@ -40,10 +40,10 @@ allprojects {
         }
     }
 
-    // 此插件来实现类似maven中的dependencyManagement功能
     apply {
         plugin("java")
         plugin("idea")
+        // 此插件来实现类似maven中的dependencyManagement功能
         plugin("io.spring.dependency-management")
     }
 
@@ -86,6 +86,7 @@ allprojects {
             dependency("org.jetbrains.kotlin:kotlin-reflect:1.4.32")
             dependency("org.spekframework.spek2:spek-dsl-jvm:2.0.15")
             dependency("org.spekframework.spek2:spek-runner-junit5:2.0.15")
+            dependency("com.baomidou.mybatis-plus-boot-starter:3.4.3.1")
         }
     }
 }
