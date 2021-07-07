@@ -37,9 +37,6 @@ public class KafkaConfig {
     @Value("${spring.kafka.consumer.max-poll-records}")
     private Integer maxPollRecords;
 
-    @Value("${spring.kafka.producer.linger}")
-    private int linger;
-
     @Value("${spring.kafka.producer.retries}")
     private Integer retries;
 
@@ -60,8 +57,6 @@ public class KafkaConfig {
         props.put(ProducerConfig.RETRIES_CONFIG, retries);
         //达到batchSize大小的时候会发送消息
         props.put(ProducerConfig.BATCH_SIZE_CONFIG, batchSize);
-        //延时时间，延时时间到达之后计算批量发送的大小没达到也发送消息
-        props.put(ProducerConfig.LINGER_MS_CONFIG, linger);
         //缓冲区的值
         props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, bufferMemory);
         //序列化手段
