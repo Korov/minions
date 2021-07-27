@@ -1,6 +1,6 @@
 package org.minions.common.utils
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertEquals
 import org.spekframework.spek2.Spek
 import org.spekframework.spek2.style.gherkin.Feature
 
@@ -27,7 +27,7 @@ class UtilFeature : Spek({
         }
 
         Scenario("test equals") {
-            var string1 = ""
+            val string1 = ""
             var string2 = ""
             When("equal") {
             }
