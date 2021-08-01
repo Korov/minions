@@ -71,7 +71,7 @@ allprojects {
         }
         dependencies {
             dependency("com.squareup.okhttp3:okhttp:4.9.1")
-            dependency("org.codehaus.groovy:groovy:3.0.7")
+            dependency("org.codehaus.groovy:groovy-all:3.0.7")
             dependency("org.projectlombok:lombok:1.18.18")
             dependency("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3")
             dependency("org.jetbrains.kotlin:kotlin-stdlib':1.5.21")

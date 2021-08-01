@@ -18,7 +18,7 @@ dependencies {
     implementation("com.baomidou:mybatis-plus-boot-starter")
     implementation("io.springfox:springfox-boot-starter")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
+    testCompile("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.spockframework:spock-core")
     testImplementation("org.spockframework:spock-spring")
     testImplementation("org.codehaus.groovy:groovy")
@@ -87,6 +87,10 @@ spotbugs {
 tasks.test {
     useJUnitPlatform {
         includeEngines("junit-jupiter")
+    }
+    reports{
+        junitXml.required.set(false)
+        html.required.set(true)
     }
     finalizedBy(tasks.jacocoTestReport)  // report is always generated after tests run
 }

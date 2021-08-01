@@ -3,6 +3,7 @@ package org.minions.demo.controller
 import com.alibaba.fastjson.JSON
 import com.alibaba.fastjson.JSONObject
 import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Test
 import org.minions.demo.DemoApplicationTest
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers
@@ -12,6 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
  * @author zhu.lei* @date 2021-03-13 03:22
  */
 class DemoControllerTest extends DemoApplicationTest {
+    @Test
     def "test getDemo"() {
         expect: "Status is 200 and the response is 'Hello world!'"
         String response = mockMvc.perform(MockMvcRequestBuilders.get("/demo/get/1"))

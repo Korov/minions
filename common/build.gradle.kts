@@ -55,6 +55,10 @@ tasks.test {
     useJUnitPlatform {
         includeEngines("junit-jupiter", "spek2")
     }
+    reports{
+        junitXml.required.set(false)
+        html.required.set(true)
+    }
     finalizedBy(tasks.jacocoTestReport)  // report is always generated after tests run
 }
 
