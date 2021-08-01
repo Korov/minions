@@ -1,6 +1,7 @@
 package org.minions.kafka.kafkatest;
 
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.minions.kafka.KafkaConsumersTest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +23,7 @@ public class Demo extends KafkaConsumersTest {
         this.kafkaTemplate = kafkaTemplate;
     }
 
+    @Disabled
     @Test
     public void sendMsg() {
         ListenableFuture<SendResult<String, String>> future = kafkaTemplate
