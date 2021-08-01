@@ -35,7 +35,7 @@ spring:
       uri: mongodb://admin:mongo@mongo.minions.org:27017/admin
 
   kafka:
-    bootstrap-servers: kafka.minions.org:9092
+    bootstrap-servers: localhost:9092
 
     producer:
       retries: 3
@@ -44,15 +44,14 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
       acks: -1
-      linger: 10
     consumer:
       group-id: minions
       auto-offset-reset: earliest
       enable-auto-commit: true
       auto-commit-interval: 100
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.apache.kafka.common.serialization.StringSerializer
       max-poll-records: 1
+      key-deserializer: org.apache.kafka.common.serialization.StringSerializer
+      value-deserializer: org.apache.kafka.common.serialization.StringSerializer
     listener:
       concurrency: 1
 
