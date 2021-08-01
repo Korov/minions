@@ -1,7 +1,7 @@
 version: "3.8"
 services:
   postgres:
-    container_name: postgres-minions
+    container_name: minions-postgres
     image: postgres:13.3-alpine
     environment:
       - "POSTGRES_PASSWORD=postgres"
@@ -11,8 +11,8 @@ services:
       - "5432:5432"
 
   mongo:
-    container_name: mongo-minions
-    image: mongo:4.4.6
+    container_name: minions-mongo
+    image: mongo:5.0.1-focal
     environment:
       - "MONGO_INITDB_ROOT_USERNAME=admin"
       - "MONGO_INITDB_ROOT_PASSWORD=mongo"
@@ -20,21 +20,21 @@ services:
       - "27017:27017"
 
   redis:
-    container_name: redis-minions
-    image: redis:6.2.3-alpine
+    container_name: minions-redis
+    image: redis:6.2.5-alpine
     ports:
       - 6379:6379
     command:
       redis-server --requirepass redis --appendonly yes
 
   zookeeper:
-    container_name: zookeeper-minions
+    container_name: minions-zookeeper
     image: zookeeper:3.5.9
     ports:
       - "2181:2181"
 
   kafka:
-    container_name: kafka-minions
+    container_name: minions-kafka
     image: wurstmeister/kafka:2.13-2.6.0
     expose:
       - 9999

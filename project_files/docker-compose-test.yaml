@@ -1,9 +1,9 @@
 version: "3.8"
 services:
   postgres:
-    container_name: postgres-minions
+    container_name: minions-postgres
     image: postgres:13.3-alpine
-    hostname: postgres-minions
+    hostname: minions-postgres
     environment:
       - "POSTGRES_PASSWORD=postgres"
       - "POSTGRES_DB=minions"
@@ -24,19 +24,19 @@ services:
     ports:
       - "8080:8080"
     links:
-      - postgres:postgres-minions.com
-      - mongo:mongo-minions.com
-      - redis:redis-minions.com
-      - zookeeper:zookeeper-minions.com
-      - kafka:kafka-minions.com
+      - postgres:postgres.minions.com
+      - mongo:mongo.minions.com
+      - redis:redis.minions.com
+      - zookeeper:zookeeper.minions.com
+      - kafka:kafka.minions.com
     networks:
       minions:
         ipv4_address: 172.31.0.13
 
   mongo:
-    container_name: mongo-minions
+    container_name: minions-mongo
     image: mongo:4.4.6
-    hostname: mongo-minions
+    hostname: minions-mongo
     environment:
       - "MONGO_INITDB_ROOT_USERNAME=admin"
       - "MONGO_INITDB_ROOT_PASSWORD=mongo"
@@ -47,9 +47,9 @@ services:
         ipv4_address: 172.31.0.14
 
   redis:
-    container_name: redis-minions
+    container_name: minions-redis
     image: redis:6.2.3-alpine
-    hostname: redis-minions
+    hostname: minions-redis
     ports:
       - 6379:6379
     command:
@@ -59,9 +59,9 @@ services:
         ipv4_address: 172.31.0.15
 
   zookeeper:
-    container_name: zookeeper-minions
+    container_name: minions-zookeeper
     image: zookeeper:3.5.9
-    hostname: zookeeper-minions
+    hostname: minions-zookeeper
     ports:
       - "2181:2181"
     networks:
@@ -69,9 +69,9 @@ services:
         ipv4_address: 172.31.0.16
 
   kafka:
-    container_name: kafka-minions
+    container_name: minions-kafka
     image: wurstmeister/kafka:2.13-2.6.0
-    hostname: kafka-minions
+    hostname: minions-kafka
     ports:
       - 9092:9092
     environment:
@@ -94,18 +94,18 @@ services:
     ports:
       - "8081:8081"
     links:
-      - postgres:postgres-minions.com
-      - mongo:mongo-minions.com
-      - redis:redis-minions.com
-      - zookeeper:zookeeper-minions.com
-      - kafka:kafka-minions.com
-      - spider-minions:spider-minions.com
+      - postgres:postgres.minions.com
+      - mongo:mongo.minions.com
+      - redis:redis.minions.com
+      - zookeeper:zookeeper.minions.com
+      - kafka:kafka.minions.com
+      - minions-spider:spider.minions.com
     networks:
       minions:
         ipv4_address: 172.31.0.18
 
-  spider-minions:
-    container_name: spider-minions
+  minions-spider:
+    container_name: minions-spider
     build:
       context: ./spiders
       dockerfile: ./Dockerfile
@@ -114,8 +114,8 @@ services:
     ports:
       - "6800:6800"
     links:
-      - kafka:kafka-minions.com
-      - mongo:mongo-minions.com
+      - kafka:kafka.minions.com
+      - mongo:mongo.minions.com
     networks:
       minions:
         ipv4_address: 172.31.0.19
