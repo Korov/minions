@@ -13,10 +13,12 @@ mybatis:
     - classpath:mapper/*Mapper.xml
 
 spring:
+  sql:
+    init:
+      platform: postgres
   datasource:
-    platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgres-minions.com:5432/minions?currentSchema=kafka
+    url: jdbc:postgresql://postgres.minions.org:5432/minions?currentSchema=kafka
     username: minions
     password: postgres
   devtools:
@@ -30,10 +32,10 @@ spring:
     locations: classpath:db/migration
   data:
     mongodb:
-      uri: mongodb://admin:mongo@mongo-minions.com:27017/admin
+      uri: mongodb://admin:mongo@mongo.minions.org:27017/admin
 
   kafka:
-    bootstrap-servers: kafka-minions.com:9092
+    bootstrap-servers: kafka.minions.org:9092
 
     producer:
       retries: 3
@@ -58,6 +60,6 @@ spring:
 
 minions:
   spider:
-    host: spider-minions.com
+    host: spider.minions.org
     port: 6800
     project: test

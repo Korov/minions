@@ -16,7 +16,7 @@ spring:
   datasource:
     platform: postgres
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://postgres-minions.com:5432/minions?currentSchema=public
+    url: jdbc:postgresql://postgres.minions.org:5432/minions?currentSchema=public
     username: minions
     password: postgres
   devtools:

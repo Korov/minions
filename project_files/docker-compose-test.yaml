@@ -24,11 +24,11 @@ services:
     ports:
       - "8080:8080"
     links:
-      - postgres:postgres.minions.com
-      - mongo:mongo.minions.com
-      - redis:redis.minions.com
-      - zookeeper:zookeeper.minions.com
-      - kafka:kafka.minions.com
+      - postgres:postgres.minions.org
+      - mongo:mongo.minions.org
+      - redis:redis.minions.org
+      - zookeeper:zookeeper.minions.org
+      - kafka:kafka.minions.org
     networks:
       minions:
         ipv4_address: 172.31.0.13
@@ -94,12 +94,12 @@ services:
     ports:
       - "8081:8081"
     links:
-      - postgres:postgres.minions.com
-      - mongo:mongo.minions.com
-      - redis:redis.minions.com
-      - zookeeper:zookeeper.minions.com
-      - kafka:kafka.minions.com
-      - minions-spider:spider.minions.com
+      - postgres:postgres.minions.org
+      - mongo:mongo.minions.org
+      - redis:redis.minions.org
+      - zookeeper:zookeeper.minions.org
+      - kafka:kafka.minions.org
+      - minions-spider:spider.minions.org
     networks:
       minions:
         ipv4_address: 172.31.0.18
@@ -114,8 +114,8 @@ services:
     ports:
       - "6800:6800"
     links:
-      - kafka:kafka.minions.com
-      - mongo:mongo.minions.com
+      - kafka:kafka.minions.org
+      - mongo:mongo.minions.org
     networks:
       minions:
         ipv4_address: 172.31.0.19
