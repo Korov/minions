@@ -1,6 +1,6 @@
 buildscript {
     extra.apply {
-        set("springbootVersion", "2.4.6")
+        set("springbootVersion", "2.5.3")
     }
     val springbootVersion: String by rootProject.extra
 
