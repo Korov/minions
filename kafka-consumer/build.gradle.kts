@@ -18,7 +18,6 @@ dependencies {
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.kafka:spring-kafka")
-    testImplementation("org.springframework.kafka:spring-kafka-test")
     testImplementation("org.scala-lang:scala-library")
     testImplementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation("org.springframework.boot:spring-boot-devtools")

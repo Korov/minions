@@ -86,4 +86,4 @@ ROBOTSTXT_OBEY = False
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-BOOTSTRAP_SERVERS = 'kafka-minions.com:9092'
+BOOTSTRAP_SERVERS = 'kafka.minions.org:9092'

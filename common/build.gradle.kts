@@ -8,7 +8,7 @@ dependencies {
     implementation("org.codehaus.groovy:groovy")
     implementation("org.projectlombok:lombok:")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib")
     annotationProcessor("org.projectlombok:lombok")
     implementation("com.alibaba:fastjson")
     implementation("org.yaml:snakeyaml")
