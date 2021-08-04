@@ -33,11 +33,11 @@
         </commentGenerator>
 
         <!--jdbc的数据库连接 -->
-        <!--connectionURL="${spring.datasource.url}&amp;tinyInt1isBit=false"-->
-        <jdbcConnection driverClass="${spring.datasource.driverClassName}"
-                        connectionURL="${spring.datasource.url}&amp;tinyInt1isBit=false"
-                        userId="${spring.datasource.username}"
-                        password="${spring.datasource.password}">
+        <!--connectionURL="jdbc:postgresql://localhost:5432/minions?currentSchema=demo&amp;tinyInt1isBit=false"-->
+        <jdbcConnection driverClass="org.postgresql.Driver"
+                        connectionURL="jdbc:postgresql://localhost:5432/minions?currentSchema=demo&amp;tinyInt1isBit=false"
+                        userId="minions"
+                        password="postgres">
         </jdbcConnection>
 
         <!-- java类型处理器
