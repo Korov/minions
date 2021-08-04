@@ -6,7 +6,6 @@ import org.minions.common.model.demo.Demo;
 
 import java.util.List;
 
-@Mapper
 public interface DemoMapper {
     int deleteByPrimaryKey(Integer id);
 
