@@ -1,6 +1,8 @@
 buildscript {
     extra.apply {
         set("springbootVersion", "2.5.3")
+        set("postgresVersion","42.2.19")
+        set("mybatisGeneratorVersion","1.4.0")
     }
     val springbootVersion: String by rootProject.extra
 
@@ -19,7 +21,7 @@ buildscript {
         classpath("gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.1")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springbootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE")
-        classpath("gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.2")
+        classpath("gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.3")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
     }
 }
@@ -27,6 +29,7 @@ buildscript {
 //所有项目共用的设置
 allprojects {
     val springbootVersion: String by rootProject.extra
+    val postgresVersion: String by rootProject.extra
     group = "org.minions"
     version = "0.0.1-SNAPSHOT"
 
@@ -79,7 +82,7 @@ allprojects {
             dependency("org.yaml:snakeyaml:1.28")
             dependency("io.springfox:springfox-boot-starter:3.0.0")
             dependency("com.google.guava:guava:30.1.1-jre")
-            dependency("org.postgresql:postgresql:42.2.19")
+            dependency("org.postgresql:postgresql:${postgresVersion}")
             dependency("org.flywaydb:flyway-core:7.7.0")
             dependency("org.scala-lang:scala-library:2.13.5")
             dependency("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4")

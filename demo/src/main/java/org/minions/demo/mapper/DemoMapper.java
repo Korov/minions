@@ -1,6 +1,5 @@
 package org.minions.demo.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import org.minions.common.model.demo.Demo;
 

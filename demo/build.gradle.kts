@@ -5,6 +5,9 @@ plugins {
     id("com.thinkimi.gradle.MybatisGenerator")
 }
 
+val postgresVersion: String by rootProject.extra
+val mybatisGeneratorVersion: String by rootProject.extra
+
 dependencies {
     implementation(project(":common"))
     implementation("org.projectlombok:lombok")
@@ -39,6 +42,17 @@ tasks.build {
 
 configurations {
     mybatisGenerator
+}
+
+mybatisGenerator {
+    verbose = true
+    configFile = "src/main/resources/autogen/generatorConfig.xml"
+
+    // optional, here is the override dependencies for the plugin or you can add other database dependencies.
+    dependencies {
+        mybatisGenerator("org.mybatis.generator:mybatis-generator-core:${mybatisGeneratorVersion}")
+        mybatisGenerator("org.postgresql:postgresql:${postgresVersion}")
+    }
 }
 
 mybatisGenerator {
