@@ -9,6 +9,7 @@ minions项目的数据来源
 
 [source, bash]
 ----
+pip install pipenv
 #请使用python 3.8
 pipenv install
 #解析js需要用到splash，暂时未用到此组件
