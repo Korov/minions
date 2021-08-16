@@ -107,4 +107,4 @@ if not is_exists:
 now = datetime.datetime.now()
 LOG_FILE = "logs/spider_{}_{}_{}.log".format(now.year, now.month, now.day)
 LOG_LEVEL = 'INFO'
-LOG_STDOUT = True
+LOG_STDOUT = False

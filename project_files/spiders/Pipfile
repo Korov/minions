@@ -10,7 +10,7 @@ scrapyd-client = "==1.1.0"
 scrapy-splash = "==0.7.2"
 requests = "==2.25.1"
 pycryptodome = "==3.9.9"
-Scrapy = "==2.4.1"
+Scrapy = "==2.5"
 
 [dev-packages]
 
