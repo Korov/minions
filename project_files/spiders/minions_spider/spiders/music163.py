@@ -12,9 +12,15 @@ from minions_spider.kafkatool import kafka_producer
 # 参考https://github.com/niechaojun/NetEaseCloudCrawer
 class hero(scrapy.Spider):
     name = "music_163"
-    start_urls = [
-        "http://music.163.com/discover/playlist/?order=hot"
-    ]
+
+    def start_requests(self):
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:56.0) Gecko/20100101 Firefox/56.0'}
+        urls = [
+            "http://music.163.com/discover/playlist/?order=hot"
+        ]
+        for url in urls:
+            yield scrapy.Request(url=url, headers=headers, callback=self.parse)
+
 
     def Nie_get_params(self, id, PageNum, Count):
         PageNum = (PageNum - 1) * 20

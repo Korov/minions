@@ -96,7 +96,7 @@ DOWNLOADER_MIDDLEWARES = {
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
-BOOTSTRAP_SERVERS = 'localhost:9092'
+BOOTSTRAP_SERVERS = 'linux.korov.org:9092'
 
 SPLASH_URL = 'http://localhost:8050'
 
@@ -106,5 +106,5 @@ if not is_exists:
 
 now = datetime.datetime.now()
 LOG_FILE = "logs/spider_{}_{}_{}.log".format(now.year, now.month, now.day)
-LOG_LEVEL = 'INFO'
+LOG_LEVEL = 'DEBUG'
 LOG_STDOUT = False
