@@ -13,7 +13,7 @@ pip install pipenv
 #请使用python 3.8
 pipenv install
 #解析js需要用到splash，暂时未用到此组件
-docker run -p 8050:8050 --name -d splash-minions scrapinghub/splash:3.5.0
+docker run -d -p 8050:8050 --name minions-splash scrapinghub/splash:3.5.0
 ----
 
 == 运行爬虫 ==

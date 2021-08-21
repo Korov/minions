@@ -105,7 +105,7 @@ class hero(scrapy.Spider):
             yield scrapy.Request(url=herf, callback=self.parse_song)
 
     def parse_song(self, response, **kwargs):
-        songs = response.selector.xpath("//ul[@class='f-hide']//li/a")
+        songs = response.selector.xpath("//span[@class='txt']/a")
         for index in range(0, len(songs)):
             song = songs[index]
             song_id = str(song.attrib['href']).split('=')[1]
