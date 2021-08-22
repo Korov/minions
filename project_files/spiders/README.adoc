@@ -24,6 +24,17 @@ docker run -d -p 8050:8050 --name minions-splash scrapinghub/splash:3.5.0
 scrapy list
 # 执行名称未 hero 的爬虫
 scrapy crawl hero
+
+# scrapy shell
+scrapy shell 'https://www.xbiquge.la/xuanhuanxiaoshuo/'
+# 提取标签
+>>> response.xpath("//span[@class='s2']/a").extract()[0]
+'<a href="https://www.xbiquge.la/82/82066/" target="_blank">万族之劫之幕后大佬</a>'
+# 提取标签中的文字
+>>> response.xpath("//span[@class='s2']/a/text()").extract()[0]
+'万族之劫之幕后大佬'
+# 退出
+>>> exit()
 ----
 
 == 其他命令 ==

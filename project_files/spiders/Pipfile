@@ -8,9 +8,14 @@ kafka-python = "==2.0.2"
 scrapyd = "==1.2.1"
 scrapyd-client = "==1.1.0"
 scrapy-splash = "==0.7.2"
+
+#requests = "==2.25.1"
+#pycrypto = "==2.6.1"
+#Scrapy = "==2.4.1"
+
 requests = "==2.26.0"
 pycryptodome = "==3.10.1"
-Scrapy = "==2.5"
+Scrapy = "==2.5.0"
 
 [dev-packages]
 
