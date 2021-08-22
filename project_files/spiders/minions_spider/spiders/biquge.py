@@ -22,5 +22,12 @@ class biquge(scrapy.Spider):
             yield scrapy.Request(url=url, headers=headers, callback=self.parse)
 
     def parse(self, response, **kwargs):
-        req = response.json()
-        logging.info(req)
+        books = response.selector.xpath("//span[@class='s2']/a")
+        authors = response.selector.xpath("//span[@class='s5']")
+        for index in range(0, len(books)):
+            book = books[index]
+            book_id = str(book.attrib['href'])
+            book_name = book.root.text
+            author = authors[index]
+            author_name = author.root.text
+            logging.info("book id:{}, book name:{}, author name:{}".format(book_id, book_name, author_name))
