@@ -12,14 +12,19 @@ from minions_spider.kafkatool import kafka_producer
 
 
 # 参考https://github.com/niechaojun/NetEaseCloudCrawer
+# 使用的时候必须加上随机睡眠时间不然会被反爬虫识别到
 class hero(scrapy.Spider):
     name = "music_163"
+    custom_settings = {
+        'USER_AGENT': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'
+    }
 
     def start_requests(self):
         urls = [
             "http://music.163.com/discover/playlist/?order=hot"
         ]
-        headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'}
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'}
         for url in urls:
             # time.sleep(random.randint(constant.START, constant.END))
             yield scrapy.Request(url=url, headers=headers, callback=self.parse)
@@ -89,7 +94,6 @@ class hero(scrapy.Spider):
                 'Cookie': 'JSESSIONID-WYYY=vDeNaw5OspW8kcNaX%5CsngVIwR3Z%2FigZ0HHGIb2duQgPm%2FFhGpQs6c26bKN3xf9tOatRbKk1JlTpJCiNsrZCsACk%2BN296WbpNc%2Fn96i8Ih6NYvHkjqXRR165SZAxv9YkkSAzfH9WTgCnyJUV6PEB9mm%2BJsduyy0B%5Cf2S7zXIdbls2hHY7%3A1519467798967; _iuqxldmzr_=32; _ntes_nnid=fc7bf97086aab1c7e5ea7559945fc3fe,1519465998987; _ntes_nuid=fc7bf97086aab1c7e5ea7559945fc3fe; __utma=94650624.1089055467.1519466000.1519466000.1519466000.1; __utmz=94650624.1519466000.1.1.utmcsr=baidu|utmccn=(organic)|utmcmd=organic; _ngd_tid=izuEtMCQO5AHgNjd7VBI%2FItSs427hfCz',
             }
             url = "http://music.163.com/weapi/v1/resource/comments/R_SO_4_" + str(id) + "?csrf_token="
-            time.sleep(random.randint(3, 5))
             comment_count = comment_count + page_size
             left_comment_count = total_count - comment_count
             logging.info(
@@ -105,15 +109,13 @@ class hero(scrapy.Spider):
             kafka_producer.send_msg(topic='music_163', key=id, msg=json.dumps(json_1, ensure_ascii=False))
 
     def parse(self, response, **kwargs):
-        headers = {'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'}
+        headers = {
+            'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/92.0.4515.159 Safari/537.36'}
         dicscs = response.selector.xpath("//p[@class='dec']/a")
-        herf = 'http://music.163.com' + dicscs[0].attrib['href']
-        time.sleep(random.randint(constant.START, constant.END))
-        yield scrapy.Request(url=herf, headers=headers, callback=self.parse_song)
-        # for dicsc in dicscs:
-        #     herf = 'http://music.163.com' + dicsc.attrib['href']
-        #     time.sleep(random.randint(constant.START, constant.END))
-        #     yield scrapy.Request(url=herf, callback=self.parse_song)
+        for dicsc in dicscs:
+            herf = 'http://music.163.com' + dicsc.attrib['href']
+            time.sleep(random.randint(constant.START, constant.END))
+            yield scrapy.Request(url=herf, callback=self.parse_song)
 
     def parse_song(self, response, **kwargs):
         songs = response.selector.xpath("//ul[@class='f-hide']//li/a")
@@ -122,4 +124,4 @@ class hero(scrapy.Spider):
             song = songs[index]
             song_id = str(song.attrib['href']).split('=')[1]
             logging.info("song id:{}".format(song_id))
-            # self.send_comment(id=song_id)
+            self.send_comment(id=song_id)
