@@ -1,3 +1,6 @@
+import random
+import time
+
 from scrapy import cmdline
 
 # 在Run/Debug Configurations中添加python的debug，设置Script path为当前项目的begin.py，保存之后点击debug按钮就可以debug了

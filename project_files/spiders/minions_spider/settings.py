@@ -98,7 +98,8 @@ DOWNLOADER_MIDDLEWARES = {
 
 BOOTSTRAP_SERVERS = 'linux.korov.org:9092'
 
-SPLASH_URL = 'http://localhost:8050'
+SPLASH_URL = 'http://linux.korov.org:8050'
+FEED_EXPORT_ENCODING='utf-8'
 
 is_exists = os.path.exists("logs")
 if not is_exists:
