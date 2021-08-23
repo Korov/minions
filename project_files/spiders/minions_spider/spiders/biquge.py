@@ -2,10 +2,15 @@ import logging
 
 import scrapy
 
+from minions_spider.items import biquge_item
+
 
 class biquge(scrapy.Spider):
     name = "biquge"
     allowed_domains = ['xbiquge.la']
+    custom_settings = {
+        'ITEM_PIPELINES': {'minions_spider.pipelines.biquge_pipeline': 300},
+    }
 
     def start_requests(self):
         headers = {
@@ -30,4 +35,5 @@ class biquge(scrapy.Spider):
             book_name = book.root.text
             author = authors[index]
             author_name = author.root.text
-            logging.info("book id:{}, book name:{}, author name:{}".format(book_id, book_name, author_name))
+            my_item = biquge_item(book_url = book_id, book_name= book_name, author_name = author_name)
+            yield my_item

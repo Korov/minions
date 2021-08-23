@@ -6,7 +6,8 @@
 import scrapy
 
 
-class MinionsSpiderItem(scrapy.Item):
+class biquge_item(scrapy.Item):
     # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+    book_url = scrapy.Field()
+    book_name = scrapy.Field()
+    author_name = scrapy.Field()
