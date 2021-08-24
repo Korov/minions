@@ -5,19 +5,15 @@
 
 
 # useful for handling different item types with a single interface
-import json
 from pymongo import MongoClient
 
 
 class biquge_pipeline(object):
     def open_spider(self, spider):
-        self.f = open('biquge.log', 'w', encoding='utf-8')
-        self.client = MongoClient('mongodb://admin:mongo@linux.korov.org:27017')
+        self.client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
 
     def process_item(self, item, spider):
-        self.f.write(json.dumps(dict(item), ensure_ascii=False))
-        self.f.write('\n')
-        db = self.client['spider']
+        db = self.client['spider_test']
         collection = db['book_info']
         book_info = {"book_url": item['book_url'],
                      "book_name": item['book_name'],
@@ -26,5 +22,4 @@ class biquge_pipeline(object):
         return item
 
     def close_spider(self, spider):
-        self.f.close()
         self.client.close()
