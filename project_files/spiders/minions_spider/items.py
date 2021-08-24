@@ -8,6 +8,11 @@ import scrapy
 
 class biquge_item(scrapy.Item):
     # define the fields for your item here like:
-    book_url = scrapy.Field()
     book_name = scrapy.Field()
-    author_name = scrapy.Field()
+    book_description = scrapy.Field()
+    book_category = scrapy.Field()
+    book_author = scrapy.Field()
+    book_url = scrapy.Field()
+    chapter_url = scrapy.Field()
+    chapter_name = scrapy.Field()
+    chapter_content = scrapy.Field()

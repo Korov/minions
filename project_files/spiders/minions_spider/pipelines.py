@@ -15,9 +15,14 @@ class biquge_pipeline(object):
     def process_item(self, item, spider):
         db = self.client['spider_test']
         collection = db['book_info']
-        book_info = {"book_url": item['book_url'],
-                     "book_name": item['book_name'],
-                     "author_name": item['author_name']}
+        book_info = {"book_name": item['book_name'],
+                     "book_description": item['book_description'],
+                     "book_category": item['book_category'],
+                     "book_author": item['book_author'],
+                     "book_url": item['book_url'],
+                     "chapter_url": item['chapter_url'],
+                     "chapter_name": item['chapter_name'],
+                     "chapter_content": item['chapter_content']}
         collection.insert_one(book_info)
         return item
 
