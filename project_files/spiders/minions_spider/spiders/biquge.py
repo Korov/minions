@@ -29,6 +29,13 @@ class biquge(scrapy.Spider):
     allowed_domains = ['xbiquge.la']
     custom_settings = {
         'ITEM_PIPELINES': {'minions_spider.pipelines.biquge_pipeline': 300},
+        'DOWNLOAD_TIMEOUT' : 120,
+        'CONCURRENT_REQUESTS_PER_DOMAIN':2,
+        'DOWNLOAD_DELAY' : 10,
+        'AUTOTHROTTLE_ENABLED':True,
+        'AUTOTHROTTLE_START_DELAY':5,
+        'AUTOTHROTTLE_MAX_DELAY':60,
+        'AUTOTHROTTLE_TARGET_CONCURRENCY':1.0
     }
 
     def start_requests(self):
@@ -42,7 +49,6 @@ class biquge(scrapy.Spider):
         books = response.selector.xpath("//span[@class='s2']/a")
         for book in books:
             book_url = str(book.attrib['href'])
-            time.sleep(5)
             yield scrapy.Request(url=book_url, headers=headers, callback=self.parse_chapters)
 
     def parse_chapters(self, response, **kwargs):
@@ -60,7 +66,7 @@ class biquge(scrapy.Spider):
                                     book_author=book_author, book_url=book_url, chapter_url=chapter_url,
                                     chapter_name=chapter_name)
             # 每隔20到30秒爬取下一章节内容
-            time.sleep(random.randint(15, 25))
+            # time.sleep(random.randint(15, 25))
             chapter_headers = {
                 "Host": "www.xbiquge.la",
                 "Connection": "keep-alive",
