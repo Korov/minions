@@ -40,7 +40,7 @@ class biquge(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            "https://www.xbiquge.la/xuanhuanxiaoshuo/"
+            "https://www.xbiquge.la/dushixiaoshuo/"
         ]
         for url in urls:
             yield scrapy.Request(url=url, headers=headers, callback=self.parse_books)
