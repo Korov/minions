@@ -22,7 +22,9 @@ class biquge_pipeline(object):
                      "book_url": item['book_url'],
                      "chapter_url": item['chapter_url'],
                      "chapter_name": item['chapter_name'],
-                     "chapter_content": item['chapter_content']}
+                     "chapter_content": item['chapter_content'],
+                     "timestamp": item['timestamp'],
+                     "date_time": item['date_time']}
         collection.insert_one(book_info)
         return item
 

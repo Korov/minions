@@ -1,5 +1,7 @@
 import copy
-import logging
+import datetime
+import random
+import time
 
 import scrapy
 
@@ -47,7 +49,10 @@ class biquge(scrapy.Spider):
             book_item = biquge_item(book_name=book_name, book_description=book_description, book_category=book_category,
                                     book_author=book_author, book_url=book_url, chapter_url=chapter_url,
                                     chapter_name=chapter_name)
-            yield scrapy.Request(url=chapter_url, headers=headers, meta={"item": book_item}, callback=self.parse_chapter)
+            # 每隔20到30秒爬取下一章节内容
+            time.sleep(random.randint(20, 30))
+            yield scrapy.Request(url=chapter_url, headers=headers, meta={"item": copy.deepcopy(book_item)},
+                                 callback=self.parse_chapter)
 
     def parse_chapter(self, response, **kwargs):
         chapter_contents = response.selector.xpath("//div[@id='content']/text()")
@@ -57,4 +62,6 @@ class biquge(scrapy.Spider):
                 lines.append(line.root.strip())
         item = response.meta['item']
         item['chapter_content'] = lines
+        item['timestamp'] = time.time()
+        item['date_time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
         yield item
