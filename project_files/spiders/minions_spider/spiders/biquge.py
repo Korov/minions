@@ -1,6 +1,6 @@
 import copy
 import datetime
-import random
+import logging
 import time
 
 import scrapy
@@ -29,13 +29,13 @@ class biquge(scrapy.Spider):
     allowed_domains = ['xbiquge.la']
     custom_settings = {
         'ITEM_PIPELINES': {'minions_spider.pipelines.biquge_pipeline': 300},
-        'DOWNLOAD_TIMEOUT' : 120,
-        'CONCURRENT_REQUESTS_PER_DOMAIN':2,
-        'DOWNLOAD_DELAY' : 10,
-        'AUTOTHROTTLE_ENABLED':True,
-        'AUTOTHROTTLE_START_DELAY':5,
-        'AUTOTHROTTLE_MAX_DELAY':60,
-        'AUTOTHROTTLE_TARGET_CONCURRENCY':1.0
+        'DOWNLOAD_TIMEOUT': 120,
+        'CONCURRENT_REQUESTS_PER_DOMAIN': 2,
+        'DOWNLOAD_DELAY': 10,
+        'AUTOTHROTTLE_ENABLED': True,
+        'AUTOTHROTTLE_START_DELAY': 5,
+        'AUTOTHROTTLE_MAX_DELAY': 60,
+        'AUTOTHROTTLE_TARGET_CONCURRENCY': 1.0
     }
 
     def start_requests(self):
@@ -46,6 +46,10 @@ class biquge(scrapy.Spider):
             yield scrapy.Request(url=url, headers=headers, callback=self.parse_books)
 
     def parse_books(self, response, **kwargs):
+        next_url = response.selector.xpath("//a[@class='next']")
+        if len(next_url) == 1:
+            yield scrapy.Request(url=next_url[0].attrib['href'], headers=headers, callback=self.parse_chapters)
+
         books = response.selector.xpath("//span[@class='s2']/a")
         for book in books:
             book_url = str(book.attrib['href'])
