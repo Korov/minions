@@ -25,8 +25,10 @@ class biquge_pipeline(object):
                      "chapter_content": item['chapter_content'],
                      "timestamp": item['timestamp'],
                      "date_time": item['date_time']}
-        old_book_info = {"chapter_url":item['chapter_url']}
-        collection.find_one_and_update(old_book_info, {'$set':book_info})
+        old_book_info = {"chapter_url": item['chapter_url']}
+        count = collection.count(old_book_info)
+        if count == 0:
+            collection.insert_one(book_info)
         return item
 
     def close_spider(self, spider):
