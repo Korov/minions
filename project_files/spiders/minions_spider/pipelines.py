@@ -13,7 +13,7 @@ class biquge_pipeline(object):
         self.client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
 
     def process_item(self, item, spider):
-        db = self.client['spider_test']
+        db = self.client['spider']
         collection = db['book_info']
         book_info = {"book_name": item['book_name'],
                      "book_description": item['book_description'],
@@ -25,7 +25,8 @@ class biquge_pipeline(object):
                      "chapter_content": item['chapter_content'],
                      "timestamp": item['timestamp'],
                      "date_time": item['date_time']}
-        collection.insert_one(book_info)
+        old_book_info = {"chapter_url":item['chapter_url']}
+        collection.find_one_and_update(old_book_info, {'$set':book_info})
         return item
 
     def close_spider(self, spider):
