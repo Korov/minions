@@ -2,6 +2,7 @@ import copy
 import datetime
 import logging
 import time
+from pymongo.mongo_client import MongoClient
 
 import scrapy
 
@@ -22,6 +23,10 @@ headers = {
     "Accept-Encoding": "gzip, deflate, br",
     "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
 }
+
+client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
+db = client['spider']
+collection = db['book_info']
 
 
 class biquge(scrapy.Spider):
@@ -71,6 +76,14 @@ class biquge(scrapy.Spider):
         for book_chapter in book_chapters:
             chapter_url = 'https://www.xbiquge.la' + book_chapter.attrib['href']
             chapter_name = book_chapter.root.text.strip()
+
+            # 如果数据已经存在则跳过
+            old_book_info = {"chapter_url": chapter_url}
+            count = collection.count(old_book_info)
+            if count > 0:
+                logging.info("skip chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name, chapter_name)
+                continue
+
             book_item = biquge_item(book_name=book_name, book_description=book_description, book_category=book_category,
                                     book_author=book_author, book_url=book_url, chapter_url=chapter_url,
                                     chapter_name=chapter_name)

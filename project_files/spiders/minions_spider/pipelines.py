@@ -8,6 +8,7 @@
 import logging
 
 from pymongo import MongoClient
+from pymongo.errors import DuplicateKeyError
 
 
 class biquge_pipeline(object):
@@ -30,10 +31,14 @@ class biquge_pipeline(object):
         old_book_info = {"chapter_url": item['chapter_url']}
         count = collection.count(old_book_info)
         if count == 0:
-            logging.info("insert book:%s, chapter:%s", item['book_name'], item['chapter_name'])
-            collection.insert_one(book_info)
+            try:
+                collection.insert_one(book_info)
+                logging.info("insert book:%s, chapter:%s", item['book_name'], item['chapter_name'])
+            except DuplicateKeyError:
+                logging.info("insert failed with book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
         else:
             logging.info("book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
+
         return item
 
     def close_spider(self, spider):
