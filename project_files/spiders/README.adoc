@@ -70,7 +70,7 @@ export SCRAPY_PROJECT=test
 ----
 docker rmi korov/minions-spider:1.0
 docker build -f ./Dockerfile -t korov/minions-spider:1.0 .
-docker run -d -it --name minions-spider-biquge korov/minions-spider:1.0 pipenv run scrapy crawl biquge
+docker run -d -it --restart=unless-stopped --name minions-spider-biquge korov/minions-spider:1.0 pipenv run scrapy crawl biquge
 docker exec -it minions-spider-biquge bash
 docker stop minions-spider-biquge
 docker rm minions-spider-biquge
