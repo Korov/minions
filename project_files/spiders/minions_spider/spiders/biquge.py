@@ -34,6 +34,7 @@ class biquge(scrapy.Spider):
     allowed_domains = ['xbiquge.la']
     custom_settings = {
         'ITEM_PIPELINES': {'minions_spider.pipelines.biquge_pipeline': 300},
+        'DUPEFILTER_CLASS' : 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 120,
         'CONCURRENT_REQUESTS_PER_DOMAIN': 2,
         'DOWNLOAD_DELAY': 10,
@@ -53,17 +54,21 @@ class biquge(scrapy.Spider):
             "https://www.xbiquge.la/kehuanxiaoshuo/"
         ]
         for url in urls:
-            yield scrapy.Request(url=url, headers=headers, callback=self.parse_books)
+            yield scrapy.Request(url=url, headers=headers, callback=self.parse_books, priority=1)
 
     def parse_books(self, response, **kwargs):
-        next_url = response.selector.xpath("//a[@class='next']")
-        if len(next_url) == 1:
-            yield scrapy.Request(url=next_url[0].attrib['href'], headers=headers, callback=self.parse_chapters)
-
         books = response.selector.xpath("//span[@class='s2']/a")
         for book in books:
             book_url = str(book.attrib['href'])
-            yield scrapy.Request(url=book_url, headers=headers, callback=self.parse_chapters)
+            yield scrapy.Request(url=book_url, headers=headers, callback=self.parse_chapters, priority=2)
+
+        # 爬到最后一页的时候从第一页从新开始爬
+        next_url = response.selector.xpath("//a[@class='next']")
+        if len(next_url) == 1:
+            yield scrapy.Request(url=next_url[0].attrib['href'], headers=headers, callback=self.parse_books, priority=1)
+        else:
+            first_url = response.selector.xpath("//a[@class='first']")
+            yield scrapy.Request(url=first_url[0].attrib['href'], headers=headers, callback=self.parse_books, priority=1)
 
     def parse_chapters(self, response, **kwargs):
         book_name = response.selector.xpath("//meta[@property='og:novel:book_name']")[0].attrib['content'].strip()
@@ -71,18 +76,18 @@ class biquge(scrapy.Spider):
         book_category = response.selector.xpath("//meta[@property='og:novel:category']")[0].attrib['content'].strip()
         book_author = response.selector.xpath("//meta[@property='og:novel:author']")[0].attrib['content'].strip()
         book_url = response.selector.xpath("//meta[@property='og:novel:read_url']")[0].attrib['content'].strip()
+        old_book_info = {"book_url": book_url}
+        old_chapter_urls = collection.distinct(key='chapter_url', filter=old_book_info)
 
         book_chapters = response.selector.xpath("//div[@id='list']/dl/dd/a")
         for book_chapter in book_chapters:
             chapter_url = 'https://www.xbiquge.la' + book_chapter.attrib['href']
             chapter_name = book_chapter.root.text.strip()
-
-            # 如果数据已经存在则跳过
-            old_book_info = {"chapter_url": chapter_url}
-            count = collection.count(old_book_info)
-            if count > 0:
-                logging.info("skip chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name, chapter_name)
+            if chapter_url in old_chapter_urls:
+                self.logger.info("skip chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name, chapter_name)
                 continue
+            else:
+                self.logger.info("crawl chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name, chapter_name)
 
             book_item = biquge_item(book_name=book_name, book_description=book_description, book_category=book_category,
                                     book_author=book_author, book_url=book_url, chapter_url=chapter_url,
@@ -106,7 +111,7 @@ class biquge(scrapy.Spider):
                 "Referer": book_url
             }
             yield scrapy.Request(url=chapter_url, headers=chapter_headers, meta={"item": copy.deepcopy(book_item)},
-                                 callback=self.parse_chapter)
+                                 callback=self.parse_chapter, priority=3)
 
     def parse_chapter(self, response, **kwargs):
         chapter_contents = response.selector.xpath("//div[@id='content']/text()")

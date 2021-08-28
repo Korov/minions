@@ -14,10 +14,11 @@ from pymongo.errors import DuplicateKeyError
 class biquge_pipeline(object):
     def open_spider(self, spider):
         self.client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
+        db = self.client['spider']
+        self.collection = db['book_info']
+        self.logger = logging.getLogger(__name__)
 
     def process_item(self, item, spider):
-        db = self.client['spider']
-        collection = db['book_info']
         book_info = {"book_name": item['book_name'],
                      "book_description": item['book_description'],
                      "book_category": item['book_category'],
@@ -29,15 +30,15 @@ class biquge_pipeline(object):
                      "timestamp": item['timestamp'],
                      "date_time": item['date_time']}
         old_book_info = {"chapter_url": item['chapter_url']}
-        count = collection.count(old_book_info)
+        count = self.collection.count_documents(old_book_info)
         if count == 0:
             try:
-                collection.insert_one(book_info)
-                logging.info("insert book:%s, chapter:%s", item['book_name'], item['chapter_name'])
+                self.collection.insert_one(book_info)
+                self.logger.info("insert book:%s, chapter:%s", item['book_name'], item['chapter_name'])
             except DuplicateKeyError:
-                logging.info("insert failed with book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
+                self.logger.info("insert failed with book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
         else:
-            logging.info("book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
+            self.logger.info("book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
 
         return item
 

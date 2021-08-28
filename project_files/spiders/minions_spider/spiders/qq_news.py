@@ -60,4 +60,4 @@ class biquge(scrapy.Spider):
             yield scrapy.Request(url=url, headers=headers, meta={"offset": copy.deepcopy(offset)}, callback=self.parse_news)
             for new in news:
                 url = new['url']
-        logging.info(response)
+        self.logger.info(response)
