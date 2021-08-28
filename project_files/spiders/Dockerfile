@@ -1,20 +1,17 @@
-FROM python:3.8.5-buster
+FROM python:3.8.10
 
-LABEL author="korov" email="korov9@163.com" date="2020-08-29"
+LABEL author="korov" email="korov9@163.com" date="2021-08-28"
 
-ENV PATH /usr/local/bin:$PATH
+ENV SPIDER_HOME /spiders
 
-COPY . /spider
+RUN mkdir $SPIDER_HOME
 
-WORKDIR /spider
+WORKDIR $SPIDER_HOME
 
-RUN pip install -i https://mirrors.aliyun.com/pypi/simple/ --trusted-host mirrors.aliyun.com -r requirements.txt
+COPY . $SPIDER_HOME/
 
-RUN rm /usr/local/lib/python3.8/site-packages/scrapyd/default_scrapyd.conf
-COPY ./default_scrapyd.conf /usr/local/lib/python3.8/site-packages/scrapyd
+RUN rm -rf $SPIDER_HOME/logs && rm -rf $SPIDER_HOME/venv && \
+    pip install pipenv && cd $SPIDER_HOME/ && \
+    pipenv install --system --deploy --ignore-pipfile
 
-RUN chmod +x /spider/entrypoint.sh
-
-ENTRYPOINT ["bash", "/spider/entrypoint.sh"]
-
-CMD [ "python3" , "begin.py" ]
+CMD ["pipenv", "run", "scrapy", "list" ]
