@@ -1,8 +1,8 @@
 import copy
 import datetime
-import logging
 import time
 from pymongo.mongo_client import MongoClient
+import redis
 
 import scrapy
 
@@ -27,6 +27,7 @@ headers = {
 client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
 db = client['spider']
 collection = db['book_info']
+redis_db = redis.Redis(host='korov.myqnapcloud.cn', port=6379, db=0)
 
 
 class biquge(scrapy.Spider):
@@ -43,6 +44,8 @@ class biquge(scrapy.Spider):
         'AUTOTHROTTLE_MAX_DELAY': 60,
         'AUTOTHROTTLE_TARGET_CONCURRENCY': 1.0
     }
+    # 每次启动一个爬虫则所有url都要重新抢
+    redis_db.delete("seen_urls")
 
     def start_requests(self):
         urls = [
@@ -83,6 +86,7 @@ class biquge(scrapy.Spider):
         for book_chapter in book_chapters:
             chapter_url = 'https://www.xbiquge.la' + book_chapter.attrib['href']
             chapter_name = book_chapter.root.text.strip()
+            # 已经被处理过得的请求不再继续处理，在此处获取所有url是为了减少mongo请求次数，避免filter压力过大
             if chapter_url in old_chapter_urls:
                 self.logger.info("skip chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name, chapter_name)
                 continue
