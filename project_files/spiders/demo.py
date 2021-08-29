@@ -6,8 +6,12 @@ if not url.endswith('html') :
 else:
     print("html")
 
-redis_db = redis.Redis(host='korov.myqnapcloud.cn', port=6379, db=0)
-redis_db.delete("seen_urls")
+url = 'https://www.xbiquge.la/fenlei/3_2.html'
+if 'fenlei' in url:
+    print("aaa")
 
-result = redis_db.smembers("seen_urls")
-print(result)
+# redis_db = redis.Redis(host='korov.myqnapcloud.cn', port=6379, db=0)
+# redis_db.delete("seen_urls")
+#
+# result = redis_db.smembers("seen_urls")
+# print(result)

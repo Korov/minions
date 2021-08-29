@@ -68,9 +68,9 @@ export SCRAPY_PROJECT=test
 
 [source,bash]
 ----
-docker rmi korov/minions-spider:1.1
-docker build -f ./Dockerfile -t korov/minions-spider:1.1 .
-docker run -d -it --restart=unless-stopped --name minions-spider-biquge korov/minions-spider:1.1 pipenv run scrapy crawl biquge
+docker rmi korov/minions-spider:1.2
+docker build -f ./Dockerfile -t korov/minions-spider:1.2 .
+docker run -d -it --restart=unless-stopped --name minions-spider-biquge korov/minions-spider:1.2 pipenv run scrapy crawl biquge
 docker exec -it minions-spider-biquge bash
 docker stop `docker ps | grep -Eo "minions-spider-biquge[0-9]{0,}"`
 docker rm `docker ps -a | grep -Eo "minions-spider-biquge[0-9]{0,}"`

@@ -16,7 +16,8 @@ class BiqugeFilter(BaseDupeFilter):
     def request_seen(self, request: Request):
         old_chapter_url = request.url
         # 非html结尾的不过滤
-        if not old_chapter_url.endswith('html'):
+        if (not old_chapter_url.endswith('html')) or ('fenlei' in old_chapter_url):
+            self.logger.info("crawl url:%s with not chapter url", old_chapter_url)
             return False
 
         # redis中只存储正在处理中的url，若存在则说明此url正在被别的爬虫爬取中
@@ -30,18 +31,25 @@ class BiqugeFilter(BaseDupeFilter):
             if is_members:
                 # 如果url即在mongo中存在又在redis中存在，需要将redis中的数据删除，确保redis中只保存正在处理中的url
                 self.redis_db.srem('seen_urls', old_chapter_url)
+            self.logger.info("url:%s has been filtered, count:%s, is members:%s", request.url, count, is_members)
             return True
         else:
             if is_members:
                 # 如果url在mongo中不存在，但是在redis中存在，则表明url正在被别的爬虫处理，此爬虫不再处理此url
+                self.logger.info("url:%s has been filtered, count:%s, is members:%s", request.url, count, is_members)
                 return True
             else:
                 # url在mongo中不存在，在redis中不存在，则表明url还未被处理，此爬虫开始处理此url
                 add_count = self.redis_db.sadd("seen_urls", old_chapter_url)
                 # add_count为1说明插入成功，此url被此spider获取，否则，此url被别的spider抢走了则此spider不再处理此url
                 if add_count == 1:
+                    self.logger.info("crawl url:%s, count:%s, is members:%s, add count:%s", request.url, count,
+                                     is_members, add_count)
                     return False
                 else:
+                    self.logger.info("url:%s has been filtered, count:%s, is members:%s, add count:%s", request.url,
+                                     count,
+                                     is_members, add_count)
                     return True
 
     # can return a deferred
