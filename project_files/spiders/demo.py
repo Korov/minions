@@ -1,4 +1,3 @@
-import redis
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
@@ -11,15 +10,6 @@ else:
 url = 'https://www.xbiquge.la/fenlei/3_2.html'
 if 'fenlei' in url:
     print("aaa")
-
-redis_db = redis.Redis(host='korov.myqnapcloud.cn', port=6379, db=0)
-
-# result = redis_db.sadd("seen_urls", "demo")
-# print(result)
-# result = redis_db.smembers("seen_urls")
-# print(result)
-count = redis_db.scard("seen_urls")
-print(count)
 
 client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
 db = client['spider']

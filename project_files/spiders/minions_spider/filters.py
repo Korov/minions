@@ -4,7 +4,6 @@ from pymongo.errors import DuplicateKeyError
 from scrapy.http import Request
 from scrapy.dupefilters import BaseDupeFilter
 from pymongo import MongoClient
-import redis
 
 
 class BiqugeFilter(BaseDupeFilter):
@@ -13,7 +12,6 @@ class BiqugeFilter(BaseDupeFilter):
         db = self.client['spider']
         self.book_collection = db['book_info']
         self.seen_urls_collection = db['seen_urls']
-        self.redis_db = redis.Redis(host='korov.myqnapcloud.cn', port=6379, db=0)
         self.logger = logging.getLogger(__name__)
 
     def request_seen(self, request: Request):
@@ -22,9 +20,6 @@ class BiqugeFilter(BaseDupeFilter):
         if (not request_chapter_url.endswith('html')) or ('fenlei' in request_chapter_url):
             self.logger.info("crawl url:%s with not chapter url", request_chapter_url)
             return False
-
-        # redis中只存储正在处理中的url，若存在则说明此url正在被别的爬虫爬取中
-        is_members = self.redis_db.sismember('seen_urls', request_chapter_url)
 
         # 若url不在redis中，则要判断此url是否已经被处理完了，mongo中只存储被处理完的url
         old_book_info = {"chapter_url": request_chapter_url}

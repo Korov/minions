@@ -4,7 +4,6 @@ import time
 
 from pymongo.errors import DuplicateKeyError
 from pymongo.mongo_client import MongoClient
-import redis
 
 import scrapy
 
@@ -30,7 +29,6 @@ client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider'
 db = client['spider']
 book_collection = db['book_info']
 seen_urls_collection = db["seen_urls"]
-redis_db = redis.Redis(host='korov.myqnapcloud.cn', port=6379, db=0)
 
 
 class biquge(scrapy.Spider):
@@ -38,7 +36,7 @@ class biquge(scrapy.Spider):
     allowed_domains = ['xbiquge.la']
     custom_settings = {
         'ITEM_PIPELINES': {'minions_spider.pipelines.biquge_pipeline': 300},
-        'DUPEFILTER_CLASS' : 'minions_spider.filters.BiqugeFilter',
+        'DUPEFILTER_CLASS': 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 120,
         'CONCURRENT_REQUESTS_PER_DOMAIN': 2,
         'DOWNLOAD_DELAY': 10,
@@ -47,8 +45,6 @@ class biquge(scrapy.Spider):
         'AUTOTHROTTLE_MAX_DELAY': 60,
         'AUTOTHROTTLE_TARGET_CONCURRENCY': 1.0
     }
-    # 每次启动一个爬虫则所有url都要重新抢
-    redis_db.delete("seen_urls")
 
     def start_requests(self):
         urls = [
@@ -74,7 +70,8 @@ class biquge(scrapy.Spider):
             yield scrapy.Request(url=next_url[0].attrib['href'], headers=headers, callback=self.parse_books, priority=1)
         else:
             first_url = response.selector.xpath("//a[@class='first']")
-            yield scrapy.Request(url=first_url[0].attrib['href'], headers=headers, callback=self.parse_books, priority=1)
+            yield scrapy.Request(url=first_url[0].attrib['href'], headers=headers, callback=self.parse_books,
+                                 priority=1)
 
     def parse_chapters(self, response, **kwargs):
         book_name = response.selector.xpath("//meta[@property='og:novel:book_name']")[0].attrib['content'].strip()
@@ -101,7 +98,8 @@ class biquge(scrapy.Spider):
                                      chapter_name)
                 continue
             else:
-                self.logger.info("crawl chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name, chapter_name)
+                self.logger.info("crawl chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
+                                 chapter_name)
 
             book_item = biquge_item(book_name=book_name, book_description=book_description, book_category=book_category,
                                     book_author=book_author, book_url=book_url, chapter_url=chapter_url,
