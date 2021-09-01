@@ -1,4 +1,6 @@
 import redis
+from pymongo import MongoClient
+from pymongo.errors import DuplicateKeyError
 
 url = 'https://www.xbiquge.la/0/82/8234452.html'
 if not url.endswith('html') :
@@ -12,5 +14,31 @@ if 'fenlei' in url:
 
 redis_db = redis.Redis(host='korov.myqnapcloud.cn', port=6379, db=0)
 
-result = redis_db.smembers("seen_urls")
-print(result)
+# result = redis_db.sadd("seen_urls", "demo")
+# print(result)
+# result = redis_db.smembers("seen_urls")
+# print(result)
+count = redis_db.scard("seen_urls")
+print(count)
+
+client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
+db = client['spider']
+collection = db['seen_urls']
+old_book_info = {"chapter_url": 'chapter_url'}
+count = collection.delete_one(old_book_info)
+print(count)
+try:
+    count = collection.insert_one(old_book_info)
+except DuplicateKeyError:
+    count = 0
+print(count)
+old_info = collection.find_one(old_book_info)
+print(old_info)
+try:
+    count = collection.insert_one(old_book_info)
+except DuplicateKeyError:
+    count = 0
+print(count)
+
+
+

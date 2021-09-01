@@ -1,6 +1,8 @@
 import copy
 import datetime
 import time
+
+from pymongo.errors import DuplicateKeyError
 from pymongo.mongo_client import MongoClient
 import redis
 
@@ -26,7 +28,8 @@ headers = {
 
 client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
 db = client['spider']
-collection = db['book_info']
+book_collection = db['book_info']
+seen_urls_collection = db["seen_urls"]
 redis_db = redis.Redis(host='korov.myqnapcloud.cn', port=6379, db=0)
 
 
@@ -80,7 +83,7 @@ class biquge(scrapy.Spider):
         book_author = response.selector.xpath("//meta[@property='og:novel:author']")[0].attrib['content'].strip()
         book_url = response.selector.xpath("//meta[@property='og:novel:read_url']")[0].attrib['content'].strip()
         old_book_info = {"book_url": book_url}
-        old_chapter_urls = collection.distinct(key='chapter_url', filter=old_book_info)
+        old_chapter_urls = book_collection.distinct(key='chapter_url', filter=old_book_info)
 
         book_chapters = response.selector.xpath("//div[@id='list']/dl/dd/a")
         for book_chapter in book_chapters:
@@ -88,7 +91,14 @@ class biquge(scrapy.Spider):
             chapter_name = book_chapter.root.text.strip()
             # 已经被处理过得的请求不再继续处理，在此处获取所有url是为了减少mongo请求次数，避免filter压力过大
             if chapter_url in old_chapter_urls:
-                self.logger.info("skip chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name, chapter_name)
+                try:
+                    url = {"chapter_url": chapter_url}
+                    seen_urls_collection.insert_one(url)
+                    self.logger.info("skip chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
+                                     chapter_name)
+                except DuplicateKeyError:
+                    self.logger.info("duplicate chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
+                                     chapter_name)
                 continue
             else:
                 self.logger.info("crawl chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name, chapter_name)
