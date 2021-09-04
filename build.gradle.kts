@@ -1,10 +1,27 @@
 buildscript {
     extra.apply {
-        set("springbootVersion", "2.5.3")
+        set("springbootVersion", "2.4.6")
         set("postgresVersion","42.2.19")
         set("mybatisGeneratorVersion","1.4.0")
+        set("lombokVersion","1.18.20")
+        set("groovyVersion","3.0.8")
+        set("okhttpVersion","4.9.1")
+        set("jacksonVersion","2.12.5")
+        set("kotlinVersion","1.5.21")
+        set("fastjsonVersion","1.2.78")
+        set("snakeyamlVersion","1.29")
+        set("guavaVersion","30.1.1-jre")
+        set("flywayVersion","7.7.0")
+        set("scalaVersion","2.13.5")
+        set("mybatisVersion","2.1.4")
+        set("springfoxVersion","3.0.0")
+        set("spek2Version","2.0.15")
+        set("spockVersion","2.0-groovy-3.0")
+        set("junitVersion","5.7.2")
+        set("minionsVersion","0.0.1-SNAPSHOT")
     }
     val springbootVersion: String by rootProject.extra
+    val kotlinVersion: String by rootProject.extra
 
     repositories {
         mavenLocal()
@@ -22,16 +39,17 @@ buildscript {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${springbootVersion}")
         classpath("io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE")
         classpath("gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.3")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:1.4.32")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
     }
 }
 
 //所有项目共用的设置
 allprojects {
     val springbootVersion: String by rootProject.extra
-    val postgresVersion: String by rootProject.extra
+    val minionsVersion: String by rootProject.extra
+
     group = "org.minions"
-    version = "0.0.1-SNAPSHOT"
+    version = minionsVersion
 
     repositories {
         mavenLocal()
@@ -66,30 +84,8 @@ allprojects {
     // io.spring.dependency-management插件的功能
     the<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension>().apply {
         imports {
-            // mavenBom(org.springframework.boot.gradle.plugin.SpringBootPlugin.BOM_COORDINATES)
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2020.0.3")
             mavenBom("org.springframework.boot:spring-boot-dependencies:${springbootVersion}")
-            mavenBom("org.spockframework:spock-bom:2.0-groovy-3.0")
-            mavenBom("org.junit:junit-bom:5.7.2")
-        }
-        dependencies {
-            dependency("com.squareup.okhttp3:okhttp:4.9.1")
-            dependency("org.codehaus.groovy:groovy-all:3.0.7")
-            dependency("org.projectlombok:lombok:1.18.18")
-            dependency("com.fasterxml.jackson.module:jackson-module-kotlin:2.12.3")
-            dependency("org.jetbrains.kotlin:kotlin-stdlib':1.5.21")
-            dependency("com.alibaba:fastjson:1.2.75")
-            dependency("org.yaml:snakeyaml:1.28")
-            dependency("io.springfox:springfox-boot-starter:3.0.0")
-            dependency("com.google.guava:guava:30.1.1-jre")
-            dependency("org.postgresql:postgresql:${postgresVersion}")
-            dependency("org.flywaydb:flyway-core:7.7.0")
-            dependency("org.scala-lang:scala-library:2.13.5")
-            dependency("org.mybatis.spring.boot:mybatis-spring-boot-starter:2.1.4")
-            dependency("org.jetbrains.kotlin:kotlin-reflect:1.5.21")
-            dependency("org.spekframework.spek2:spek-dsl-jvm:2.0.15")
-            dependency("org.spekframework.spek2:spek-runner-junit5:2.0.15")
-            dependency("com.baomidou:mybatis-plus-boot-starter:3.4.3.1")
         }
     }
 }
