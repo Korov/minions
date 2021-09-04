@@ -12,7 +12,7 @@ services:
 
   mongo:
     container_name: minions-mongo
-    image: mongo:5.0.1-focal
+    image: mongo:5.0.2-focal
     environment:
       - "MONGO_INITDB_ROOT_USERNAME=admin"
       - "MONGO_INITDB_ROOT_PASSWORD=mongo"
