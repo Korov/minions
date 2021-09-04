@@ -1,7 +1,7 @@
 buildscript {
     extra.apply {
         set("springbootVersion", "2.4.6")
-        set("postgresVersion","42.2.19")
+        set("postgresVersion","42.2.23")
         set("mybatisGeneratorVersion","1.4.0")
         set("lombokVersion","1.18.20")
         set("groovyVersion","3.0.8")

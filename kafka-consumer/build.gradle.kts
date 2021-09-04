@@ -26,7 +26,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    implementation("org.springframework.kafka:spring-kafka")
+    implementation("org.springframework.kafka:spring-kafka:2.7.6")
     testImplementation("org.scala-lang:scala-library:${scalaVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation("org.springframework.boot:spring-boot-devtools")
