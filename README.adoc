@@ -51,9 +51,13 @@ kafka消费者接口文档：`http://localhost:8081/swagger-ui/index.html`
 
 == 技术 ==
 
+=== SpringCloud ===
+
+版本：2020.0.3
+
 === SpringBoot ===
 
-版本：2.3.6.RELEASE
+版本：2.4.6.RELEASE
 
 === JDK ===
 
@@ -67,33 +71,53 @@ AdoptOpenJDK 11.0.9
 
 ==== PostgresSQL ====
 
-版本：12.4
+版本：13.4
+
 帐号：minions
+
 密码：postgres
+
 端口：5432
 
 ==== MongoDB ====
 
-版本：4.4.0
+版本：5.0.2
+
 帐号：admin
+
 密码：mongo
+
 端口：27017
 
 ==== Redis ====
 
-版本：6.0.6
+版本：6.2.5
+
 密码：redis
+
 端口：6379
 
 ==== Zookeeper ====
 
-版本：3.5.8
+版本：3.5.9
+
 端口：2181
 
 ==== Kafka ====
 
-版本：2.6.0
+版本：2.7.0
+
 端口：9092
+
+==== Nacos ====
+
+版本：2.0.3
+
+网址：`http://localhost:8848/nacos`
+
+账号：nacos
+
+密码：nacos
 
 == 数据来源 ==
 

@@ -2,7 +2,7 @@ version: "3.8"
 services:
   postgres:
     container_name: minions-postgres
-    image: postgres:13.3-alpine
+    image: postgres:13.4-alpine
     environment:
       - "POSTGRES_PASSWORD=postgres"
       - "POSTGRES_DB=minions"
@@ -35,14 +35,14 @@ services:
 
   kafka:
     container_name: minions-kafka
-    image: wurstmeister/kafka:2.13-2.6.0
+    image: wurstmeister/kafka:2.13-2.7.0
     expose:
       - 9999
     ports:
       - 9092:9092
       - 9999:9999
     environment:
-      KAFKA_ADVERTISED_HOST_NAME: linux.korov.org
+      KAFKA_ADVERTISED_HOST_NAME: win.korov.org
       KAFKA_ADVERTISED_PORT: 9092
       KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
       KAFKA_JMX_OPTS: "-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false -Djava.rmi.server.hostname=localhost -Dcom.sun.management.jmxremote.rmi.port=9999"
@@ -50,25 +50,13 @@ services:
     links:
       - zookeeper:zookeeper
 
-#  jobmanager:
-#    image: flink:scala_2.12-java11
-#    container_name: flink-jobmanager-minions
-#    expose:
-#      - "6123"
-#    ports:
-#      - "18081:8081"
-#    command: jobmanager
-#    environment:
-#      - JOB_MANAGER_RPC_ADDRESS=jobmanager
-#  taskmanager:
-#    image: flink:scala_2.12-java11
-#    container_name: flink-taskmanager-minions
-#    expose:
-#      - "6121"
-#      - "6122"
-#    command: taskmanager
-#    links:
-#      - jobmanager:jobmanager
-#    environment:
-#      - JOB_MANAGER_RPC_ADDRESS=jobmanager
+  nacos:
+    container_name: minions-nacos
+    image: nacos/nacos-server:2.0.3-slim
+    environment:
+      - PREFER_HOST_MODE=hostname
+      - MODE=standalone
+    ports:
+      - "8848:8848"
+      - "9848:9848"
 
