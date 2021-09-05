@@ -85,6 +85,7 @@ allprojects {
     the<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension>().apply {
         imports {
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2020.0.3")
+            mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2020.0.RC1")
             mavenBom("org.springframework.boot:spring-boot-dependencies:${springbootVersion}")
         }
     }

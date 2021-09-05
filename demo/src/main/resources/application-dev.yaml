@@ -1,5 +1,5 @@
 server:
-  port: 8080
+  port: 8081
 
 logging:
   config: classpath:logback.xml
@@ -13,9 +13,6 @@ mybatis:
     - classpath:mapper/*Mapper.xml
 
 spring:
-  sql:
-    init:
-      platform: postgres
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/minions?currentSchema=demo
@@ -27,6 +24,11 @@ spring:
       additional-paths: src/main/java
   application:
     name: minions-demo
+  cloud:
+    nacos:
+      discovery:
+        server-addr: localhost:8848
+        group: group-dev
 
   flyway:
     baseline-on-migrate: true

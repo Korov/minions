@@ -13,18 +13,11 @@ mybatis:
     - classpath:mapper/*Mapper.xml
 
 spring:
-  sql:
-    init:
-      platform: postgres
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://localhost:5432/minions?currentSchema=kafka
     username: minions
     password: postgres
-  devtools:
-    restart:
-      enabled: true
-      additional-paths: src/main/java
   application:
     name: minions-kafka
   data:

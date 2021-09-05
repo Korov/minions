@@ -13,9 +13,6 @@ mybatis:
     - classpath:mapper/*Mapper.xml
 
 spring:
-  sql:
-    init:
-      platform: postgres
   datasource:
     driver-class-name: org.postgresql.Driver
     url: jdbc:postgresql://postgres.minions.org:5432/minions?currentSchema=demo

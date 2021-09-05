@@ -23,7 +23,10 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     testImplementation("org.projectlombok:lombok:${lombokVersion}")
+    implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
     implementation("org.springframework.boot:spring-boot-starter-web")
+    implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.postgresql:postgresql:${postgresVersion}")
     implementation("org.flywaydb:flyway-core:${flywayVersion}")
     implementation("com.alibaba:fastjson:${fastjsonVersion}")
@@ -33,8 +36,6 @@ dependencies {
     testImplementation("org.spockframework:spock-core:${spockVersion}")
     testImplementation("org.spockframework:spock-spring:${spockVersion}")
     testImplementation("org.codehaus.groovy:groovy:${groovyVersion}")
-    testImplementation("org.springframework.boot:spring-boot-starter-actuator")
-    testImplementation("org.springframework.boot:spring-boot-devtools")
 }
 
 tasks.register<Copy>("copyJarDemo") {
