@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.contracts.model.structure.UNKNOWN_COMPUTATION.type
+
 plugins {
     id("org.springframework.boot")
     id("com.thinkimi.gradle.MybatisGenerator")
@@ -34,8 +36,10 @@ dependencies {
 
 tasks.register<Copy>("copyJarKafkaConsumer") {
     copy {
-        from("build/libs/kafka-consumer-${minionsVersion}.jar")
-        into("$buildDir/../../project_files/libs/kafka-consumer.jar")
+        from("build/libs/kafka-consumer-${minionsVersion}.jar"){
+            rename("kafka-consumer-${minionsVersion}.jar", "kafka-consumer.jar")
+        }
+        into("$buildDir/../../project_files/libs")
     }
 }
 

@@ -39,8 +39,10 @@ dependencies {
 
 tasks.register<Copy>("copyJarDemo") {
     copy {
-        from("build/libs/demo-${minionsVersion}.jar")
-        into("$buildDir/../../project_files/libs/demo.jar")
+        from("build/libs/demo-${minionsVersion}.jar") {
+            rename("demo-${minionsVersion}.jar", "demo.jar")
+        }
+        into("$buildDir/../../project_files/libs")
     }
 }
 

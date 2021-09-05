@@ -45,8 +45,8 @@ then
     docker rmi kafka-consumer:1.0
     docker rmi spider-minions:1.0
     rm -rf ./project_files/libs/
-    docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle:6.7.1-jdk11 gradle build -x test
-    docker run --rm -u gradle -v "$PWD"/project_files/spiders:/home/gradle/project -w /home/gradle/project gradle:6.7.1-jdk11 gradle build -x test
+    docker run --rm -u gradle -v "$PWD":/home/gradle/project -w /home/gradle/project gradle:7.1.1-jdk11 gradle build -x test
+    docker run --rm -u gradle -v "$PWD"/project_files/spiders:/home/gradle/project -w /home/gradle/project gradle:7.1.1-jdk11 gradle build -x test
     docker-compose -f ./project_files/docker-compose-test.yaml build > /dev/null
     docker-compose -f ./project_files/docker-compose-test.yaml up -d --remove-orphans
     docker-compose -f ./project_files/docker-compose-test.yaml ps

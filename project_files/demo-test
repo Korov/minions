@@ -8,7 +8,7 @@ RUN mkdir $APP_HOME
 
 WORKDIR $APP_HOME
 
-COPY libs/demo*.jar /demo.jar
+COPY libs/demo.jar /demo.jar
 
 RUN bash -c 'touch /demo.jar'
 EXPOSE 8080
