@@ -39,6 +39,7 @@ dependencies {
     testImplementation("org.spockframework:spock-spring:${spockVersion}")
     testImplementation("org.codehaus.groovy:groovy:${groovyVersion}")
     testImplementation("com.baomidou:mybatis-plus-generator:3.4.1")
+    testImplementation("org.apache.velocity:velocity-engine-core:2.3")
 }
 
 tasks.register<Copy>("copyJarDemo") {
