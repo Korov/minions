@@ -127,7 +127,7 @@ AdoptOpenJDK 11.0.9
 
 == SkyWalking ==
 
-以下内容是shell启动的是时候必须添加的内容，若是需要在idea中使用，只能启动整个项目的时候才有效。需要把配置添加到enviroment variables，然后VM options中添加agent启动之后，postman调用接口，之后就可以在skywalking中看到对应的数据了
+以下内容是shell启动的是时候必须添加的内容，若是需要在idea中使用，只能启动整个项目的时候才有效。需要把配置添加到enviroment variables，然后VM options中添加agent（-javaagent:./project_files/agent/skywalking-agent.jar 相对路径也可以）启动之后，postman调用接口，之后就可以在skywalking中看到对应的数据了
 
 [source, bash]
 ----
