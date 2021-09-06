@@ -17,6 +17,6 @@ public class DemoServiceImpl implements DemoService {
 
     @Override
     public Demo queryDemoById(Integer id) {
-        return demoMapper.selectByPrimaryKey(id);
+        return demoMapper.selectById(id);
     }
 }

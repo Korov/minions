@@ -31,12 +31,14 @@ dependencies {
     implementation("com.alibaba:fastjson:${fastjsonVersion}")
     implementation("io.springfox:springfox-boot-starter:${springfoxVersion}")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
+    implementation("com.baomidou:mybatis-plus-boot-starter:3.4.3.3")
     testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     testImplementation("org.projectlombok:lombok:${lombokVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.spockframework:spock-core:${spockVersion}")
     testImplementation("org.spockframework:spock-spring:${spockVersion}")
     testImplementation("org.codehaus.groovy:groovy:${groovyVersion}")
+    testImplementation("com.baomidou:mybatis-plus-generator:3.4.1")
 }
 
 tasks.register<Copy>("copyJarDemo") {
