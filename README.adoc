@@ -124,3 +124,19 @@ AdoptOpenJDK 11.0.9
 项目中的数据来源与爬虫获取，爬虫项目地址：`./project_files/spiders`（使用PyCharm开发）
 
 可以按照项目说明发送数据
+
+== SkyWalking ==
+
+以下内容是shell启动的是时候必须添加的内容，若是需要在idea中使用，只能启动整个项目的时候才有效。需要把配置添加到enviroment variables，然后VM options中添加agent启动之后，postman调用接口，之后就可以在skywalking中看到对应的数据了
+
+[source, bash]
+----
+# SkyWalking Agent 配置
+export SW_AGENT_NAME=kafka-consumer # 配置 Agent 名字。一般来说，我们直接使用 Spring Boot 项目的 `spring.application.name` 。
+export SW_AGENT_COLLECTOR_BACKEND_SERVICES=127.0.0.1:11800 # 配置 Collector 地址。
+export SW_AGENT_SPAN_LIMIT=2000 # 配置链路的最大 Span 数量。一般情况下，不需要配置，默认为 300 。主要考虑，有些新上 SkyWalking Agent 的项目，代码可能比较糟糕。
+export JAVA_AGENT=-javaagent:/home/korov/Desktop/gitrepo/minions/project_files/agent/skywalking-agent.jar # SkyWalking Agent jar 地址。
+
+# Jar 启动
+java -jar $JAVA_AGENT -jar lab-39-demo-2.2.2.RELEASE.jar
+----
