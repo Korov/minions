@@ -6,7 +6,9 @@ import com.baomidou.mybatisplus.generator.config.GlobalConfig
 import com.baomidou.mybatisplus.generator.config.PackageConfig
 import com.baomidou.mybatisplus.generator.config.StrategyConfig
 import com.baomidou.mybatisplus.generator.config.TemplateConfig
+import com.baomidou.mybatisplus.generator.config.converts.PostgreSqlTypeConvert
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy
+import com.baomidou.mybatisplus.generator.keywords.PostgreSqlKeyWordsHandler
 import com.google.common.collect.ImmutableList
 import org.junit.jupiter.api.Test
 
@@ -35,6 +37,8 @@ class Generator {
         dsc.setSchemaName("demo")
         dsc.setUsername("minions")
         dsc.setPassword("postgres")
+        dsc.setKeyWordsHandler(new PostgreSqlKeyWordsHandler())
+        dsc.setTypeConvert(new PostgreSqlTypeConvert())
         generator.setDataSource(dsc)
 
         // 配置模板
@@ -56,6 +60,7 @@ class Generator {
         strategy.setNaming(NamingStrategy.underline_to_camel)
         strategy.setColumnNaming(NamingStrategy.underline_to_camel)
         strategy.setInclude("demo")
+        strategy.setEntityColumnConstant(true)
         generator.setStrategy(strategy)
         generator.execute()
     }

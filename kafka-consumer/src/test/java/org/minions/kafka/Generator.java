@@ -17,9 +17,8 @@ public class Generator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + File.separator + Joiner.on(File.separator).join(ImmutableList.of("src", "main", "kotlin")));
+        gc.setOutputDir(projectPath + File.separator + Joiner.on(File.separator).join(ImmutableList.of("src", "main", "java")));
         gc.setFileOverride(true);
-        gc.setKotlin(true);
         gc.setAuthor("korov");
         gc.setOpen(false);
         generator.setGlobalConfig(gc);
@@ -44,14 +43,15 @@ public class Generator {
         // 包配置
         PackageConfig pc = new PackageConfig();
         pc.setModuleName("kafka-consumer");
-        pc.setParent("org.minions");
+        pc.setParent("org.minions.kafka");
         generator.setPackageInfo(pc);
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig();
         strategy.setNaming(NamingStrategy.underline_to_camel);
         strategy.setColumnNaming(NamingStrategy.underline_to_camel);
-        strategy.setInclude("hero_infos");
+        strategy.setEntityColumnConstant(true);
+        strategy.setInclude("hero_infos", "hero_weapon");
         generator.setStrategy(strategy);
         generator.execute();
     }

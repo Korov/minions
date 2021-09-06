@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import org.minions.common.model.kafka.HeroInfoModel;
+import org.minions.common.model.kafka.HeroInfos;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -131,7 +131,7 @@ public class HeroInfoDTO {
     @JsonProperty("be_restrained_hero")
     private List<BeRestrainedHeroDTO> beRestrainedHero;
 
-    public HeroInfoDTO(HeroInfoModel model) {
+    public HeroInfoDTO(HeroInfos model) {
         heroId = model.getHeroId().toString();
         beRestrainedHero = JSONObject.parseArray(model.getBeRestrainedHero(), BeRestrainedHeroDTO.class);
         bigImg = model.getBigImg();
@@ -162,8 +162,8 @@ public class HeroInfoDTO {
         restrainedHero = JSONObject.parseArray(model.getBeRestrainedHero(), RestrainedHeroDTO.class);
     }
 
-    public HeroInfoModel getInfo() {
-        HeroInfoModel model = new HeroInfoModel();
+    public HeroInfos getInfo() {
+        HeroInfos model = new HeroInfos();
         model.setBeRestrainedHero(JSONObject.toJSONString(beRestrainedHero));
         model.setBigImg(bigImg);
         model.setEquipChoice(JSONObject.toJSONString(equipChoice));

@@ -18,6 +18,7 @@ val spockVersion: String by rootProject.extra
 val minionsVersion: String by rootProject.extra
 val generatorVersion: String by rootProject.extra
 val velocityVersion: String by rootProject.extra
+val mybatisPlusVersion: String by rootProject.extra
 
 dependencies {
     implementation(project(":common"))
@@ -32,7 +33,7 @@ dependencies {
     implementation("com.alibaba:fastjson:${fastjsonVersion}")
     implementation("io.springfox:springfox-boot-starter:${springfoxVersion}")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
-    implementation("com.baomidou:mybatis-plus-boot-starter:3.4.3.3")
+    implementation("com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}")
     testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     testImplementation("org.projectlombok:lombok:${lombokVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

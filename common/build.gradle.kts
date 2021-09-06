@@ -15,6 +15,7 @@ val guavaVersion: String by rootProject.extra
 val springfoxVersion: String by rootProject.extra
 val spek2Version: String by rootProject.extra
 val spockVersion: String by rootProject.extra
+val mybatisPlusVersion: String by rootProject.extra
 
 dependencies {
     implementation("org.projectlombok:lombok:${lombokVersion}")
@@ -30,6 +31,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("com.google.guava:guava:${guavaVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    implementation("com.baomidou:mybatis-plus-annotation:${mybatisPlusVersion}")
     testImplementation("org.codehaus.groovy:groovy:${groovyVersion}")
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:${spek2Version}")
     testImplementation("org.spekframework.spek2:spek-runner-junit5:${spek2Version}")

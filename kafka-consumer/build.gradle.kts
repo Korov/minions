@@ -13,6 +13,7 @@ val minionsVersion: String by rootProject.extra
 val generatorVersion: String by rootProject.extra
 val velocityVersion: String by rootProject.extra
 val guavaVersion: String by rootProject.extra
+val mybatisPlusVersion: String by rootProject.extra
 
 dependencies {
     implementation(project(":common"))
@@ -28,8 +29,9 @@ dependencies {
     implementation("io.springfox:springfox-boot-starter:${springfoxVersion}")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
     implementation("org.springframework.kafka:spring-kafka:2.7.6")
+    implementation("com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}")
+    testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.scala-lang:scala-library:${scalaVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation("org.springframework.boot:spring-boot-devtools")

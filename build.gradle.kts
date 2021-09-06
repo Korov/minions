@@ -21,6 +21,7 @@ buildscript {
         set("minionsVersion","0.0.2-SNAPSHOT")
         set("generatorVersion","3.4.1")
         set("velocityVersion","2.3")
+        set("mybatisPlusVersion","3.4.3.3")
     }
     val springbootVersion: String by rootProject.extra
     val kotlinVersion: String by rootProject.extra

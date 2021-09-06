@@ -1,7 +1,7 @@
 package org.minions.kafka.mapper;
 
 import org.junit.jupiter.api.Test;
-import org.minions.common.model.kafka.HeroInfoModel;
+import org.minions.common.model.kafka.HeroInfos;
 import org.minions.kafka.KafkaConsumersTest;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,11 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 public class HeroInfoMapperTest extends KafkaConsumersTest {
 
     @Autowired
-    private HeroInfoMapper mapper;
+    private HeroInfosMapper mapper;
 
     @Test
     void selectByPrimaryKey() {
-        HeroInfoModel heroInfoModel = mapper.selectByPrimaryKey(1);
+        HeroInfos heroInfoModel = mapper.selectById(1);
         System.out.println(heroInfoModel.getHeroName());
     }
 }

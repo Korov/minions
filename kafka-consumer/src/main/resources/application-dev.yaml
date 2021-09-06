@@ -7,11 +7,6 @@ logging:
     root: INFO
     org.springframework.web.servlet.DispatcherServlet: DEBUG
 
-mybatis:
-  type-aliases-package: org.minions.common.model.kafka
-  mapper-locations:
-    - classpath:mapper/*Mapper.xml
-
 spring:
   datasource:
     driver-class-name: org.postgresql.Driver

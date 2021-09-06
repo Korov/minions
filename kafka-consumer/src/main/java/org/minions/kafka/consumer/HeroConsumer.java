@@ -3,8 +3,8 @@ package org.minions.kafka.consumer;
 import com.alibaba.fastjson.JSONObject;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.minions.common.dto.kafka.HeroInfoDTO;
-import org.minions.common.model.kafka.HeroInfoModel;
-import org.minions.kafka.mapper.HeroInfoMapper;
+import org.minions.common.model.kafka.HeroInfos;
+import org.minions.kafka.mapper.HeroInfosMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +20,10 @@ import java.util.Optional;
 public class HeroConsumer {
     private static final Logger logger = LoggerFactory.getLogger(HeroConsumer.class);
 
-    private HeroInfoMapper heroInfoMapper;
+    private HeroInfosMapper heroInfoMapper;
 
     @Autowired
-    public void setHeroInfoMapper(HeroInfoMapper heroInfoMapper) {
+    public void setHeroInfoMapper(HeroInfosMapper heroInfoMapper) {
         this.heroInfoMapper = heroInfoMapper;
     }
 
@@ -36,7 +36,7 @@ public class HeroConsumer {
         if (kafkaMessage.isPresent()) {
             String message = kafkaMessage.get().toString();
             HeroInfoDTO infoDTO = JSONObject.parseObject(message, HeroInfoDTO.class);
-            HeroInfoModel infoModel = infoDTO.getInfo();
+            HeroInfos infoModel = infoDTO.getInfo();
             heroInfoMapper.insert(infoModel);
             logger.info("listen consumer the message. key: {}, message: {}!", record.key(), message);
         }
