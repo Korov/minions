@@ -19,6 +19,8 @@ buildscript {
         set("spockVersion","2.0-groovy-3.0")
         set("junitVersion","5.7.2")
         set("minionsVersion","0.0.2-SNAPSHOT")
+        set("generatorVersion","3.4.1")
+        set("velocityVersion","2.3")
     }
     val springbootVersion: String by rootProject.extra
     val kotlinVersion: String by rootProject.extra

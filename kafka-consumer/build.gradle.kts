@@ -1,8 +1,5 @@
-import org.jetbrains.kotlin.contracts.model.structure.UNKNOWN_COMPUTATION.type
-
 plugins {
     id("org.springframework.boot")
-    id("com.thinkimi.gradle.MybatisGenerator")
 }
 
 val lombokVersion: String by rootProject.extra
@@ -13,6 +10,8 @@ val scalaVersion: String by rootProject.extra
 val mybatisVersion: String by rootProject.extra
 val springfoxVersion: String by rootProject.extra
 val minionsVersion: String by rootProject.extra
+val generatorVersion: String by rootProject.extra
+val velocityVersion: String by rootProject.extra
 
 dependencies {
     implementation(project(":common"))
@@ -32,6 +31,8 @@ dependencies {
     testImplementation("org.scala-lang:scala-library:${scalaVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation("org.springframework.boot:spring-boot-devtools")
+    testImplementation("com.baomidou:mybatis-plus-generator:${generatorVersion}")
+    testImplementation("org.apache.velocity:velocity-engine-core:${velocityVersion}")
 }
 
 tasks.register<Copy>("copyJarKafkaConsumer") {
@@ -45,21 +46,6 @@ tasks.register<Copy>("copyJarKafkaConsumer") {
 
 tasks.build {
     finalizedBy(tasks.getByName("copyJarKafkaConsumer"))
-}
-
-configurations {
-    mybatisGenerator
-}
-
-mybatisGenerator {
-    verbose = true
-    configFile = "src/main/resources/autogen/generatorConfig.xml"
-
-    // optional, here is the override dependencies for the plugin or you can add other database dependencies.
-    dependencies {
-        mybatisGenerator("org.mybatis.generator:mybatis-generator-core:1.3.7")
-        mybatisGenerator("org.postgresql:postgresql:${postgresVersion}")
-    }
 }
 
 java {

@@ -3,7 +3,6 @@ plugins {
     id("groovy")
     id("idea")
     id("org.springframework.boot")
-    id("com.thinkimi.gradle.MybatisGenerator")
 }
 
 val postgresVersion: String by rootProject.extra
@@ -17,6 +16,8 @@ val mybatisVersion: String by rootProject.extra
 val springfoxVersion: String by rootProject.extra
 val spockVersion: String by rootProject.extra
 val minionsVersion: String by rootProject.extra
+val generatorVersion: String by rootProject.extra
+val velocityVersion: String by rootProject.extra
 
 dependencies {
     implementation(project(":common"))
@@ -38,8 +39,8 @@ dependencies {
     testImplementation("org.spockframework:spock-core:${spockVersion}")
     testImplementation("org.spockframework:spock-spring:${spockVersion}")
     testImplementation("org.codehaus.groovy:groovy:${groovyVersion}")
-    testImplementation("com.baomidou:mybatis-plus-generator:3.4.1")
-    testImplementation("org.apache.velocity:velocity-engine-core:2.3")
+    testImplementation("com.baomidou:mybatis-plus-generator:${generatorVersion}")
+    testImplementation("org.apache.velocity:velocity-engine-core:${velocityVersion}")
 }
 
 tasks.register<Copy>("copyJarDemo") {
@@ -53,32 +54,6 @@ tasks.register<Copy>("copyJarDemo") {
 
 tasks.build {
     finalizedBy(tasks.getByName("copyJarDemo"))
-}
-
-configurations {
-    mybatisGenerator
-}
-
-mybatisGenerator {
-    verbose = true
-    configFile = "src/main/resources/autogen/generatorConfig.xml"
-
-    // optional, here is the override dependencies for the plugin or you can add other database dependencies.
-    dependencies {
-        mybatisGenerator("org.mybatis.generator:mybatis-generator-core:${mybatisGeneratorVersion}")
-        mybatisGenerator("org.postgresql:postgresql:${postgresVersion}")
-    }
-}
-
-mybatisGenerator {
-    verbose = true
-    configFile = "src/main/resources/autogen/generatorConfig.xml"
-
-    // optional, here is the override dependencies for the plugin or you can add other database dependencies.
-    dependencies {
-        mybatisGenerator("org.mybatis.generator:mybatis-generator-core:1.3.7")
-        mybatisGenerator("org.postgresql:postgresql:${postgresVersion}")
-    }
 }
 
 java {
