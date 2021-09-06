@@ -17,8 +17,9 @@ public class Generator {
         // 全局配置
         GlobalConfig gc = new GlobalConfig();
         String projectPath = System.getProperty("user.dir");
-        gc.setOutputDir(projectPath + File.separator + Joiner.on(File.separator).join(ImmutableList.of("src", "main", "java")));
+        gc.setOutputDir(projectPath + File.separator + Joiner.on(File.separator).join(ImmutableList.of("src", "main", "kotlin")));
         gc.setFileOverride(true);
+        gc.setKotlin(true);
         gc.setAuthor("korov");
         gc.setOpen(false);
         generator.setGlobalConfig(gc);
@@ -42,7 +43,7 @@ public class Generator {
 
         // 包配置
         PackageConfig pc = new PackageConfig();
-        pc.setModuleName("kafka");
+        pc.setModuleName("kafka-consumer");
         pc.setParent("org.minions");
         generator.setPackageInfo(pc);
 

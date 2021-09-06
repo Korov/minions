@@ -12,11 +12,13 @@ val springfoxVersion: String by rootProject.extra
 val minionsVersion: String by rootProject.extra
 val generatorVersion: String by rootProject.extra
 val velocityVersion: String by rootProject.extra
+val guavaVersion: String by rootProject.extra
 
 dependencies {
     implementation(project(":common"))
     implementation("org.projectlombok:lombok:${lombokVersion}")
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    implementation("com.google.guava:guava:${guavaVersion}")
     testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     testImplementation("org.projectlombok:lombok:${lombokVersion}")
     implementation("org.springframework.boot:spring-boot-starter-web")
