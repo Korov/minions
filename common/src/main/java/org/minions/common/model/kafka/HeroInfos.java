@@ -319,6 +319,52 @@ public class HeroInfos implements Serializable {
         this.beRestrainedHero = beRestrainedHero;
     }
 
+    public static final String HERO_ID = "hero_id";
+
+    public static final String HERO_NAME = "hero_name";
+
+    public static final String HERO_NICKNAME = "hero_nickname";
+
+    public static final String HERO_IMG = "hero_img";
+
+    public static final String HERO_TYPE = "hero_type";
+
+    public static final String HERO_STORY = "hero_story";
+
+    public static final String HERO_LEVELS = "hero_levels";
+
+    public static final String HERO_GOLD_PRICE = "hero_gold_price";
+
+    public static final String HERO_TICKET_PRICE = "hero_ticket_price";
+
+    public static final String HERO_DIAMOND_PRICE = "hero_diamond_price";
+
+    public static final String RECOMMEND_SUMMONER_SKILL = "recommend_summoner_skill";
+
+    public static final String REC_INSCRIPTIONS = "rec_inscriptions";
+
+    public static final String SKIN_IMGS = "skin_imgs";
+
+    public static final String BIG_IMG = "big_img";
+
+    public static final String HISTORY_INTRO = "history_intro";
+
+    public static final String SKILL_TIPS = "skill_tips";
+
+    public static final String RECOMMEND_SUMMONER_SKILL_TIPS = "recommend_summoner_skill_tips";
+
+    public static final String HERO_TIPS = "hero_tips";
+
+    public static final String MELEE_TIPS = "melee_tips";
+
+    public static final String SKILL_LIST = "skill_list";
+
+    public static final String EQUIP_CHOICE = "equip_choice";
+
+    public static final String PARTNER_HERO = "partner_hero";
+
+    public static final String BE_RESTRAINED_HERO = "be_restrained_hero";
+
     @Override
     public String toString() {
         return "HeroInfos{" +

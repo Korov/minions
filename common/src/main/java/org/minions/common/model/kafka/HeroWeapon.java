@@ -72,6 +72,14 @@ public class HeroWeapon implements Serializable {
         this.weaponType = weaponType;
     }
 
+    public static final String WEAPON_ID = "weapon_id";
+
+    public static final String WEAPON_NAME = "weapon_name";
+
+    public static final String WEAPON_PRICE = "weapon_price";
+
+    public static final String WEAPON_TYPE = "weapon_type";
+
     @Override
     public String toString() {
         return "HeroWeapon{" +
