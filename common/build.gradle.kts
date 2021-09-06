@@ -17,7 +17,6 @@ val spek2Version: String by rootProject.extra
 val spockVersion: String by rootProject.extra
 
 dependencies {
-    implementation("org.codehaus.groovy:groovy:${groovyVersion}")
     implementation("org.projectlombok:lombok:${lombokVersion}")
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${jacksonVersion}")
@@ -31,6 +30,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("com.google.guava:guava:${guavaVersion}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${kotlinVersion}")
+    testImplementation("org.codehaus.groovy:groovy:${groovyVersion}")
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:${spek2Version}")
     testImplementation("org.spekframework.spek2:spek-runner-junit5:${spek2Version}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

@@ -1,6 +1,7 @@
 plugins {
     id("org.jetbrains.kotlin.jvm")
     id("groovy")
+    id("idea")
     id("org.springframework.boot")
     id("com.thinkimi.gradle.MybatisGenerator")
 }
@@ -21,8 +22,6 @@ dependencies {
     implementation(project(":common"))
     implementation("org.projectlombok:lombok:${lombokVersion}")
     annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testImplementation("org.projectlombok:lombok:${lombokVersion}")
     implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
@@ -32,6 +31,8 @@ dependencies {
     implementation("com.alibaba:fastjson:${fastjsonVersion}")
     implementation("io.springfox:springfox-boot-starter:${springfoxVersion}")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
+    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    testImplementation("org.projectlombok:lombok:${lombokVersion}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.spockframework:spock-core:${spockVersion}")
     testImplementation("org.spockframework:spock-spring:${spockVersion}")
@@ -111,7 +112,7 @@ spotbugs {
 
 tasks.test {
     useJUnitPlatform {
-        includeEngines("junit-jupiter")
+        includeEngines("junit-jupiter", "spock")
     }
     reports{
         junitXml.required.set(false)

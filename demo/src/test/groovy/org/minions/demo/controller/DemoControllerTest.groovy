@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers
  * @author zhu.lei* @date 2021-03-13 03:22
  */
 class DemoControllerTest extends DemoApplicationTest {
-    @Test
+
     def "test getDemo"() {
         expect: "Status is 200 and the response is 'Hello world!'"
         String response = mockMvc.perform(MockMvcRequestBuilders.get("/demo/get/1"))
