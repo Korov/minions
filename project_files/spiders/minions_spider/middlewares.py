@@ -2,6 +2,7 @@
 #
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import logging
 
 from scrapy import signals
 import random
@@ -54,7 +55,8 @@ class MinionsSpiderSpiderMiddleware:
             yield r
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        self.logger = logging.getLogger(__name__)
+        self.logger.info('Spider opened: %s', spider.name)
 
 
 class MinionsSpiderDownloaderMiddleware:
@@ -81,6 +83,7 @@ class MinionsSpiderDownloaderMiddleware:
         #   installed downloader middleware will be called
         proxys = ['112.95.20.73', '112.95.20.73', '112.95.20.73', '117.141.155.244', '59.120.147.82']
         request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxys[random.randint(0, 4)])
+        self.logger.info('Spider request: %s', request)
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
@@ -107,4 +110,5 @@ class MinionsSpiderDownloaderMiddleware:
         pass
 
     def spider_opened(self, spider):
-        spider.logger.info('Spider opened: %s' % spider.name)
+        self.logger = logging.getLogger(__name__)
+        self.logger.info('Spider opened: %s', spider.name)

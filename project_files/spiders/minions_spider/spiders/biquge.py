@@ -40,7 +40,7 @@ class biquge(scrapy.Spider):
         'DUPEFILTER_CLASS': 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 120,
         'CONCURRENT_REQUESTS_PER_DOMAIN': 10,
-        'DOWNLOAD_DELAY': 10,
+        'DOWNLOAD_DELAY': 5,
         'AUTOTHROTTLE_ENABLED': True,
         'AUTOTHROTTLE_START_DELAY': 5,
         'AUTOTHROTTLE_MAX_DELAY': 60,
