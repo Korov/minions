@@ -39,7 +39,7 @@ class biquge(scrapy.Spider):
         'SPIDER_MIDDLEWARES': {'minions_spider.middlewares.MinionsSpiderDownloaderMiddleware': 300},
         'DUPEFILTER_CLASS': 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 120,
-        'CONCURRENT_REQUESTS_PER_DOMAIN': 2,
+        'CONCURRENT_REQUESTS_PER_DOMAIN': 10,
         'DOWNLOAD_DELAY': 10,
         'AUTOTHROTTLE_ENABLED': True,
         'AUTOTHROTTLE_START_DELAY': 5,
@@ -91,7 +91,7 @@ class biquge(scrapy.Spider):
             if chapter_url in old_chapter_urls:
                 try:
                     url = {"chapter_url": chapter_url}
-                    seen_urls_collection.insert_one(url)
+                    # seen_urls_collection.insert_one(url)
                     self.logger.info("skip chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
                                      chapter_name)
                 except DuplicateKeyError:

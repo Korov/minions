@@ -31,7 +31,7 @@ class BiqugeFilter(BaseDupeFilter):
 
         if book_count > 0:
             try:
-                self.seen_urls_collection.insert_one(old_book_info)
+                # self.seen_urls_collection.insert_one(old_book_info)
                 self.logger.info("filter chapter url:%s, seen urls count:%s, book count:%s", request_chapter_url,
                                  seen_urls_count, book_count)
             except DuplicateKeyError:
@@ -40,7 +40,7 @@ class BiqugeFilter(BaseDupeFilter):
             return True
         else:
             try:
-                self.seen_urls_collection.insert_one(old_book_info)
+                # self.seen_urls_collection.insert_one(old_book_info)
                 self.logger.info("crawl chapter url:%s, seen urls count:%s, book count:%s", request_chapter_url,
                                  seen_urls_count, book_count)
                 return False

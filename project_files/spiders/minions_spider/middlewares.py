@@ -4,6 +4,7 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
+import random
 
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
@@ -78,8 +79,8 @@ class MinionsSpiderDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        proxys = []
-        request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxys[0])
+        proxys = ['112.95.20.73', '112.95.20.73', '112.95.20.73', '117.141.155.244', '59.120.147.82']
+        request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxys[random.randint(0, 4)])
 
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
@@ -88,10 +89,10 @@ class MinionsSpiderDownloaderMiddleware:
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
-        proxys = []
+        proxys = ['112.95.20.73', '112.95.20.73', '112.95.20.73', '117.141.155.244', '59.120.147.82']
         if response.status != 200:
             print("again response ip:")
-            request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxys[0])
+            request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxys[random.randint(0, 4)])
             return request
         return response
 
