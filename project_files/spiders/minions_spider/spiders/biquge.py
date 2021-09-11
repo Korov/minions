@@ -25,7 +25,7 @@ headers = {
     "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
 }
 
-client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
+client = MongoClient('mongodb://spider:spider@nas.korov.org:27017/spider')
 db = client['spider']
 book_collection = db['book_info']
 seen_urls_collection = db["seen_urls"]

@@ -8,7 +8,7 @@ from pymongo import MongoClient
 
 class BiqugeFilter(BaseDupeFilter):
     def __init__(self):
-        self.client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
+        self.client = MongoClient('mongodb://spider:spider@nas.korov.org:27017/spider')
         db = self.client['spider']
         self.book_collection = db['book_info']
         self.seen_urls_collection = db['seen_urls']

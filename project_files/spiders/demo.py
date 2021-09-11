@@ -11,7 +11,7 @@ url = 'https://www.xbiquge.la/fenlei/3_2.html'
 if 'fenlei' in url:
     print("aaa")
 
-client = MongoClient('mongodb://spider:spider@korov.myqnapcloud.cn:27017/spider')
+client = MongoClient('mongodb://spider:spider@nas.korov.org:27017/spider')
 db = client['spider']
 collection = db['seen_urls']
 
