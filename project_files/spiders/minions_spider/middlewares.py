@@ -16,6 +16,9 @@ class MinionsSpiderSpiderMiddleware:
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
 
+    def __init__(self):
+        self.logger = logging.getLogger(__name__)
+
     @classmethod
     def from_crawler(cls, crawler):
         # This method is used by Scrapy to create your spiders.
@@ -55,7 +58,6 @@ class MinionsSpiderSpiderMiddleware:
             yield r
 
     def spider_opened(self, spider):
-        self.logger = logging.getLogger(__name__)
         self.logger.info('Spider opened: %s', spider.name)
 
 
@@ -63,6 +65,9 @@ class MinionsSpiderDownloaderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
+
+    def __init__(self):
+        self.logger = logging.getLogger(__name__)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -81,8 +86,8 @@ class MinionsSpiderDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        proxys = ['112.95.20.73', '112.95.20.73', '112.95.20.73', '117.141.155.244', '59.120.147.82']
-        request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxys[random.randint(0, 4)])
+        proxy_list = ['112.95.20.73', '112.95.20.73', '112.95.20.73', '117.141.155.244', '59.120.147.82']
+        request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxy_list[random.randint(0, 4)])
         self.logger.info('Spider request: %s', request)
 
     def process_response(self, request, response, spider):
@@ -92,10 +97,10 @@ class MinionsSpiderDownloaderMiddleware:
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
-        proxys = ['112.95.20.73', '112.95.20.73', '112.95.20.73', '117.141.155.244', '59.120.147.82']
+        proxy_list = ['112.95.20.73', '112.95.20.73', '112.95.20.73', '117.141.155.244', '59.120.147.82']
         if response.status != 200:
             print("again response ip:")
-            request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxys[random.randint(0, 4)])
+            request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxy_list[random.randint(0, 4)])
             return request
         return response
 
@@ -110,5 +115,4 @@ class MinionsSpiderDownloaderMiddleware:
         pass
 
     def spider_opened(self, spider):
-        self.logger = logging.getLogger(__name__)
         self.logger.info('Spider opened: %s', spider.name)

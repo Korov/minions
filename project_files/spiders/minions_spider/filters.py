@@ -20,7 +20,7 @@ class BiqugeFilter(BaseDupeFilter):
         request_chapter_url = request.url
         # 非html结尾的不过滤
         if (not request_chapter_url.endswith('html')) or ('fenlei' in request_chapter_url):
-            self.logger.info("crawl url:%s with not chapter url", request_chapter_url)
+            self.logger.debug("crawl url:%s with not chapter url", request_chapter_url)
             return False
 
         # 若url不在redis中，则要判断此url是否已经被处理完了，mongo中只存储被处理完的url
@@ -34,20 +34,20 @@ class BiqugeFilter(BaseDupeFilter):
         if book_count > 0:
             try:
                 # self.seen_urls_collection.insert_one(old_book_info)
-                self.logger.info("filter chapter url:%s, seen urls count:%s, book count:%s", request_chapter_url,
+                self.logger.debug("filter chapter url:%s, seen urls count:%s, book count:%s", request_chapter_url,
                                  seen_urls_count, book_count)
             except DuplicateKeyError:
-                self.logger.info("filter with duplicate chapter url:%s, seen urls count:%s, book count:%s",
+                self.logger.debug("filter with duplicate chapter url:%s, seen urls count:%s, book count:%s",
                                  request_chapter_url, seen_urls_count, book_count)
             return True
         else:
             try:
                 # self.seen_urls_collection.insert_one(old_book_info)
-                self.logger.info("crawl chapter url:%s, seen urls count:%s, book count:%s", request_chapter_url,
+                self.logger.debug("crawl chapter url:%s, seen urls count:%s, book count:%s", request_chapter_url,
                                  seen_urls_count, book_count)
                 return False
             except DuplicateKeyError:
-                self.logger.info("filter with duplicate chapter url:%s, seen urls count:%s, book count:%s",
+                self.logger.debug("filter with duplicate chapter url:%s, seen urls count:%s, book count:%s",
                                  request_chapter_url, seen_urls_count, book_count)
                 return True
 
@@ -65,5 +65,5 @@ class BiqugeFilter(BaseDupeFilter):
             book_name = ''
             chapter_name = ''
 
-        self.logger.info("url:%s, book_name:%s, chapter_name:%s has been filtered", request.url, book_name,
+        self.logger.debug("url:%s, book_name:%s, chapter_name:%s has been filtered", request.url, book_name,
                          chapter_name)

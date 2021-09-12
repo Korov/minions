@@ -39,12 +39,13 @@ class biquge(scrapy.Spider):
         'SPIDER_MIDDLEWARES': {'minions_spider.middlewares.MinionsSpiderDownloaderMiddleware': 300},
         'DUPEFILTER_CLASS': 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 120,
-        'CONCURRENT_REQUESTS_PER_DOMAIN': 10,
-        'DOWNLOAD_DELAY': 5,
+        'CONCURRENT_REQUESTS_PER_DOMAIN': 50,
+        # 'CONCURRENT_REQUESTS_PER_IP': 50,
+        'DOWNLOAD_DELAY': 3,
         'AUTOTHROTTLE_ENABLED': True,
         'AUTOTHROTTLE_START_DELAY': 5,
         'AUTOTHROTTLE_MAX_DELAY': 60,
-        'AUTOTHROTTLE_TARGET_CONCURRENCY': 1.0
+        'AUTOTHROTTLE_TARGET_CONCURRENCY': 10.0
     }
 
     def start_requests(self):
@@ -105,8 +106,6 @@ class biquge(scrapy.Spider):
             book_item = biquge_item(book_name=book_name, book_description=book_description, book_category=book_category,
                                     book_author=book_author, book_url=book_url, chapter_url=chapter_url,
                                     chapter_name=chapter_name)
-            # 每隔20到30秒爬取下一章节内容
-            # time.sleep(random.randint(15, 25))
             chapter_headers = {
                 "Host": "www.xbiquge.la",
                 "Connection": "keep-alive",
