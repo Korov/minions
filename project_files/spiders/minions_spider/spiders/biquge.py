@@ -41,7 +41,7 @@ class biquge(scrapy.Spider):
         'DOWNLOAD_TIMEOUT': 120,
         'CONCURRENT_REQUESTS_PER_DOMAIN': 50,
         # 'CONCURRENT_REQUESTS_PER_IP': 50,
-        'DOWNLOAD_DELAY': 2,
+        'DOWNLOAD_DELAY': 3,
         'AUTOTHROTTLE_ENABLED': True,
         'AUTOTHROTTLE_START_DELAY': 5,
         'AUTOTHROTTLE_MAX_DELAY': 60,
