@@ -3,12 +3,12 @@
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 import logging
-
-from scrapy import signals
 import random
 
+from scrapy import signals
+
+
 # useful for handling different item types with a single interface
-from itemadapter import is_item, ItemAdapter
 
 
 class MinionsSpiderSpiderMiddleware:
@@ -116,3 +116,20 @@ class MinionsSpiderDownloaderMiddleware:
 
     def spider_opened(self, spider):
         self.logger.info('Spider opened: %s', spider.name)
+
+
+class biquge_middleware:
+    def __init__(self):
+        self.logger = logging.getLogger(__name__)
+        self.proxy_list = ['27.191.60.137', '223.214.219.141', '27.191.60.137', '223.214.219.141', '181.129.240.43']
+
+    def process_request(self, request, spider):
+        request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 4)])
+        self.logger.info('Spider request: %s', request)
+
+    def process_response(self, request, response, spider):
+        if response.status != 200:
+            print("again response ip:")
+            request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 4)])
+            return request
+        return response

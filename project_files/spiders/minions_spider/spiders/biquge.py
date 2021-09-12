@@ -36,12 +36,12 @@ class biquge(scrapy.Spider):
     allowed_domains = ['xbiquge.la']
     custom_settings = {
         'ITEM_PIPELINES': {'minions_spider.pipelines.biquge_pipeline': 300},
-        'SPIDER_MIDDLEWARES': {'minions_spider.middlewares.MinionsSpiderDownloaderMiddleware': 300},
+        # 'DOWNLOADER_MIDDLEWARES': {'minions_spider.middlewares.biquge_middleware': 300},
         'DUPEFILTER_CLASS': 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 120,
         'CONCURRENT_REQUESTS_PER_DOMAIN': 50,
         # 'CONCURRENT_REQUESTS_PER_IP': 50,
-        'DOWNLOAD_DELAY': 3,
+        'DOWNLOAD_DELAY': 2,
         'AUTOTHROTTLE_ENABLED': True,
         'AUTOTHROTTLE_START_DELAY': 5,
         'AUTOTHROTTLE_MAX_DELAY': 60,
