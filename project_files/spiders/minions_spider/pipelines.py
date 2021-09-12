@@ -10,10 +10,12 @@ import logging
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
+from minions_spider import constant
+
 
 class biquge_pipeline(object):
     def open_spider(self, spider):
-        self.client = MongoClient('mongodb://spider:spider@nas.korov.org:27017/spider')
+        self.client = MongoClient("mongodb://spider:spider@%s:27017/spider" % (constant.SERVER_HOST))
         db = self.client['spider']
         self.collection = db['book_info']
         self.logger = logging.getLogger(__name__)

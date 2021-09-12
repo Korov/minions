@@ -1,5 +1,6 @@
 from pymongo import MongoClient
-from pymongo.errors import DuplicateKeyError
+
+from minions_spider import constant
 
 url = 'https://www.xbiquge.la/0/82/8234452.html'
 if not url.endswith('html'):
@@ -11,7 +12,7 @@ url = 'https://www.xbiquge.la/fenlei/3_2.html'
 if 'fenlei' in url:
     print("aaa")
 
-client = MongoClient('mongodb://spider:spider@nas.korov.org:27017/spider')
+client = MongoClient("mongodb://spider:spider@%s:27017/spider" % (constant.SERVER_HOST))
 db = client['spider']
 collection = db['seen_urls']
 

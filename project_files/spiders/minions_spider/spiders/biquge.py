@@ -2,11 +2,11 @@ import copy
 import datetime
 import time
 
+import scrapy
 from pymongo.errors import DuplicateKeyError
 from pymongo.mongo_client import MongoClient
 
-import scrapy
-
+from minions_spider import constant
 from minions_spider.items import biquge_item
 
 headers = {
@@ -25,7 +25,7 @@ headers = {
     "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
 }
 
-client = MongoClient('mongodb://spider:spider@nas.korov.org:27017/spider')
+client = MongoClient("mongodb://spider:spider@%s:27017/spider" % (constant.SERVER_HOST))
 db = client['spider']
 book_collection = db['book_info']
 seen_urls_collection = db["seen_urls"]

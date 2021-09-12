@@ -5,10 +5,12 @@ from scrapy.http import Request
 from scrapy.dupefilters import BaseDupeFilter
 from pymongo import MongoClient
 
+from minions_spider import constant
+
 
 class BiqugeFilter(BaseDupeFilter):
     def __init__(self):
-        self.client = MongoClient('mongodb://spider:spider@nas.korov.org:27017/spider')
+        self.client = MongoClient("mongodb://spider:spider@%s:27017/spider" % (constant.SERVER_HOST))
         db = self.client['spider']
         self.book_collection = db['book_info']
         self.seen_urls_collection = db['seen_urls']
