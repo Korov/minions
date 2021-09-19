@@ -23,10 +23,7 @@ class connect_redis(threading.Thread):
             redis_db0.set(name=key, value=time.time_ns(), ex=10)
 
 
-thread1 = connect_redis("demo_key", 1)
 
-# 开启新线程
-thread1.start()
 
 all_keys = redis_db0.keys()
 print(all_keys)
@@ -37,4 +34,19 @@ print(result)
 count = redis_db0.scard("seen_urls_test")
 print(count)
 
-thread1.join()
+redis_db0.set("demo_key_1", time.time_ns())
+redis_db0.set("demo_key_2", time.time_ns())
+redis_db0.set("demo_key_3", time.time_ns())
+
+result = redis_db0.keys("demo_key_*")
+print(result)
+
+for key in redis_db0.keys("demo_key_*"):
+    result = redis_db0.get(key)
+    print(result)
+
+# thread1 = connect_redis("demo_key", 1)
+#
+# # 开启新线程
+# thread1.start()
+# thread1.join()

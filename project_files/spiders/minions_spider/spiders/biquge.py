@@ -6,7 +6,6 @@ import uuid
 
 import redis
 import scrapy
-from pymongo.errors import DuplicateKeyError
 from pymongo.mongo_client import MongoClient
 
 from minions_spider import constant
@@ -37,22 +36,21 @@ redis_db0 = redis.Redis(host=constant.REDIS_HOST, port=constant.REDIS_PORT, db=0
 
 
 class connect_redis(threading.Thread):
-    def __init__(self, redis_key, client_id):
+    def __init__(self, redis_key):
         threading.Thread.__init__(self)
         self.redis_key = redis_key
-        self.client_id = client_id
 
     def run(self):
         while True:
             time.sleep(8)
-            key = "%s_%s" % (self.redis_key, self.client_id)
-            redis_db0.set(name=key, value=time.time_ns(), ex=10)
+            redis_db0.set(name=self.redis_key, value=time.time_ns(), ex=10)
 
 
 class biquge(scrapy.Spider):
-    def __init__(self):
-        self.client_id = uuid.uuid1()
-        self.redis_key = "spider_biquge_client_id"
+    client_id = uuid.uuid1()
+    redis_key = "spider_biquge_client_id_%s" % (client_id)
+    thread = connect_redis(redis_key)
+    thread.start()
 
     name = "biquge"
     allowed_domains = ['xbiquge.la']
@@ -111,19 +109,15 @@ class biquge(scrapy.Spider):
             chapter_url = 'https://www.xbiquge.la' + book_chapter.attrib['href']
             chapter_name = book_chapter.root.text.strip()
             # 已经被处理过得的请求不再继续处理，在此处获取所有url是为了减少mongo请求次数，避免filter压力过大
-            if chapter_url in old_chapter_urls:
-                try:
-                    url = {"chapter_url": chapter_url}
-                    # seen_urls_collection.insert_one(url)
+            if chapter_url not in old_chapter_urls:
+                insert_count = redis_db0.sadd(self.redis_key, chapter_url)
+                if insert_count == 1:
+                    self.logger.info("crawl chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
+                                     chapter_name)
+                else:
                     self.logger.info("skip chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
                                      chapter_name)
-                except DuplicateKeyError:
-                    self.logger.info("duplicate chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
-                                     chapter_name)
-                continue
-            else:
-                self.logger.info("crawl chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
-                                 chapter_name)
+                    continue
 
             book_item = BiqugeItem(book_name=book_name, book_description=book_description, book_category=book_category,
                                    book_author=book_author, book_url=book_url, chapter_url=chapter_url,
