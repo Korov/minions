@@ -1,6 +1,7 @@
 import copy
 import datetime
 import time
+import uuid
 
 import scrapy
 from pymongo.errors import DuplicateKeyError
@@ -32,6 +33,9 @@ seen_urls_collection = db["seen_urls"]
 
 
 class biquge(scrapy.Spider):
+    def __init__(self):
+       client_id = uuid.uuid1()
+
     name = "biquge"
     allowed_domains = ['xbiquge.la']
     custom_settings = {
