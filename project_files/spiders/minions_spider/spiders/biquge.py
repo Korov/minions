@@ -25,7 +25,7 @@ headers = {
     "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
 }
 
-client = MongoClient("mongodb://spider:spider@%s:27017/spider" % (constant.SERVER_HOST))
+client = MongoClient("mongodb://spider:spider@%s/spider" % (constant.MONGO_HOST))
 db = client['spider']
 book_collection = db['book_info']
 seen_urls_collection = db["seen_urls"]

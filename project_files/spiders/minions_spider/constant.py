@@ -1,3 +1,4 @@
 START = 10
 END = 30
 SERVER_HOST = "nas.korov.org"
+MONGO_HOST = "%s:27017" % (SERVER_HOST)

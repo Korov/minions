@@ -12,7 +12,7 @@ url = 'https://www.xbiquge.la/fenlei/3_2.html'
 if 'fenlei' in url:
     print("aaa")
 
-client = MongoClient("mongodb://spider:spider@%s:27017/spider" % (constant.SERVER_HOST))
+client = MongoClient("mongodb://spider:spider@%s/spider" % (constant.MONGO_HOST))
 db = client['spider']
 collection = db['seen_urls']
 
