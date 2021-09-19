@@ -118,7 +118,7 @@ class MinionsSpiderDownloaderMiddleware:
         self.logger.info('Spider opened: %s', spider.name)
 
 
-class biquge_middleware:
+class BiqugeMiddleware:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.proxy_list = ['27.191.60.137', '223.214.219.141', '27.191.60.137', '223.214.219.141', '181.129.240.43']

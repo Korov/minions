@@ -7,7 +7,7 @@ from pymongo.errors import DuplicateKeyError
 from pymongo.mongo_client import MongoClient
 
 from minions_spider import constant
-from minions_spider.items import biquge_item
+from minions_spider.items import BiqugeItem
 
 headers = {
     "Host": "www.xbiquge.la",
@@ -25,7 +25,7 @@ headers = {
     "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
 }
 
-client = MongoClient("mongodb://spider:spider@%s/spider" % (constant.MONGO_HOST))
+client = MongoClient(constant.MONGO_URL)
 db = client['spider']
 book_collection = db['book_info']
 seen_urls_collection = db["seen_urls"]
@@ -103,9 +103,9 @@ class biquge(scrapy.Spider):
                 self.logger.info("crawl chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
                                  chapter_name)
 
-            book_item = biquge_item(book_name=book_name, book_description=book_description, book_category=book_category,
-                                    book_author=book_author, book_url=book_url, chapter_url=chapter_url,
-                                    chapter_name=chapter_name)
+            book_item = BiqugeItem(book_name=book_name, book_description=book_description, book_category=book_category,
+                                   book_author=book_author, book_url=book_url, chapter_url=chapter_url,
+                                   chapter_name=chapter_name)
             chapter_headers = {
                 "Host": "www.xbiquge.la",
                 "Connection": "keep-alive",

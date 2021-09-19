@@ -10,7 +10,7 @@ from minions_spider import constant
 
 class BiqugeFilter(BaseDupeFilter):
     def __init__(self):
-        self.client = MongoClient("mongodb://spider:spider@%s/spider" % (constant.MONGO_HOST))
+        self.client = MongoClient(constant.MONGO_URL)
         db = self.client['spider']
         self.book_collection = db['book_info']
         self.seen_urls_collection = db['seen_urls']

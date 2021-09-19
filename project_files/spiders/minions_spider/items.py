@@ -6,7 +6,7 @@
 import scrapy
 
 
-class biquge_item(scrapy.Item):
+class BiqugeItem(scrapy.Item):
     # define the fields for your item here like:
     book_name = scrapy.Field()
     book_description = scrapy.Field()
