@@ -3,7 +3,6 @@ import time
 
 exitFlag = 0
 
-
 class ThreadDemo(threading.Thread):
     def __init__(self, thread_id, name, counter):
         threading.Thread.__init__(self)
@@ -17,6 +16,7 @@ class ThreadDemo(threading.Thread):
         print("退出线程：" + self.name)
 
     def result(self):
+        threading.Thread.join(self)
         return "thread id:%s, thread name:%s" % (self.thread_id, self.name)
 
 
@@ -36,8 +36,6 @@ thread2 = ThreadDemo(2, "Thread-2", 2)
 # 开启新线程
 thread1.start()
 thread2.start()
-thread1.join()
-thread2.join()
 print("thread1 result:%s" % (thread1.result()))
 print("thread2 result:%s" % (thread2.result()))
 print("退出主线程")

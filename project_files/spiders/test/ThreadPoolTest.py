@@ -16,6 +16,8 @@ class ThreadDemo(threading.Thread):
         print("开始线程：" + self.name)
         print_time(self.name, self.counter, 5)
         print("退出线程：" + self.name)
+
+    def get_result(self):
         return "thread id:%s, thread name:%s" % (self.thread_id, self.name)
 
 

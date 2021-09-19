@@ -1,8 +1,10 @@
 import copy
 import datetime
+import threading
 import time
 import uuid
 
+import redis
 import scrapy
 from pymongo.errors import DuplicateKeyError
 from pymongo.mongo_client import MongoClient
@@ -26,15 +28,31 @@ headers = {
     "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
 }
 
-client = MongoClient(constant.MONGO_URL)
-db = client['spider']
-book_collection = db['book_info']
-seen_urls_collection = db["seen_urls"]
+mongo_client = MongoClient(constant.MONGO_URL)
+mongo_db_spider = mongo_client['spider']
+book_collection = mongo_db_spider['book_info']
+seen_urls_collection = mongo_db_spider["seen_urls"]
+redis_db0 = redis.Redis(host=constant.REDIS_HOST, port=constant.REDIS_PORT, db=0, username=constant.REDIS_USER,
+                        password=constant.REDIS_PASSWORD)
+
+
+class connect_redis(threading.Thread):
+    def __init__(self, redis_key, client_id):
+        threading.Thread.__init__(self)
+        self.redis_key = redis_key
+        self.client_id = client_id
+
+    def run(self):
+        while True:
+            time.sleep(8)
+            key = "%s_%s" % (self.redis_key, self.client_id)
+            redis_db0.set(name=key, value=time.time_ns(), ex=10)
 
 
 class biquge(scrapy.Spider):
     def __init__(self):
-       client_id = uuid.uuid1()
+        self.client_id = uuid.uuid1()
+        self.redis_key = "spider_biquge_client_id"
 
     name = "biquge"
     allowed_domains = ['xbiquge.la']
