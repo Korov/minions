@@ -45,27 +45,36 @@ class connect_redis(threading.Thread):
 
     def run(self):
         while True:
-            time.sleep(8)
-            redis_db0.set(name=self.redis_key, value=time.time_ns(), ex=10)
+            time.sleep(10)
+            redis_db0.set(name=self.redis_key, value=time.time_ns(), ex=20)
 
             client_uuids = set()
             value_keys = redis_db0.keys("spider_biquge_value_*")
-            print(value_keys)
+            self.logger.info(f"all value keys:{value_keys}")
             for key in value_keys:
                 key_str = key.decode("utf8")
                 client_uuids.add(key_str.replace("spider_biquge_value_", ""))
 
             client_ids = redis_db0.keys("spider_biquge_client_id_*")
+            self.logger.info(f"all client ids:{client_ids}")
             for key in client_ids:
                 client_id = key.decode("utf8")
-                client_uuids.remove(client_id.replace("spider_biquge_client_id_", ""))
+                client_uuid = client_id.replace("spider_biquge_client_id_", "")
+                if client_uuid in client_uuids:
+                    delete_key = client_uuids.remove(client_uuid)
+                    self.logger.info(f"deleted key:{delete_key}")
+                else:
+                    self.logger.info(f"client id:{client_uuid}, client ids:{client_uuids}")
 
+            self.logger.info(f"delete client uuids:{client_uuids}")
             if len(client_uuids) > 0:
                 for client_uuid in client_uuids:
                     set_key = f"spider_biquge_value_{client_uuid}"
                     delete_count = redis_db0.delete(set_key)
                     if delete_count == 1:
                         self.logger.info(f"delete set key:{set_key}")
+                    else:
+                        self.logger.info(f"key not exists:{set_key}")
 
 
 class biquge(scrapy.Spider):
