@@ -1,7 +1,9 @@
-import time
-import uuid
+set1 = {"a", "b", "c"}
+set2 = {"b", "d"}
+print(set1.difference(set2))
+set1.add("c")
+print(set1)
+set1.remove("c")
+print(set1)
 
-for index in range(0, 100):
-    client_id = uuid.uuid1()
-    print("client id:%s" % (client_id))
-    print("time:%s" % (time.time_ns()))
+

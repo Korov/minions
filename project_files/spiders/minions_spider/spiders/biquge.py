@@ -1,5 +1,6 @@
 import copy
 import datetime
+import logging
 import threading
 import time
 import uuid
@@ -39,29 +40,51 @@ class connect_redis(threading.Thread):
     def __init__(self, redis_key):
         threading.Thread.__init__(self)
         self.redis_key = redis_key
+        self.daemon = True
+        self.logger = logging.getLogger(__name__)
 
     def run(self):
         while True:
             time.sleep(8)
             redis_db0.set(name=self.redis_key, value=time.time_ns(), ex=10)
 
+            client_uuids = set()
+            value_keys = redis_db0.keys("spider_biquge_value_*")
+            print(value_keys)
+            for key in value_keys:
+                key_str = key.decode("utf8")
+                client_uuids.add(key_str.replace("spider_biquge_value_", ""))
+
+            client_ids = redis_db0.keys("spider_biquge_client_id_*")
+            for key in client_ids:
+                client_id = key.decode("utf8")
+                client_uuids.remove(client_id.replace("spider_biquge_client_id_", ""))
+
+            if len(client_uuids) > 0:
+                for client_uuid in client_uuids:
+                    set_key = f"spider_biquge_value_{client_uuid}"
+                    delete_count = redis_db0.delete(set_key)
+                    if delete_count == 1:
+                        self.logger.info(f"delete set key:{set_key}")
+
 
 class biquge(scrapy.Spider):
     client_id = uuid.uuid1()
-    redis_key = "spider_biquge_client_id_%s" % (client_id)
-    thread = connect_redis(redis_key)
+    redis_client_key = f"spider_biquge_client_id_{client_id}"
+    redis_value_key = f"spider_biquge_value_{client_id}"
+    thread = connect_redis(redis_client_key)
     thread.start()
 
     name = "biquge"
     allowed_domains = ['xbiquge.la']
     custom_settings = {
-        'ITEM_PIPELINES': {'minions_spider.pipelines.biquge_pipeline': 300},
+        'ITEM_PIPELINES': {'minions_spider.pipelines.BiqugePipeline': 300},
         # 'DOWNLOADER_MIDDLEWARES': {'minions_spider.middlewares.biquge_middleware': 300},
         'DUPEFILTER_CLASS': 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 120,
         'CONCURRENT_REQUESTS_PER_DOMAIN': 50,
         # 'CONCURRENT_REQUESTS_PER_IP': 50,
-        'DOWNLOAD_DELAY': 3,
+        'DOWNLOAD_DELAY': 5,
         'AUTOTHROTTLE_ENABLED': True,
         'AUTOTHROTTLE_START_DELAY': 5,
         'AUTOTHROTTLE_MAX_DELAY': 60,
@@ -110,7 +133,7 @@ class biquge(scrapy.Spider):
             chapter_name = book_chapter.root.text.strip()
             # 已经被处理过得的请求不再继续处理，在此处获取所有url是为了减少mongo请求次数，避免filter压力过大
             if chapter_url not in old_chapter_urls:
-                insert_count = redis_db0.sadd(self.redis_key, chapter_url)
+                insert_count = redis_db0.sadd(self.redis_value_key, chapter_url)
                 if insert_count == 1:
                     self.logger.info("crawl chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,
                                      chapter_name)

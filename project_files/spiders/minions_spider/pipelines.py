@@ -7,6 +7,7 @@
 # useful for handling different item types with a single interface
 import logging
 
+import redis
 from pymongo import MongoClient
 from pymongo.errors import DuplicateKeyError
 
@@ -15,9 +16,12 @@ from minions_spider import constant
 
 class BiqugePipeline(object):
     def open_spider(self, spider):
-        self.client = MongoClient(constant.MONGO_URL)
-        db = self.client['spider']
-        self.collection = db['book_info']
+        self.mongo_client = MongoClient(constant.MONGO_URL)
+        mongo_db = self.mongo_client['spider']
+        self.mongo_collection = mongo_db['book_info']
+        self.redis_db0 = redis.Redis(host=constant.REDIS_HOST, port=constant.REDIS_PORT, db=0,
+                                     username=constant.REDIS_USER,
+                                     password=constant.REDIS_PASSWORD)
         self.logger = logging.getLogger(__name__)
 
     def process_item(self, item, spider):
@@ -31,11 +35,12 @@ class BiqugePipeline(object):
                      "chapter_content": item['chapter_content'],
                      "timestamp": item['timestamp'],
                      "date_time": item['date_time']}
-        old_book_info = {"chapter_url": item['chapter_url']}
-        count = self.collection.count_documents(old_book_info)
+        chapter_url = item["chapter_url"]
+        old_book_info = {"chapter_url": chapter_url}
+        count = self.mongo_collection.count_documents(old_book_info)
         if count == 0:
             try:
-                self.collection.insert_one(book_info)
+                self.mongo_collection.insert_one(book_info)
                 self.logger.info("insert book:%s, chapter:%s", item['book_name'], item['chapter_name'])
             except DuplicateKeyError:
                 self.logger.info("insert failed with book:%s, chapter:%s exists", item['book_name'],
@@ -43,7 +48,9 @@ class BiqugePipeline(object):
         else:
             self.logger.info("book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
 
+        self.redis_db0.srem(spider.redis_value_key, chapter_url)
+        self.logger.info(f"remove key:{spider.redis_value_key}, chapter url:{chapter_url}")
         return item
 
     def close_spider(self, spider):
-        self.client.close()
+        self.mongo_client.close()
