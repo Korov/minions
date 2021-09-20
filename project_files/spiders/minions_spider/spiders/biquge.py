@@ -142,6 +142,19 @@ class biquge(scrapy.Spider):
             chapter_name = book_chapter.root.text.strip()
             # 已经被处理过得的请求不再继续处理，在此处获取所有url是为了减少mongo请求次数，避免filter压力过大
             if chapter_url not in old_chapter_urls:
+
+                client_uuids = set()
+                value_keys = redis_db0.keys("spider_biquge_value_*")
+                self.logger.info(f"all value keys:{value_keys}")
+                for key in value_keys:
+                    key_str = key.decode("utf8")
+                    client_uuids.add(key_str.replace("spider_biquge_value_", ""))
+
+                for client_uuid in client_uuids:
+                    if redis_db0.sismember(f"spider_biquge_value_{client_uuid}", chapter_url):
+                        self.logger.info(f"chapter url:{chapter_url} has been handled by client id:{client_uuid}")
+                        continue
+
                 insert_count = redis_db0.sadd(self.redis_value_key, chapter_url)
                 if insert_count == 1:
                     self.logger.info("crawl chapter url:%s, book name:%s, chapter name:%s", chapter_url, book_name,

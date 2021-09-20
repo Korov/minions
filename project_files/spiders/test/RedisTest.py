@@ -37,22 +37,6 @@ redis_db0.set("demo_key_1", time.time_ns(), ex=100)
 redis_db0.set("demo_key_2", time.time_ns(), ex=100)
 redis_db0.set("demo_key_3", time.time_ns(), ex=100)
 
-while True:
-    time.sleep(10)
-    client_uuids = set()
-    value_keys = redis_db0.keys("spider_biquge_value_*")
-    print(value_keys)
-    for key in value_keys:
-        key_str = key.decode("utf8")
-        client_uuids.add(key_str.replace("spider_biquge_value_", ""))
-
-    client_ids = redis_db0.keys("spider_biquge_client_id_*")
-    for key in client_ids:
-        client_id = key.decode("utf8")
-        client_uuids.remove(client_id.replace("spider_biquge_client_id_", ""))
-
-    if len(client_uuids) > 0:
-        for client_uuid in client_uuids:
-            set_key = f"spider_biquge_value_{client_uuid}"
-            delete_count = redis_db0.delete(set_key)
-            print(f"delete count:{delete_count}")
+redis_db0.sadd("set_key_test", "demo1", "demo2", "demo3")
+values = redis_db0.sismember("set_key_test", "demo1")
+print(values)

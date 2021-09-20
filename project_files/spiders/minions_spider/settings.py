@@ -107,7 +107,7 @@ if not is_exists:
     os.mkdir("logs")
 
 now = datetime.datetime.now()
-LOG_FILE = "logs/spider_{}_{}_{}.log".format(now.year, now.month, now.day)
+LOG_FILE = "logs/spider1_{}_{}_{}.log".format(now.year, now.month, now.day)
 # LOG_LEVEL = 'DEBUG'
 LOG_LEVEL = 'INFO'
 LOG_STDOUT = False
