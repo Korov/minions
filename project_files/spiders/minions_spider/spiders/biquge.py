@@ -3,6 +3,7 @@ import datetime
 import logging
 import threading
 import time
+import traceback
 import uuid
 
 import redis
@@ -49,14 +50,14 @@ class connect_redis(threading.Thread):
             try:
                 redis_db0.set(name=self.redis_key, value=time.time_ns(), ex=20)
             except Exception as e:
-                self.logger.error(f"set redis client key ${self.redis_key} failed, exception: ${e}")
+                self.logger.error(f"set redis client key {self.redis_key} failed, exception: {traceback.format_exc()}")
 
             client_uuids = set()
             value_keys = []
             try:
                 value_keys = redis_db0.keys("spider_biquge_value_*")
             except Exception as e:
-                self.logger.error(f"query all redis value keys failed, exception: ${e}")
+                self.logger.error(f"query all redis value keys failed, exception: {traceback.format_exc()}")
 
             self.logger.info(f"all value keys:{value_keys}")
             for key in value_keys:
@@ -67,7 +68,7 @@ class connect_redis(threading.Thread):
             try:
                 client_ids = redis_db0.keys("spider_biquge_client_id_*")
             except Exception as e:
-                self.logger.error(f"query all client keys failed, exception: ${e}")
+                self.logger.error(f"query all client keys failed, exception: {traceback.format_exc()}")
             self.logger.info(f"all client ids:{client_ids}")
             for key in client_ids:
                 client_id = key.decode("utf8")
@@ -86,7 +87,7 @@ class connect_redis(threading.Thread):
                     try:
                         delete_count = redis_db0.delete(set_key)
                     except Exception as e:
-                        self.logger.error(f"delete redis value key ${set_key} failed, exception: ${e}")
+                        self.logger.error(f"delete redis value key {set_key} failed, exception: {traceback.format_exc()}")
                     if delete_count == 1:
                         self.logger.info(f"delete set key:{set_key}")
                     else:
