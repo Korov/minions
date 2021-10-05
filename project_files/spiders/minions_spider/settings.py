@@ -100,14 +100,14 @@ DOWNLOADER_MIDDLEWARES = {
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
 
 SPLASH_URL = 'http://linux.korov.org:8050'
-FEED_EXPORT_ENCODING='utf-8'
+FEED_EXPORT_ENCODING = 'utf-8'
 
 is_exists = os.path.exists("logs")
 if not is_exists:
     os.mkdir("logs")
 
 now = datetime.datetime.now()
-LOG_FILE = "logs/spider_{}_{}_{}.log".format(now.year, now.month, now.day)
+LOG_FILE = "logs/spider_{}_{}_{}_{}_{}_{}.log".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
 # LOG_LEVEL = 'DEBUG'
 LOG_LEVEL = 'INFO'
 LOG_STDOUT = False
