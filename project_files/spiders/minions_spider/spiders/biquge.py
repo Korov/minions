@@ -46,16 +46,28 @@ class connect_redis(threading.Thread):
     def run(self):
         while True:
             time.sleep(10)
-            redis_db0.set(name=self.redis_key, value=time.time_ns(), ex=20)
+            try:
+                redis_db0.set(name=self.redis_key, value=time.time_ns(), ex=20)
+            except Exception as e:
+                self.logger.error(f"set redis client key ${self.redis_key} failed, exception: ${e}")
 
             client_uuids = set()
-            value_keys = redis_db0.keys("spider_biquge_value_*")
+            value_keys = []
+            try:
+                value_keys = redis_db0.keys("spider_biquge_value_*")
+            except Exception as e:
+                self.logger.error(f"query all redis value keys failed, exception: ${e}")
+
             self.logger.info(f"all value keys:{value_keys}")
             for key in value_keys:
                 key_str = key.decode("utf8")
                 client_uuids.add(key_str.replace("spider_biquge_value_", ""))
 
-            client_ids = redis_db0.keys("spider_biquge_client_id_*")
+            client_ids = []
+            try:
+                client_ids = redis_db0.keys("spider_biquge_client_id_*")
+            except Exception as e:
+                self.logger.error(f"query all client keys failed, exception: ${e}")
             self.logger.info(f"all client ids:{client_ids}")
             for key in client_ids:
                 client_id = key.decode("utf8")
@@ -70,7 +82,11 @@ class connect_redis(threading.Thread):
             if len(client_uuids) > 0:
                 for client_uuid in client_uuids:
                     set_key = f"spider_biquge_value_{client_uuid}"
-                    delete_count = redis_db0.delete(set_key)
+                    delete_count = 0
+                    try:
+                        delete_count = redis_db0.delete(set_key)
+                    except Exception as e:
+                        self.logger.error(f"delete redis value key ${set_key} failed, exception: ${e}")
                     if delete_count == 1:
                         self.logger.info(f"delete set key:{set_key}")
                     else:
