@@ -1,7 +1,7 @@
 kafka-python ==2.0.2
 scrapyd ==1.2.1
 scrapyd-client ==1.1.0
-scrapy-splash ==0.7.2
+scrapy-splash ==0.8.0
 requests ==2.26.0
 pycryptodome ==3.10.1
 Scrapy ==2.5.0
