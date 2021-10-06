@@ -18,9 +18,6 @@ class XuanshuPipeline(object):
         self.mongo_client = MongoClient(constant.MONGO_URL)
         mongo_db = self.mongo_client['spider']
         self.mongo_collection = mongo_db['xuanshu_info']
-        self.redis_db0 = redis.Redis(host=constant.REDIS_HOST, port=constant.REDIS_PORT, db=0,
-                                     username=constant.REDIS_USER,
-                                     password=constant.REDIS_PASSWORD)
         self.logger = logging.getLogger(__name__)
 
     def process_item(self, item, spider):
@@ -47,7 +44,6 @@ class XuanshuPipeline(object):
         else:
             self.logger.info("book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
 
-        self.redis_db0.srem(spider.redis_value_key, chapter_url)
         self.logger.info(f"remove key:{spider.redis_value_key}, chapter url:{chapter_url}")
         return item
 

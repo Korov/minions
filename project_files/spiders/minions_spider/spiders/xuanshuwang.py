@@ -1,10 +1,12 @@
 import copy
 import datetime
+import random
 import time
 
 import scrapy
-from pymongo.mongo_client import MongoClient
 from loguru import logger
+from pymongo.mongo_client import MongoClient
+
 from minions_spider import constant
 from minions_spider.items import BiqugeItem
 
@@ -31,15 +33,19 @@ mongo_client = MongoClient(constant.MONGO_URL)
 mongo_db_spider = mongo_client['spider']
 book_collection = mongo_db_spider['xuanshu_info']
 
+proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999',
+              '66.183.100.156:3128']
+
 
 class xuanshu(scrapy.Spider):
     name = "xuanshu"
     allowed_domains = ['xuanshu.com']
     custom_settings = {
         'ITEM_PIPELINES': {'minions_spider.pipelines.XuanshuPipeline': 300},
-        'CONCURRENT_REQUESTS': 16,
+        # 'DOWNLOADER_MIDDLEWARES': {'minions_spider.middlewares.MinionsSpiderDownloaderMiddleware': 300},
+        'CONCURRENT_REQUESTS': 32,
         'CONCURRENT_REQUESTS_PER_DOMAIN': 50,
-        'DOWNLOAD_DELAY': 2,
+        'DOWNLOAD_DELAY': 1,
         'COOKIES_ENABLED': False
     }
 
@@ -49,7 +55,9 @@ class xuanshu(scrapy.Spider):
         ]
         for url in urls:
             headers["Referer"] = url
-            yield scrapy.Request(url=url, headers=headers, callback=self.parse_books, priority=1)
+            yield scrapy.Request(url=url, headers=headers,
+                                 meta={'proxy': 'https://{proxy}'.format(proxy=proxy_list[random.randint(0, 4)])},
+                                 callback=self.parse_books, priority=1)
 
     def parse_books(self, response, **kwargs):
         books = response.selector.xpath("//div[@class='xname']/a")
@@ -59,7 +67,9 @@ class xuanshu(scrapy.Spider):
         #     yield scrapy.Request(url=book_url, headers=headers, callback=self.parse_chapters, priority=2)
         book_url = f"https://www.xuanshu.com{str(books[0].attrib['href'])}"
         headers.pop("Referer")
-        yield scrapy.Request(url=book_url, headers=headers, callback=self.parse_chapters, priority=2)
+        yield scrapy.Request(url=book_url, headers=headers,
+                             meta={'proxy': 'https://{proxy}'.format(proxy=proxy_list[random.randint(0, 4)])},
+                             callback=self.parse_chapters, priority=2)
 
     def parse_chapters(self, response, **kwargs):
         chapters = response.selector.xpath("//div[@class='pc_list']/ul/li/a")
@@ -73,11 +83,13 @@ class xuanshu(scrapy.Spider):
             chapter_name = str(chapter.xpath("text()").extract()[0])
 
             book_item = BiqugeItem(book_name=book_name, book_description=book_desc, book_category=book_category,
-                                   book_author=author_name, book_url=f"https://www.xuanshu.com/book/{book_id}", chapter_url=chapter_url,
+                                   book_author=author_name, book_url=f"https://www.xuanshu.com/book/{book_id}",
+                                   chapter_url=chapter_url,
                                    chapter_name=chapter_name)
-            yield scrapy.Request(url=chapter_url, headers=headers, meta={"item": copy.deepcopy(book_item)},
+            yield scrapy.Request(url=chapter_url, headers=headers, meta={"item": copy.deepcopy(book_item),
+                                                                         'proxy': 'https://{proxy}'.format(
+                                                                             proxy=proxy_list[random.randint(0, 4)])},
                                  callback=self.parse_chapter, priority=3)
-
 
     def parse_chapter(self, response, **kwargs):
         chapter_contents = response.selector.xpath("//div[@id='content1']/text()")
@@ -91,4 +103,3 @@ class xuanshu(scrapy.Spider):
         item['date_time'] = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S.%f')
         logger.info(f"book_name:{item['book_name']}, chapter_name:{item['chapter_name']}")
         yield item
-

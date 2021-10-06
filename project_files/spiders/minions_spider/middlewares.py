@@ -86,7 +86,7 @@ class MinionsSpiderDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        proxy_list = ['112.95.20.73', '112.95.20.73', '112.95.20.73', '117.141.155.244', '59.120.147.82']
+        proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999', '66.183.100.156:3128']
         request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxy_list[random.randint(0, 4)])
         self.logger.info('Spider request: %s', request)
 
@@ -97,10 +97,10 @@ class MinionsSpiderDownloaderMiddleware:
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
-        proxy_list = ['112.95.20.73', '112.95.20.73', '112.95.20.73', '117.141.155.244', '59.120.147.82']
+        self.proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999', '66.183.100.156:3128']
         if response.status != 200:
             print("again response ip:")
-            request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxy_list[random.randint(0, 4)])
+            request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 4)])
             return request
         return response
 
@@ -121,7 +121,7 @@ class MinionsSpiderDownloaderMiddleware:
 class BiqugeMiddleware:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.proxy_list = ['27.191.60.137', '223.214.219.141', '27.191.60.137', '223.214.219.141', '181.129.240.43']
+        self.proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999', '66.183.100.156:3128']
 
     def process_request(self, request, spider):
         request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 4)])

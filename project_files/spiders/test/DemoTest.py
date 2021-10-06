@@ -6,4 +6,4 @@ print(set1)
 set1.remove("c")
 print(set1)
 
-
+print("proxy:{proxy}".format(proxy="aaa"))
