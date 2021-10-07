@@ -1,9 +1,13 @@
-set1 = {"a", "b", "c"}
-set2 = {"b", "d"}
-print(set1.difference(set2))
-set1.add("c")
-print(set1)
-set1.remove("c")
-print(set1)
+import random
 
-print("proxy:{proxy}".format(proxy="aaa"))
+from loguru import logger
+
+from minions_spider.constant import PROXY_SET
+
+logger.info(PROXY_SET)
+
+
+proxy_list = list(PROXY_SET)
+for index in range(0,10):
+    proxy = proxy_list[random.randint(0, len(proxy_list))]
+    logger.info(proxy)

@@ -1,5 +1,6 @@
 import copy
 import telnetlib
+from collections import Set
 
 from loguru import logger
 import logging
@@ -27,13 +28,14 @@ headers = {
 }
 
 log = logging.getLogger(__name__)
+valid_ips = set()
 
 class biquge(scrapy.Spider):
     name = "66ip"
     custom_settings = {
         # 'ITEM_PIPELINES': {'minions_spider.pipelines.biquge_pipeline': 300},
         'DOWNLOAD_TIMEOUT': 120,
-        'CONCURRENT_REQUESTS': 32,
+        'CONCURRENT_REQUESTS': 16,
         # 'CONCURRENT_REQUESTS_PER_DOMAIN': 50,
         'DOWNLOAD_DELAY': 0,
         # 'AUTOTHROTTLE_ENABLED': True,
@@ -57,9 +59,14 @@ class biquge(scrapy.Spider):
             ip = ips.xpath("./td[1]/text()")[0].extract()
             port = ips.xpath("./td[2]/text()")[0].extract()
             try:
-                telnetlib.Telnet(ip, port, timeout=3)
-                logger.info(f"=========valid ip:port = {ip}:{port}")
-                log.info(f"=========valid ip:port = {ip}:{port}")
+                telnetlib.Telnet(ip, port, timeout=1)
+                valid_ip = f"{ip}:{port}"
+                if (valid_ip in valid_ips) is False:
+                    valid_ips.add(f"{ip}:{port}")
+                    logger.info(f"=========valid ip:port = {ip}:{port}")
+                    logger.info(f"count:{len(valid_ips)}, valid_ips:{valid_ips}")
+                    log.info(f"=========valid ip:port = {ip}:{port}")
+                    log.info(valid_ips)
             except Exception as e:
                 # logger.info(f"*********invalid ip:{ip}, port:{port}")
                 log.info(f"*********invalid ip:{ip}, port:{port}")
