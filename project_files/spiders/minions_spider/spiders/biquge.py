@@ -98,9 +98,6 @@ class biquge(scrapy.Spider):
     client_id = uuid.uuid1()
     redis_client_key = f"spider_biquge_client_id_{client_id}"
     redis_value_key = f"spider_biquge_value_{client_id}"
-    # thread = connect_redis(redis_client_key)
-    # thread.start()
-
     name = "biquge"
     allowed_domains = ['xbiquge.la']
     custom_settings = {
@@ -118,6 +115,8 @@ class biquge(scrapy.Spider):
     }
 
     def start_requests(self):
+        thread = connect_redis(self.redis_client_key)
+        thread.start()
         urls = [
             "https://www.xbiquge.la/dushixiaoshuo/",
             "https://www.xbiquge.la/xiuzhenxiaoshuo/",
