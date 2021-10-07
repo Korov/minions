@@ -1,6 +1,5 @@
 import copy
 import json
-import logging
 from urllib.parse import urlencode
 
 import scrapy
