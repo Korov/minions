@@ -9,5 +9,7 @@ logger.info(PROXY_SET)
 
 proxy_list = list(PROXY_SET)
 for index in range(0,10):
-    proxy = proxy_list[random.randint(0, len(proxy_list))]
+    i = random.randint(0, len(proxy_list) - 1)
+    logger.info(i)
+    proxy = proxy_list[i]
     logger.info(proxy)

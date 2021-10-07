@@ -2,6 +2,7 @@ import copy
 import telnetlib
 from collections import Set
 
+import requests
 from loguru import logger
 import logging
 
@@ -60,13 +61,18 @@ class biquge(scrapy.Spider):
             port = ips.xpath("./td[2]/text()")[0].extract()
             try:
                 telnetlib.Telnet(ip, port, timeout=1)
+                proxies = {"http": f"http://{ip}:{port}", "https": f"https://{ip}:{port}"}
+                response = requests.get(url="http://icanhazip.com", proxies=proxies)
                 valid_ip = f"{ip}:{port}"
-                if (valid_ip in valid_ips) is False:
-                    valid_ips.add(f"{ip}:{port}")
-                    logger.info(f"=========valid ip:port = {ip}:{port}")
-                    logger.info(f"count:{len(valid_ips)}, valid_ips:{valid_ips}")
-                    log.info(f"=========valid ip:port = {ip}:{port}")
-                    log.info(valid_ips)
+                logger.info(f"{response}, {valid_ip}")
+                if response.status_code == 200:
+                    if ip == str(response.text.strip()):
+                        if (valid_ip in valid_ips) is False:
+                            valid_ips.add(f"{ip}:{port}")
+                            logger.info(f"=========valid ip:port = {ip}:{port}")
+                            logger.info(f"count:{len(valid_ips)}, valid_ips:{valid_ips}")
+                            log.info(f"=========valid ip:port = {ip}:{port}")
+                            log.info(valid_ips)
             except Exception as e:
                 # logger.info(f"*********invalid ip:{ip}, port:{port}")
                 log.info(f"*********invalid ip:{ip}, port:{port}")
