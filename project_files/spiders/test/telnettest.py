@@ -1,7 +1,7 @@
 import telnetlib
 from loguru import logger
 
-proxy_list = ['27.191.60.222:3256', '124.205.153.90:80', '27.191.60.145:3256']
+proxy_list = ['27.191.60.222:3256', '124.205.153.90:80', '124.205.153.90:80']
 
 for proxy in proxy_list:
     try:
