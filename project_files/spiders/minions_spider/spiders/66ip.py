@@ -44,8 +44,9 @@ class biquge(scrapy.Spider):
 
     def start_requests(self):
         urls = [
-            # "http://www.66ip.cn/2.html",
+            "http://www.66ip.cn/2.html",
             "http://www.66ip.cn/areaindex_1/1.html",
+            "http://www.66ip.cn/areaindex_2/1.html",
         ]
         for url in urls:
             yield scrapy.Request(url=url, headers=headers, meta={"offset": copy.deepcopy(0)}, callback=self.parse_ip)
@@ -53,7 +54,6 @@ class biquge(scrapy.Spider):
     def parse_ip(self, response, **kwargs):
         ip_list = response.selector.xpath("//div[@align='center']/table/tr")[1:]
         for ips in ip_list:
-            logger.info(ips)
             ip = ips.xpath("./td[1]/text()")[0].extract()
             port = ips.xpath("./td[2]/text()")[0].extract()
             try:
@@ -70,7 +70,7 @@ class biquge(scrapy.Spider):
         next_page_url = f"http://www.66ip.cn{str(next_page.attrib['href'])}"
         content = next_page.xpath('./text()').extract()[0]
         if "»" == content:
-            logger.info(f"{next_page_url}, {content}")
+            # logger.info(f"{next_page_url}, {content}")
             yield scrapy.Request(url=next_page_url, headers=headers, callback=self.parse_ip)
         else:
             logger.info("over")
