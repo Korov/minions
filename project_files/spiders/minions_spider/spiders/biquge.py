@@ -36,6 +36,7 @@ seen_urls_collection = mongo_db_spider["seen_urls"]
 redis_db0 = redis.Redis(host=constant.REDIS_HOST, port=constant.REDIS_PORT, db=0, username=constant.REDIS_USER,
                         password=constant.REDIS_PASSWORD)
 
+proxy_list = list(constant.PROXY_SET)
 
 class connect_redis(threading.Thread):
     def __init__(self, redis_key):
@@ -87,7 +88,8 @@ class connect_redis(threading.Thread):
                     try:
                         delete_count = redis_db0.delete(set_key)
                     except Exception as e:
-                        self.logger.error(f"delete redis value key {set_key} failed, exception: {traceback.format_exc()}")
+                        self.logger.error(
+                            f"delete redis value key {set_key} failed, exception: {traceback.format_exc()}")
                     if delete_count == 1:
                         self.logger.info(f"delete set key:{set_key}")
                     else:
@@ -102,12 +104,12 @@ class biquge(scrapy.Spider):
     allowed_domains = ['xbiquge.la']
     custom_settings = {
         'ITEM_PIPELINES': {'minions_spider.pipelines.BiqugePipeline': 300},
-        # 'DOWNLOADER_MIDDLEWARES': {'minions_spider.middlewares.biquge_middleware': 300},
+        'DOWNLOADER_MIDDLEWARES': {'minions_spider.middlewares.BiqugeMiddleware': 300},
         'DUPEFILTER_CLASS': 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 120,
         'CONCURRENT_REQUESTS_PER_DOMAIN': 50,
         # 'CONCURRENT_REQUESTS_PER_IP': 50,
-        'DOWNLOAD_DELAY': 5,
+        'DOWNLOAD_DELAY': 1,
         'AUTOTHROTTLE_ENABLED': True,
         'AUTOTHROTTLE_START_DELAY': 5,
         'AUTOTHROTTLE_MAX_DELAY': 60,

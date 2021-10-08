@@ -9,6 +9,7 @@ from scrapy import signals
 
 
 # useful for handling different item types with a single interface
+from minions_spider import constant
 
 
 class MinionsSpiderSpiderMiddleware:
@@ -121,10 +122,13 @@ class MinionsSpiderDownloaderMiddleware:
 class BiqugeMiddleware:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        self.proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999', '66.183.100.156:3128']
+        self.proxy_list = list(constant.PROXY_SET)
 
     def process_request(self, request, spider):
-        request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 4)])
+        random_index = random.randint(0, len(self.proxy_list) - 1)
+        proxy = self.proxy_list[random_index]
+        self.logger.info(f"get proxy:{proxy}")
+        request.meta['proxy'] = f'https://{proxy}'
         self.logger.info('Spider request: %s', request)
 
     def process_response(self, request, response, spider):
