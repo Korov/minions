@@ -7,7 +7,6 @@ import random
 
 from scrapy import signals
 
-
 # useful for handling different item types with a single interface
 from minions_spider import constant
 
@@ -87,7 +86,8 @@ class MinionsSpiderDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999', '66.183.100.156:3128']
+        proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999',
+                      '66.183.100.156:3128']
         request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxy_list[random.randint(0, 4)])
         self.logger.info('Spider request: %s', request)
 
@@ -98,7 +98,8 @@ class MinionsSpiderDownloaderMiddleware:
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
-        self.proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999', '66.183.100.156:3128']
+        self.proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999',
+                           '66.183.100.156:3128']
         if response.status != 200:
             print("again response ip:")
             request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 4)])
@@ -123,10 +124,14 @@ class BiqugeMiddleware:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
         self.proxy_list = list(constant.PROXY_SET)
+        self.start_index = 0
 
     def process_request(self, request, spider):
-        random_index = random.randint(0, len(self.proxy_list) - 1)
-        proxy = self.proxy_list[random_index]
+        self.logger.info(f"start index:{self.start_index}, length:{len(self.proxy_list)}")
+        proxy = self.proxy_list[self.start_index if self.start_index > len(self.proxy_list) else 0]
+        self.start_index = self.start_index + 1
+        if self.start_index > len(self.proxy_list):
+            self.start_index = 0
         self.logger.info(f"get proxy:{proxy}")
         request.meta['proxy'] = f'https://{proxy}'
         self.logger.info('Spider request: %s', request)

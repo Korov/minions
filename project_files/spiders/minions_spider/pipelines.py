@@ -90,3 +90,39 @@ class BiqugePipeline(object):
 
     def close_spider(self, spider):
         self.mongo_client.close()
+
+class BiqugeAllPipeline(object):
+    def open_spider(self, spider):
+        self.mongo_client = MongoClient(constant.MONGO_URL)
+        mongo_db = self.mongo_client['spider']
+        self.mongo_collection = mongo_db['book_info_all']
+        self.logger = logging.getLogger(__name__)
+
+    def process_item(self, item, spider):
+        book_info = {"book_name": item['book_name'],
+                     "book_description": item['book_description'],
+                     "book_category": item['book_category'],
+                     "book_author": item['book_author'],
+                     "book_url": item['book_url'],
+                     "chapter_url": item['chapter_url'],
+                     "chapter_name": item['chapter_name'],
+                     "chapter_content": item['chapter_content'],
+                     "chapter_body": item['chapter_body'],
+                     "timestamp": item['timestamp'],
+                     "date_time": item['date_time']}
+        chapter_url = item["chapter_url"]
+        old_book_info = {"chapter_url": chapter_url}
+        count = self.mongo_collection.count_documents(old_book_info)
+        if count == 0:
+            try:
+                self.mongo_collection.insert_one(book_info)
+                self.logger.info("insert book:%s, chapter:%s", item['book_name'], item['chapter_name'])
+            except DuplicateKeyError:
+                self.logger.info("insert failed with book:%s, chapter:%s exists", item['book_name'],
+                                 item['chapter_name'])
+        else:
+            self.logger.info("book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
+        return item
+
+    def close_spider(self, spider):
+        self.mongo_client.close()

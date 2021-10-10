@@ -16,5 +16,6 @@ class BiqugeItem(scrapy.Item):
     chapter_url = scrapy.Field()
     chapter_name = scrapy.Field()
     chapter_content = scrapy.Field()
+    chapter_body = scrapy.Field()
     timestamp = scrapy.Field()
     date_time = scrapy.Field()
