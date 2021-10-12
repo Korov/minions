@@ -29,7 +29,7 @@ ROBOTSTXT_OBEY = False
 # See also autothrottle settings and docs
 # DOWNLOAD_DELAY = 3
 DOWNLOAD_TIMEOUT = 120
-RETRY_ENABLED = False
+RETRY_ENABLED = True
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16

@@ -5,7 +5,10 @@
 import logging
 import random
 
+import requests
 from scrapy import signals
+from scrapy.downloadermiddlewares.retry import RetryMiddleware
+from scrapy.utils.response import response_status_message
 
 # useful for handling different item types with a single interface
 from minions_spider import constant
@@ -142,3 +145,36 @@ class BiqugeMiddleware:
             request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 4)])
             return request
         return response
+
+
+class BiqugeRetryMiddleware(RetryMiddleware):
+
+    def process_response(self, request, response, spider):
+        if request.meta.get('dont_retry', False):
+            return response
+
+        if response.status in self.retry_http_codes:
+            old_proxy = request.meta['proxy']
+            constant.PROXY_SET.remove(old_proxy)
+            reason = response_status_message(response.status)
+            try:
+                proxy = list(constant.PROXY_SET)[0]
+                request.meta['proxy'] = 'https://' + proxy
+            except requests.exceptions.RequestException:
+                print('获取讯代理ip失败！')
+                spider.logger.error('获取讯代理ip失败！')
+
+            return self._retry(request, reason, spider) or response
+        return response
+
+
+    def process_exception(self, request, exception, spider):
+        if isinstance(exception, self.EXCEPTIONS_TO_RETRY) and not request.meta.get('dont_retry', False):
+            try:
+                proxy = list(constant.PROXY_SET)[0]
+                request.meta['proxy'] = 'https://' + proxy
+            except requests.exceptions.RequestException:
+                print('获取讯代理ip失败！')
+                spider.logger.error('获取讯代理ip失败！')
+
+            return self._retry(request, exception, spider)

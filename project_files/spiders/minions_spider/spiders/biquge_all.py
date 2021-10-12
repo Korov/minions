@@ -1,12 +1,7 @@
 import copy
 import datetime
-import logging
-import threading
 import time
-import traceback
-import uuid
 
-import redis
 import scrapy
 from pymongo.mongo_client import MongoClient
 
@@ -36,15 +31,21 @@ book_collection = mongo_db_spider['book_info_all']
 proxy_list = list(constant.PROXY_SET)
 
 
+# ua = UserAgent(use_cache_server=False)
+
+
 class biquge(scrapy.Spider):
     name = "biquge_all"
     allowed_domains = ['xbiquge.la']
     custom_settings = {
         'ITEM_PIPELINES': {'minions_spider.pipelines.BiqugeAllPipeline': 300},
-        'DOWNLOADER_MIDDLEWARES': {'minions_spider.middlewares.BiqugeMiddleware': 300},
+        'DOWNLOADER_MIDDLEWARES': {
+            'minions_spider.middlewares.BiqugeMiddleware': 300,
+            'minions_spider.middlewares.BiqugeRetryMiddleware': 300
+        },
         # 'DUPEFILTER_CLASS': 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 60,
-        'CONCURRENT_REQUESTS': 16,
+        'CONCURRENT_REQUESTS': 8,
         # 'CONCURRENT_REQUESTS_PER_DOMAIN': 50,
         # 'CONCURRENT_REQUESTS_PER_IP': 50,
         'DOWNLOAD_DELAY': 0,
@@ -64,20 +65,24 @@ class biquge(scrapy.Spider):
             "https://www.xbiquge.la/kehuanxiaoshuo/"
         ]
         for url in urls:
+            # headers['User-Agent'] = ua.random
             yield scrapy.Request(url=url, headers=headers, callback=self.parse_books, priority=1)
 
     def parse_books(self, response, **kwargs):
         books = response.selector.xpath("//span[@class='s2']/a")
         for book in books:
             book_url = str(book.attrib['href'])
+            # headers['User-Agent'] = ua.random
             yield scrapy.Request(url=book_url, headers=headers, callback=self.parse_chapters, priority=2)
 
         # 爬到最后一页的时候从第一页从新开始爬
         next_url = response.selector.xpath("//a[@class='next']")
         if len(next_url) == 1:
+            # headers['User-Agent'] = ua.random
             yield scrapy.Request(url=next_url[0].attrib['href'], headers=headers, callback=self.parse_books, priority=1)
         else:
             first_url = response.selector.xpath("//a[@class='first']")
+            # headers['User-Agent'] = ua.random
             yield scrapy.Request(url=first_url[0].attrib['href'], headers=headers, callback=self.parse_books,
                                  priority=1)
 
@@ -112,6 +117,7 @@ class biquge(scrapy.Spider):
                 "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
                 "Referer": book_url
             }
+            # chapter_headers['User-Agent'] = ua.random
             yield scrapy.Request(url=chapter_url, headers=chapter_headers, meta={"item": copy.deepcopy(book_item)},
                                  callback=self.parse_chapter, priority=3)
 
