@@ -130,14 +130,15 @@ class BiqugeMiddleware:
         self.start_index = 0
 
     def process_request(self, request, spider):
-        self.logger.info(f"start index:{self.start_index}, length:{len(self.proxy_list)}")
-        proxy = self.proxy_list[self.start_index if self.start_index > len(self.proxy_list) else 0]
+        index = self.start_index
+        if self.start_index >= len(self.proxy_list):
+            index = 0
+        proxy = self.proxy_list[index]
         self.start_index = self.start_index + 1
         if self.start_index > len(self.proxy_list):
             self.start_index = 0
-        self.logger.info(f"get proxy:{proxy}")
         request.meta['proxy'] = f'https://{proxy}'
-        self.logger.info('Spider request: %s', request)
+        self.logger.info(f"index:{index}, length:{len(self.proxy_list)}, get proxy:{proxy}, for request:{request}")
 
     def process_response(self, request, response, spider):
         if response.status != 200:
