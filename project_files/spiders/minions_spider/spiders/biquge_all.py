@@ -31,9 +31,6 @@ book_collection = mongo_db_spider['book_info_all']
 proxy_list = list(constant.PROXY_SET)
 
 
-# ua = UserAgent(use_cache_server=False)
-
-
 class biquge(scrapy.Spider):
     name = "biquge_all"
     allowed_domains = ['xbiquge.la']
@@ -92,34 +89,39 @@ class biquge(scrapy.Spider):
         book_category = response.selector.xpath("//meta[@property='og:novel:category']")[0].attrib['content'].strip()
         book_author = response.selector.xpath("//meta[@property='og:novel:author']")[0].attrib['content'].strip()
         book_url = response.selector.xpath("//meta[@property='og:novel:read_url']")[0].attrib['content'].strip()
-        old_book_info = {"book_url": book_url}
 
         book_chapters = response.selector.xpath("//div[@id='list']/dl/dd/a")
         for book_chapter in book_chapters:
             chapter_url = 'https://www.xbiquge.la' + book_chapter.attrib['href']
             chapter_name = book_chapter.root.text.strip()
-            book_item = BiqugeItem(book_name=book_name, book_description=book_description, book_category=book_category,
-                                   book_author=book_author, book_url=book_url, chapter_url=chapter_url,
-                                   chapter_name=chapter_name)
-            chapter_headers = {
-                "Host": "www.xbiquge.la",
-                "Connection": "keep-alive",
-                "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="92"',
-                "sec-ch-ua-mobile": "?0",
-                "Upgrade-Insecure-Requests": "Upgrade-Insecure-Requests",
-                "User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
-                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
-                "Sec-Fetch-Site": "same-origin",
-                "Sec-Fetch-Mode": "navigate",
-                "Sec-Fetch-User": "?1",
-                "Sec-Fetch-Dest": "document",
-                "Accept-Encoding": "gzip, deflate, br",
-                "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
-                "Referer": book_url
-            }
-            # chapter_headers['User-Agent'] = ua.random
-            yield scrapy.Request(url=chapter_url, headers=chapter_headers, meta={"item": copy.deepcopy(book_item)},
-                                 callback=self.parse_chapter, priority=3)
+            exist_chapter_info = {'chapter_url': chapter_url}
+            count = book_collection.count_documents(exist_chapter_info)
+            if count == 0:
+                book_item = BiqugeItem(book_name=book_name, book_description=book_description,
+                                       book_category=book_category,
+                                       book_author=book_author, book_url=book_url, chapter_url=chapter_url,
+                                       chapter_name=chapter_name)
+                chapter_headers = {
+                    "Host": "www.xbiquge.la",
+                    "Connection": "keep-alive",
+                    "sec-ch-ua": '" Not A;Brand";v="99", "Chromium";v="92"',
+                    "sec-ch-ua-mobile": "?0",
+                    "Upgrade-Insecure-Requests": "Upgrade-Insecure-Requests",
+                    "User-Agent": "Mozilla/5.0 (Windows NT 6.3; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/37.0.2049.0 Safari/537.36",
+                    "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9",
+                    "Sec-Fetch-Site": "same-origin",
+                    "Sec-Fetch-Mode": "navigate",
+                    "Sec-Fetch-User": "?1",
+                    "Sec-Fetch-Dest": "document",
+                    "Accept-Encoding": "gzip, deflate, br",
+                    "accept-language": "zh-CN,zh;q=0.9,en;q=0.8",
+                    "Referer": book_url
+                }
+                yield scrapy.Request(url=chapter_url, headers=chapter_headers, meta={"item": copy.deepcopy(book_item)},
+                                     callback=self.parse_chapter, priority=3)
+            else:
+                self.logger.info(f"book:{book_name}, chapter:{chapter_name}, chapter_url:{chapter_url} exists")
+
 
     def parse_chapter(self, response, **kwargs):
         chapter_body = response.body.decode('utf-8')

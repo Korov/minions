@@ -121,7 +121,7 @@ class BiqugeAllPipeline(object):
                 self.logger.info("insert failed with book:%s, chapter:%s exists", item['book_name'],
                                  item['chapter_name'])
         else:
-            self.logger.info("book:%s, chapter:%s exists", item['book_name'], item['chapter_name'])
+            self.logger.info("book:%s, chapter:%s, chapter_url:%s exists", item['book_name'], item['chapter_name'], item['chapter_url'])
         return item
 
     def close_spider(self, spider):
