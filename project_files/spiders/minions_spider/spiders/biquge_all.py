@@ -7,6 +7,7 @@ from pymongo.mongo_client import MongoClient
 
 from minions_spider import constant
 from minions_spider.items import BiqugeItem
+# from fake_useragent import UserAgent
 
 headers = {
     "Host": "www.xbiquge.la",
@@ -29,6 +30,7 @@ mongo_db_spider = mongo_client['spider']
 book_collection = mongo_db_spider['book_info_all']
 
 proxy_list = list(constant.PROXY_SET)
+# ua = UserAgent()
 
 
 class biquge(scrapy.Spider):
@@ -42,13 +44,14 @@ class biquge(scrapy.Spider):
         },
         # 'DUPEFILTER_CLASS': 'minions_spider.filters.BiqugeFilter',
         'DOWNLOAD_TIMEOUT': 60,
-        'CONCURRENT_REQUESTS': 8,
-        # 'CONCURRENT_REQUESTS_PER_DOMAIN': 50,
-        # 'CONCURRENT_REQUESTS_PER_IP': 50,
-        'DOWNLOAD_DELAY': 0,
+        'CONCURRENT_REQUESTS': 16,
+        'CONCURRENT_REQUESTS_PER_DOMAIN': 16,
+        'CONCURRENT_REQUESTS_PER_IP': 16,
+        'DOWNLOAD_DELAY': 0.5,
         'AUTOTHROTTLE_ENABLED': True,
         'AUTOTHROTTLE_START_DELAY': 5,
-        'AUTOTHROTTLE_MAX_DELAY': 120,
+        'AUTOTHROTTLE_MAX_DELAY': 10,
+        'COOKIES_ENABLED' : False,
         'AUTOTHROTTLE_TARGET_CONCURRENCY': 10.0
     }
 

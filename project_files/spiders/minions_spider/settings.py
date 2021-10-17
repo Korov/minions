@@ -109,7 +109,7 @@ if not is_exists:
 now = datetime.datetime.now()
 # LOG_FILE = "logs/spider_{}_{}_{}_{}_{}_{}.log".format(now.year, now.month, now.day, now.hour, now.minute, now.second)
 # LOG_LEVEL = 'DEBUG'
-LOG_FILE = "logs/biquge_all_1_{}_{}.log".format(now.year, now.month)
+LOG_FILE = "logs/biquge_all_2_{}_{}.log".format(now.year, now.month)
 LOG_LEVEL = 'INFO'
 LOG_STDOUT = False
 LOG_FORMAT = "%(asctime)s.%(msecs)03d - %(threadName)s - %(name)s:%(funcName)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s"

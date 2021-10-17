@@ -1,15 +1,8 @@
-import random
-
+from fake_useragent import UserAgent
 from loguru import logger
-
-from minions_spider.constant import PROXY_SET
-
-logger.info(PROXY_SET)
-
-
-proxy_list = list(PROXY_SET)
-for index in range(0,10):
-    i = random.randint(0, len(proxy_list) - 1)
-    logger.info(i)
-    proxy = proxy_list[i]
-    logger.info(proxy)
+#
+# location = '/home/korov/Desktop/gitrepo/minions/project_files/spiders/fake_useragent.json'
+# logger.info(location)
+# ua = UserAgent(use_cache_server=False, verify_ssl=False)
+#
+# logger.info(ua.random)
