@@ -23,8 +23,6 @@ buildscript {
         set("velocityVersion","2.3")
         set("mybatisPlusVersion","3.4.3.3")
     }
-    val springbootVersion: String by rootProject.extra
-    val kotlinVersion: String by rootProject.extra
 
     repositories {
         mavenLocal()
@@ -37,22 +35,20 @@ buildscript {
     }
 
     dependencies {
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springbootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject.extra.get("springbootVersion")}")
         classpath("gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.1")
-        classpath("org.springframework.boot:spring-boot-gradle-plugin:${springbootVersion}")
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject.extra.get("springbootVersion")}")
         classpath("io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE")
         classpath("gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.3")
-        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${kotlinVersion}")
+        classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.extra.get("kotlinVersion")}")
     }
 }
 
 //所有项目共用的设置
 allprojects {
-    val springbootVersion: String by rootProject.extra
-    val minionsVersion: String by rootProject.extra
 
     group = "org.minions"
-    version = minionsVersion
+    version = rootProject.extra.get("minionsVersion")
 
     repositories {
         mavenLocal()
@@ -89,7 +85,7 @@ allprojects {
         imports {
             mavenBom("org.springframework.cloud:spring-cloud-dependencies:2020.0.3")
             mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2020.0.RC1")
-            mavenBom("org.springframework.boot:spring-boot-dependencies:${springbootVersion}")
+            mavenBom("org.springframework.boot:spring-boot-dependencies:${rootProject.extra.get("springbootVersion")}")
         }
     }
 }

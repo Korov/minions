@@ -2,47 +2,34 @@ plugins {
     id("org.springframework.boot")
 }
 
-val lombokVersion: String by rootProject.extra
-val postgresVersion: String by rootProject.extra
-val fastjsonVersion: String by rootProject.extra
-val flywayVersion: String by rootProject.extra
-val scalaVersion: String by rootProject.extra
-val mybatisVersion: String by rootProject.extra
-val springfoxVersion: String by rootProject.extra
-val minionsVersion: String by rootProject.extra
-val generatorVersion: String by rootProject.extra
-val velocityVersion: String by rootProject.extra
-val guavaVersion: String by rootProject.extra
-val mybatisPlusVersion: String by rootProject.extra
-
 dependencies {
     implementation(project(":common"))
-    implementation("org.projectlombok:lombok:${lombokVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    implementation("com.google.guava:guava:${guavaVersion}")
-    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testImplementation("org.projectlombok:lombok:${lombokVersion}")
+    implementation("org.projectlombok:lombok:${rootProject.extra.get("lombokVersion")}")
+    annotationProcessor("org.projectlombok:lombok:${rootProject.extra.get("lombokVersion")}")
+    implementation("com.google.guava:guava:${rootProject.extra.get("guavaVersion")}")
+    testAnnotationProcessor("org.projectlombok:lombok:${rootProject.extra.get("lombokVersion")}")
+    testImplementation("org.projectlombok:lombok:${rootProject.extra.get("lombokVersion")}")
     implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("org.postgresql:postgresql:${postgresVersion}")
-    implementation("org.flywaydb:flyway-core:${flywayVersion}")
-    implementation("com.alibaba:fastjson:${fastjsonVersion}")
-    implementation("io.springfox:springfox-boot-starter:${springfoxVersion}")
+    implementation("org.postgresql:postgresql:${rootProject.extra.get("postgresVersion")}")
+    implementation("org.flywaydb:flyway-core:${rootProject.extra.get("flywayVersion")}")
+    implementation("com.alibaba:fastjson:${rootProject.extra.get("fastjsonVersion")}")
+    implementation("io.springfox:springfox-boot-starter:${rootProject.extra.get("springfoxVersion")}")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${rootProject.extra.get("mybatisVersion")}")
     implementation("org.springframework.kafka:spring-kafka:2.7.6")
-    implementation("com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}")
+    implementation("com.baomidou:mybatis-plus-boot-starter:${rootProject.extra.get("mybatisPlusVersion")}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.scala-lang:scala-library:${scalaVersion}")
+    testImplementation("org.scala-lang:scala-library:${rootProject.extra.get("scalaVersion")}")
     testImplementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation("org.springframework.boot:spring-boot-devtools")
-    testImplementation("com.baomidou:mybatis-plus-generator:${generatorVersion}")
-    testImplementation("org.apache.velocity:velocity-engine-core:${velocityVersion}")
+    testImplementation("com.baomidou:mybatis-plus-generator:${rootProject.extra.get("generatorVersion")}")
+    testImplementation("org.apache.velocity:velocity-engine-core:${rootProject.extra.get("velocityVersion")}")
 }
 
 tasks.register<Copy>("copyJarKafkaConsumer") {
     copy {
-        from("build/libs/kafka-consumer-${minionsVersion}.jar"){
-            rename("kafka-consumer-${minionsVersion}.jar", "kafka-consumer.jar")
+        from("build/libs/kafka-consumer-${rootProject.extra.get("minionsVersion")}.jar"){
+            rename("kafka-consumer-${rootProject.extra.get("minionsVersion")}.jar", "kafka-consumer.jar")
         }
         into("$buildDir/../../project_files/libs")
     }

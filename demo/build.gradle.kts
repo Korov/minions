@@ -5,49 +5,34 @@ plugins {
     id("org.springframework.boot")
 }
 
-val postgresVersion: String by rootProject.extra
-val mybatisGeneratorVersion: String by rootProject.extra
-val lombokVersion: String by rootProject.extra
-val groovyVersion: String by rootProject.extra
-val springbootVersion: String by rootProject.extra
-val fastjsonVersion: String by rootProject.extra
-val flywayVersion: String by rootProject.extra
-val mybatisVersion: String by rootProject.extra
-val springfoxVersion: String by rootProject.extra
-val spockVersion: String by rootProject.extra
-val minionsVersion: String by rootProject.extra
-val generatorVersion: String by rootProject.extra
-val velocityVersion: String by rootProject.extra
-val mybatisPlusVersion: String by rootProject.extra
-
 dependencies {
     implementation(project(":common"))
-    implementation("org.projectlombok:lombok:${lombokVersion}")
-    annotationProcessor("org.projectlombok:lombok:${lombokVersion}")
+    implementation("org.projectlombok:lombok:${rootProject.extra.get("lombokVersion")}")
+    annotationProcessor("org.projectlombok:lombok:${rootProject.extra.get("lombokVersion")}")
     implementation("com.alibaba.cloud:spring-cloud-starter-alibaba-nacos-discovery")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-devtools")
-    implementation("org.postgresql:postgresql:${postgresVersion}")
-    implementation("org.flywaydb:flyway-core:${flywayVersion}")
-    implementation("com.alibaba:fastjson:${fastjsonVersion}")
-    implementation("io.springfox:springfox-boot-starter:${springfoxVersion}")
-    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${mybatisVersion}")
-    implementation("com.baomidou:mybatis-plus-boot-starter:${mybatisPlusVersion}")
-    testAnnotationProcessor("org.projectlombok:lombok:${lombokVersion}")
-    testImplementation("org.projectlombok:lombok:${lombokVersion}")
+    implementation("org.postgresql:postgresql:${rootProject.extra.get("postgresVersion")}")
+    implementation("org.flywaydb:flyway-core:${rootProject.extra.get("flywayVersion")}")
+    implementation("com.alibaba:fastjson:${rootProject.extra.get("fastjsonVersion")}")
+    implementation("io.springfox:springfox-boot-starter:${rootProject.extra.get("springfoxVersion")}")
+    implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${rootProject.extra.get("mybatisVersion")}")
+    implementation("com.baomidou:mybatis-plus-boot-starter:${rootProject.extra.get("mybatisPlusVersion")}")
+    testAnnotationProcessor("org.projectlombok:lombok:${rootProject.extra.get("lombokVersion")}")
+    testImplementation("org.projectlombok:lombok:${rootProject.extra.get("lombokVersion")}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.spockframework:spock-core:${spockVersion}")
-    testImplementation("org.spockframework:spock-spring:${spockVersion}")
-    testImplementation("org.codehaus.groovy:groovy:${groovyVersion}")
-    testImplementation("com.baomidou:mybatis-plus-generator:${generatorVersion}")
-    testImplementation("org.apache.velocity:velocity-engine-core:${velocityVersion}")
+    testImplementation("org.spockframework:spock-core:${rootProject.extra.get("spockVersion")}")
+    testImplementation("org.spockframework:spock-spring:${rootProject.extra.get("spockVersion")}")
+    testImplementation("org.codehaus.groovy:groovy:${rootProject.extra.get("groovyVersion")}")
+    testImplementation("com.baomidou:mybatis-plus-generator:${rootProject.extra.get("generatorVersion")}")
+    testImplementation("org.apache.velocity:velocity-engine-core:${rootProject.extra.get("velocityVersion")}")
 }
 
 tasks.register<Copy>("copyJarDemo") {
     copy {
-        from("build/libs/demo-${minionsVersion}.jar") {
-            rename("demo-${minionsVersion}.jar", "demo.jar")
+        from("build/libs/demo-${rootProject.extra.get("minionsVersion")}.jar") {
+            rename("demo-${rootProject.extra.get("minionsVersion")}.jar", "demo.jar")
         }
         into("$buildDir/../../project_files/libs")
     }
