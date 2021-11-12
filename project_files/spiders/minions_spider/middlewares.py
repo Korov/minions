@@ -89,9 +89,8 @@ class MinionsSpiderDownloaderMiddleware:
         # - or return a Request object
         # - or raise IgnoreRequest: process_exception() methods of
         #   installed downloader middleware will be called
-        proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999',
-                      '66.183.100.156:3128']
-        request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxy_list[random.randint(0, 4)])
+        proxy_list = constant.PROXY_SET
+        request.meta['proxy'] = 'https://{proxy}'.format(proxy=proxy_list[random.randint(0, 6)])
         self.logger.info('Spider request: %s', request)
 
     def process_response(self, request, response, spider):
@@ -101,11 +100,10 @@ class MinionsSpiderDownloaderMiddleware:
         # - return a Response object
         # - return a Request object
         # - or raise IgnoreRequest
-        self.proxy_list = ['223.241.77.45:3256', '27.205.45.163:9000', '183.147.223.1:9000', '58.255.6.183:9999',
-                           '66.183.100.156:3128']
+        self.proxy_list = constant.PROXY_SET
         if response.status != 200:
             print("again response ip:")
-            request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 4)])
+            request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 6)])
             return request
         return response
 
