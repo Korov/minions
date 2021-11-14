@@ -5,6 +5,7 @@
 import logging
 import random
 
+import redis
 import requests
 from scrapy import signals
 from scrapy.downloadermiddlewares.retry import RetryMiddleware
@@ -71,6 +72,9 @@ class MinionsSpiderDownloaderMiddleware:
 
     def __init__(self):
         self.logger = logging.getLogger(__name__)
+        self.redis_db = redis.Redis(host=constant.REDIS_HOST, port=constant.REDIS_PORT, db=1,
+                                    username=constant.REDIS_USER,
+                                    password=constant.REDIS_PASSWORD)
 
     @classmethod
     def from_crawler(cls, crawler):
@@ -102,8 +106,10 @@ class MinionsSpiderDownloaderMiddleware:
         # - or raise IgnoreRequest
         self.proxy_list = constant.PROXY_SET
         if response.status != 200:
-            print("again response ip:")
-            request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 6)])
+            proxies = self.redis_db.zrangebyscore("proxies:biquge", min=90, max=100, num=10, start=0, withscores=True)
+            proxy = proxies[random.randint(0, len(proxies))][0].decode('utf8')
+            request.meta['proxy'] = f"https://{proxy}"
+            logging.info(f"download with anther ip:{proxy}, response:{response}")
             return request
         return response
 
@@ -126,6 +132,9 @@ class BiqugeMiddleware:
         self.logger = logging.getLogger(__name__)
         self.proxy_list = list(constant.PROXY_SET)
         self.start_index = 0
+        self.redis_db = redis.Redis(host=constant.REDIS_HOST, port=constant.REDIS_PORT, db=1,
+                                    username=constant.REDIS_USER,
+                                    password=constant.REDIS_PASSWORD)
 
     def process_request(self, request, spider):
         index = self.start_index
@@ -135,18 +144,27 @@ class BiqugeMiddleware:
         self.start_index = self.start_index + 1
         if self.start_index > len(self.proxy_list):
             self.start_index = 0
-        request.meta['proxy'] = f'https://{proxy}'
+
+        proxies = self.redis_db.zrangebyscore("proxies:biquge", min=90, max=100, num=10, start=0, withscores=True)
+        request.meta['proxy'] = f"https://{proxies[random.randint(0, len(proxies))][0].decode('utf8')}"
         self.logger.info(f"index:{index}, length:{len(self.proxy_list)}, get proxy:{proxy}, for request:{request}")
 
     def process_response(self, request, response, spider):
         if response.status != 200:
-            print("again response ip:")
-            request.meta['proxy'] = 'https://{proxy}'.format(proxy=self.proxy_list[random.randint(0, 4)])
+            proxies = self.redis_db.zrangebyscore("proxies:biquge", min=90, max=100, num=10, start=0, withscores=True)
+            proxy = proxies[random.randint(0, len(proxies))][0].decode('utf8')
+            request.meta['proxy'] = f'https://{proxy}'
+            logging.info(f"get response with proxy:{proxy}, response:{response}")
             return request
         return response
 
 
 class BiqugeRetryMiddleware(RetryMiddleware):
+    def __init__(self, settings):
+        super().__init__(settings)
+        self.redis_db = redis.Redis(host=constant.REDIS_HOST, port=constant.REDIS_PORT, db=1,
+                                    username=constant.REDIS_USER,
+                                    password=constant.REDIS_PASSWORD)
 
     def process_response(self, request, response, spider):
         if request.meta.get('dont_retry', False):
@@ -157,15 +175,16 @@ class BiqugeRetryMiddleware(RetryMiddleware):
             constant.PROXY_SET.remove(old_proxy)
             reason = response_status_message(response.status)
             try:
-                proxy = list(constant.PROXY_SET)[0]
-                request.meta['proxy'] = 'https://' + proxy
-            except requests.exceptions.RequestException:
-                print('获取讯代理ip失败！')
-                spider.logger.error('获取讯代理ip失败！')
+                proxies = self.redis_db.zrangebyscore("proxies:biquge", min=90, max=100, num=10, start=0,
+                                                      withscores=True)
+                proxy = proxies[random.randint(0, len(proxies))][0].decode('utf8')
+                request.meta['proxy'] = f"https://{proxy}"
+                logging.info(f"retry with proxy:{proxy}")
+            except requests.exceptions.RequestException as e:
+                logging.error(f'获取讯代理ip失败！, exception:{e}')
 
             return self._retry(request, reason, spider) or response
         return response
-
 
     def process_exception(self, request, exception, spider):
         if isinstance(exception, self.EXCEPTIONS_TO_RETRY) and not request.meta.get('dont_retry', False):
