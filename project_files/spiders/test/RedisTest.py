@@ -15,4 +15,4 @@ count = db.zcard("proxies:biquge")
 
 proxies = db.zrangebyscore("proxies:biquge", min=90, max=100, num=10, start=0, withscores=True)
 
-logger.info(f"count:{len(proxies)}, random:{proxies[random.randint(0, len(proxies))][0].decode('utf8')} value:{proxies}")
+logger.info(f"count:{len(proxies)}, random:{proxies[random.randint(0, len(proxies) - 1)][0].decode('utf8')} value:{proxies}")

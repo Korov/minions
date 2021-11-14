@@ -107,7 +107,7 @@ class MinionsSpiderDownloaderMiddleware:
         self.proxy_list = constant.PROXY_SET
         if response.status != 200:
             proxies = self.redis_db.zrangebyscore("proxies:biquge", min=90, max=100, num=10, start=0, withscores=True)
-            proxy = proxies[random.randint(0, len(proxies))][0].decode('utf8')
+            proxy = proxies[random.randint(0, len(proxies) - 1)][0].decode('utf8')
             request.meta['proxy'] = f"https://{proxy}"
             logging.info(f"download with anther ip:{proxy}, response:{response}")
             return request
@@ -146,13 +146,13 @@ class BiqugeMiddleware:
             self.start_index = 0
 
         proxies = self.redis_db.zrangebyscore("proxies:biquge", min=90, max=100, num=10, start=0, withscores=True)
-        request.meta['proxy'] = f"https://{proxies[random.randint(0, len(proxies))][0].decode('utf8')}"
+        request.meta['proxy'] = f"https://{proxies[random.randint(0, len(proxies) - 1)][0].decode('utf8')}"
         self.logger.info(f"index:{index}, length:{len(self.proxy_list)}, get proxy:{proxy}, for request:{request}")
 
     def process_response(self, request, response, spider):
         if response.status != 200:
             proxies = self.redis_db.zrangebyscore("proxies:biquge", min=90, max=100, num=10, start=0, withscores=True)
-            proxy = proxies[random.randint(0, len(proxies))][0].decode('utf8')
+            proxy = proxies[random.randint(0, len(proxies) - 1)][0].decode('utf8')
             request.meta['proxy'] = f'https://{proxy}'
             logging.info(f"get response with proxy:{proxy}, response:{response}")
             return request
@@ -177,7 +177,7 @@ class BiqugeRetryMiddleware(RetryMiddleware):
             try:
                 proxies = self.redis_db.zrangebyscore("proxies:biquge", min=90, max=100, num=10, start=0,
                                                       withscores=True)
-                proxy = proxies[random.randint(0, len(proxies))][0].decode('utf8')
+                proxy = proxies[random.randint(0, len(proxies) - 1)][0].decode('utf8')
                 request.meta['proxy'] = f"https://{proxy}"
                 logging.info(f"retry with proxy:{proxy}")
             except requests.exceptions.RequestException as e:
