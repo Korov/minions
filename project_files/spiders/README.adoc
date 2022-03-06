@@ -9,6 +9,8 @@ minions项目的数据来源
 
 [source, bash]
 ----
+python -m venv ./venv
+.\venv\Scripts\Activate.ps1
 pip install pipenv
 # 请使用python 3.8， Windows系统目前测试3.8.9版本才能用
 pipenv install
