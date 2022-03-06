@@ -12,7 +12,7 @@ minions项目的数据来源
 python -m venv ./venv
 .\venv\Scripts\Activate.ps1
 # 请使用python 3.8， Windows系统目前测试3.8.9版本才能用，安装的时候请关闭代理
-pip install -r requirements.txt
+pip install -r requirements.txt -i https://pypi.tuna.tsinghua.edu.cn/simple
 #解析js需要用到splash，暂时未用到此组件
 docker run -d -p 8050:8050 --name minions-splash scrapinghub/splash:3.5.0
 ----
