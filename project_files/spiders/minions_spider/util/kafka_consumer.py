@@ -22,43 +22,6 @@ def create_consumer(bootstrap_servers="127.0.0.1:9092", group_id="default_group"
     return consumer
 
 
-def display_all_topics(bootstrap_servers="127.0.0.1:9092"):
-    """显示所有的topic"""
-    client = KafkaAdminClient(bootstrap_servers=bootstrap_servers)
-    topics = client.list_topics()
-    logger.info(f"topics:{topics}")
-    return topics
-
-def display_consumer_detail(bootstrap_servers="127.0.0.1:9092", kafka_consumer=None):
-    """显示所有的topic"""
-    client = KafkaAdminClient(bootstrap_servers=bootstrap_servers)
-    topics = client.describe_topics()
-    logger.info(f"topics:{topics}")
-    return topics
-
-
-def display_topic_partition(kafka_consumer=None, topics=[]):
-    """展示单个或多个topic的partition信息，包括每个partition的开始offset以及结束offset"""
-    for topic in topics:
-        partitions = kafka_consumer.partitions_for_topic(topic)
-        logger.info(f"====topic:{topic}, partitions:====")
-        topic_partitions = []
-        for partition in partitions:
-            topic_partitions.append(TopicPartition(topic=topic, partition=partition))
-
-        kafka_consumer.assign(topic_partitions)
-        beginning_offsets = kafka_consumer.beginning_offsets(topic_partitions)
-        end_offsets = kafka_consumer.end_offsets(topic_partitions)
-
-        for topic_partition in topic_partitions:
-            begin_offset = beginning_offsets[topic_partition]
-            end_offset = end_offsets[topic_partition]
-            logger.info(
-                f"topic:{topic_partition.topic}, partition:{topic_partition.partition}, "
-                f"begin offsets:{begin_offset}, end offset:{end_offset}, "
-                f"valid count:{end_offset - begin_offset}")
-
-
 def display_topic_consumers_count(kafka_consumer=None, topics=[]):
     """展示单个或多个topic的consumer信息"""
     for topic in topics:
@@ -98,9 +61,6 @@ def consumer_seek(kafka_consumer=None, topic=None, partition=None, offset=0):
                 f" value={msg.value.decode('utf-8')}")
 
 
-def display_topic_consumers(bootstrap_servers="127.0.0.1:9092", topics=[]):
-    client = KafkaAdminClient(bootstrap_servers=bootstrap_servers)
-    topics = client.list_topics()
-    logger.info(topics)
-
-    return None
+def display_authorized_topics(kafka_consumer=None):
+    topics = kafka_consumer.topics()
+    logger.info(f"authorized topics:{topics}")

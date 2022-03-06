@@ -41,3 +41,20 @@ def list_topics(bootstrap_servers="127.0.0.1:9092"):
     finally:
         client.close()
     return topics
+
+
+def list_consumer_groups(bootstrap_servers="127.0.0.1:9092"):
+    client = KafkaAdminClient(bootstrap_servers=bootstrap_servers)
+    try:
+        consumers = client.list_consumer_groups()
+        for consumer in consumers:
+            logger.info(f"consumer:{consumer[0]}, type:{consumer[1]}")
+    finally:
+        client.close()
+
+
+def list_consumer_group_offsets(bootstrap_servers="127.0.0.1:9092", group_ids=[]):
+    client = KafkaAdminClient(bootstrap_servers=bootstrap_servers)
+    for group_id in group_ids:
+        group_offset = client.list_consumer_group_offsets(group_id=group_id)
+        logger.info(group_offset)
