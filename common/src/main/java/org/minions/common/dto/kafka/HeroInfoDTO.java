@@ -1,7 +1,5 @@
 package org.minions.common.dto.kafka;
 
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
@@ -55,79 +53,54 @@ public class HeroInfoDTO {
      * be_restrained_hero : [{"hero_id":"12","name":"阿轲","icon":"http://pictest.wankacn.com/2017-04-26_59005ed7228c5.png"}]
      */
 
-    @JSONField(name = "name")
     @JsonProperty("name")
     private String name;
-    @JSONField(name = "title")
     @JsonProperty("title")
     private String title;
-    @JSONField(name = "half_img")
     @JsonProperty("half_img")
     private String halfImg;
-    @JSONField(name = "background_story")
     @JsonProperty("background_story")
     private String backgroundStory;
-    @JSONField(name = "levels")
     @JsonProperty("levels")
     private LevelsDTO levels;
-    @JSONField(name = "diamond_price")
     @JsonProperty("diamond_price")
     private String diamondPrice;
-    @JSONField(name = "gold_price")
     @JsonProperty("gold_price")
     private String goldPrice;
-    @JSONField(name = "ticket_price")
     @JsonProperty("ticket_price")
     private String ticketPrice;
-    @JSONField(name = "text_price")
     @JsonProperty("text_price")
     private String textPrice;
-    @JSONField(name = "hero_id")
     @JsonProperty("hero_id")
     private String heroId;
-    @JSONField(name = "big_img")
     @JsonProperty("big_img")
     private String bigImg;
-    @JSONField(name = "history_intro")
     @JsonProperty("history_intro")
     private String historyIntro;
-    @JSONField(name = "skill_tips")
     @JsonProperty("skill_tips")
     private String skillTips;
-    @JSONField(name = "recommend_summoner_skill_tips")
     @JsonProperty("recommend_summoner_skill_tips")
     private String recommendSummonerSkillTips;
-    @JSONField(name = "hero_tips")
     @JsonProperty("hero_tips")
     private String heroTips;
-    @JSONField(name = "melee_tips")
     @JsonProperty("melee_tips")
     private String meleeTips;
-    @JSONField(name = "type")
     @JsonProperty("type")
     private List<String> type;
-    @JSONField(name = "recommend_summoner_skill")
     @JsonProperty("recommend_summoner_skill")
     private List<RecommendSummonerSkillDTO> recommendSummonerSkill;
-    @JSONField(name = "rec_inscriptions")
     @JsonProperty("rec_inscriptions")
     private List<RecInscriptionsDTO> recInscriptions;
-    @JSONField(name = "skin_imgs")
     @JsonProperty("skin_imgs")
     private List<SkinImgsDTO> skinImgs;
-    @JSONField(name = "skill_list")
     @JsonProperty("skill_list")
     private List<SkillListDTO> skillList;
-    @JSONField(name = "equip_choice")
     @JsonProperty("equip_choice")
     private List<EquipChoiceDTO> equipChoice;
-    @JSONField(name = "partner_hero")
     @JsonProperty("partner_hero")
     private List<PartnerHeroDTO> partnerHero;
-    @JSONField(name = "restrained_hero")
     @JsonProperty("restrained_hero")
     private List<RestrainedHeroDTO> restrainedHero;
-    @JSONField(name = "be_restrained_hero")
     @JsonProperty("be_restrained_hero")
     private List<BeRestrainedHeroDTO> beRestrainedHero;
 
