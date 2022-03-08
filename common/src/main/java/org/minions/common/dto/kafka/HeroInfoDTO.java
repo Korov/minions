@@ -1,12 +1,14 @@
 package org.minions.common.dto.kafka;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.minions.common.model.kafka.HeroInfos;
+import org.minions.common.utils.JsonUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -104,22 +106,23 @@ public class HeroInfoDTO {
     @JsonProperty("be_restrained_hero")
     private List<BeRestrainedHeroDTO> beRestrainedHero;
 
-    public HeroInfoDTO(HeroInfos model) {
+    public HeroInfoDTO(HeroInfos model) throws JsonProcessingException {
         heroId = model.getHeroId().toString();
-        beRestrainedHero = JSONObject.parseArray(model.getBeRestrainedHero(), BeRestrainedHeroDTO.class);
+        beRestrainedHero = JsonUtil.jsonToList(model.getBeRestrainedHero(), BeRestrainedHeroDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
         bigImg = model.getBigImg();
-        equipChoice = JSONObject.parseArray(model.getEquipChoice(), EquipChoiceDTO.class);
+
+        equipChoice = JsonUtil.jsonToList(model.getEquipChoice(), EquipChoiceDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
         diamondPrice = model.getHeroDiamondPrice().toString();
         diamondPrice = diamondPrice.substring(0, diamondPrice.indexOf("."));
         goldPrice = model.getHeroGoldPrice().toString();
         goldPrice = goldPrice.substring(0, goldPrice.indexOf("."));
-        levels = JSONObject.parseObject(model.getHeroLevels(), LevelsDTO.class);
+        levels = JsonUtil.jsonToObject(model.getHeroLevels(), LevelsDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
         name = model.getHeroName();
         backgroundStory = model.getHeroStory();
         ticketPrice = model.getHeroTicketPrice().toString();
         ticketPrice = ticketPrice.substring(0, ticketPrice.indexOf("."));
         heroTips = model.getHeroTips();
-        type = JSONObject.parseArray(model.getHeroType(), String.class);
+        type = JsonUtil.jsonToList(model.getHeroType(), String.class,JsonUtil.SNAKE_CASE_MAPPER);
         historyIntro = model.getHistoryIntro();
         meleeTips = model.getMeleeTips();
         partnerHero = JSONObject.parseArray(model.getPartnerHero(), PartnerHeroDTO.class);
@@ -171,16 +174,12 @@ public class HeroInfoDTO {
          * difficulty : 6
          */
 
-        @JSONField(name = "survival")
         @JsonProperty("survival")
         private String survival;
-        @JSONField(name = "attack")
         @JsonProperty("attack")
         private String attack;
-        @JSONField(name = "skill")
         @JsonProperty("skill")
         private String skill;
-        @JSONField(name = "difficulty")
         @JsonProperty("difficulty")
         private String difficulty;
     }
@@ -194,13 +193,10 @@ public class HeroInfoDTO {
          * description : 120秒CD：向指定方向位移一段距离
          */
 
-        @JSONField(name = "name")
         @JsonProperty("name")
         private String name;
-        @JSONField(name = "icon")
         @JsonProperty("icon")
         private String icon;
-        @JSONField(name = "description")
         @JsonProperty("description")
         private String description;
     }
@@ -213,10 +209,8 @@ public class HeroInfoDTO {
          * list : [{"name":"阳炎","level":"4","icon":"http://pictest.wankacn.com/2017-04-27_5901c32aec40d.png","attrs":"法术攻击+2.5|法术穿透+1.4"},{"name":"侵蚀","level":"4","icon":"http://pictest.wankacn.com/2017-04-27_5901c3367da4c.png","attrs":"法术攻击+0.9|法术穿透+3.8"},{"name":"刹那","level":"4","icon":"http://pictest.wankacn.com/2017-04-27_5901c330001ad.png","attrs":"最大生命+13.5|移动速度+0.7%"}]
          */
 
-        @JSONField(name = "title")
         @JsonProperty("title")
         private String title;
-        @JSONField(name = "list")
         @JsonProperty("list")
         private List<ListDTO> list;
 
@@ -230,16 +224,12 @@ public class HeroInfoDTO {
              * attrs : 法术攻击+2.5|法术穿透+1.4
              */
 
-            @JSONField(name = "name")
             @JsonProperty("name")
             private String name;
-            @JSONField(name = "level")
             @JsonProperty("level")
             private String level;
-            @JSONField(name = "icon")
             @JsonProperty("icon")
             private String icon;
-            @JSONField(name = "attrs")
             @JsonProperty("attrs")
             private String attrs;
         }
@@ -253,10 +243,8 @@ public class HeroInfoDTO {
          * big_img : http://pic.wankacn.com/2019-09-26_5d8c2403ae49c.jpeg
          */
 
-        @JSONField(name = "skin_name")
         @JsonProperty("skin_name")
         private String skinName;
-        @JSONField(name = "big_img")
         @JsonProperty("big_img")
         private String bigImg;
     }
@@ -275,28 +263,20 @@ public class HeroInfoDTO {
          * attrs : []
          */
 
-        @JSONField(name = "name")
         @JsonProperty("name")
         private String name;
-        @JSONField(name = "icon")
         @JsonProperty("icon")
         private String icon;
-        @JSONField(name = "description")
         @JsonProperty("description")
         private String description;
-        @JSONField(name = "intro")
         @JsonProperty("intro")
         private String intro;
-        @JSONField(name = "tags")
         @JsonProperty("tags")
         private String tags;
-        @JSONField(name = "cd")
         @JsonProperty("cd")
         private String cd;
-        @JSONField(name = "mana_cost")
         @JsonProperty("mana_cost")
         private String manaCost;
-        @JSONField(name = "attrs")
         @JsonProperty("attrs")
         private List<?> attrs;
     }
@@ -310,13 +290,10 @@ public class HeroInfoDTO {
          * list : [{"equip_id":"76","icon":"http://pictest.wankacn.com/2017-04-28_59031676397b3.jpeg"},{"equip_id":"43","icon":"http://pictest.wankacn.com/2017-04-28_5903166b83498.jpeg"},{"equip_id":"45","icon":"http://pictest.wankacn.com/2017-04-28_5903166bda9f0.jpeg"},{"equip_id":"41","icon":"http://pictest.wankacn.com/2017-04-28_5903166b10ebe.jpeg"},{"equip_id":"40","icon":"http://pictest.wankacn.com/2017-04-28_5903166adc5c9.jpeg"},{"equip_id":"49","icon":"http://pictest.wankacn.com/2017-04-28_5903166c96be0.jpeg"}]
          */
 
-        @JSONField(name = "title")
         @JsonProperty("title")
         private String title;
-        @JSONField(name = "description")
         @JsonProperty("description")
         private String description;
-        @JSONField(name = "list")
         @JsonProperty("list")
         private List<ListDTO> list;
 
@@ -328,10 +305,8 @@ public class HeroInfoDTO {
              * icon : http://pictest.wankacn.com/2017-04-28_59031676397b3.jpeg
              */
 
-            @JSONField(name = "equip_id")
             @JsonProperty("equip_id")
             private String equipId;
-            @JSONField(name = "icon")
             @JsonProperty("icon")
             private String icon;
         }
@@ -346,13 +321,10 @@ public class HeroInfoDTO {
          * icon : http://pictest.wankacn.com/2017-04-26_59005f2485019.png
          */
 
-        @JSONField(name = "hero_id")
         @JsonProperty("hero_id")
         private String heroId;
-        @JSONField(name = "name")
         @JsonProperty("name")
         private String name;
-        @JSONField(name = "icon")
         @JsonProperty("icon")
         private String icon;
     }
@@ -366,13 +338,10 @@ public class HeroInfoDTO {
          * icon : http://pictest.wankacn.com/2017-04-26_59005f12a0818.png
          */
 
-        @JSONField(name = "hero_id")
         @JsonProperty("hero_id")
         private String heroId;
-        @JSONField(name = "name")
         @JsonProperty("name")
         private String name;
-        @JSONField(name = "icon")
         @JsonProperty("icon")
         private String icon;
     }
@@ -386,13 +355,10 @@ public class HeroInfoDTO {
          * icon : http://pictest.wankacn.com/2017-04-26_59005ed7228c5.png
          */
 
-        @JSONField(name = "hero_id")
         @JsonProperty("hero_id")
         private String heroId;
-        @JSONField(name = "name")
         @JsonProperty("name")
         private String name;
-        @JSONField(name = "icon")
         @JsonProperty("icon")
         private String icon;
     }
