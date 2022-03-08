@@ -10,7 +10,6 @@ dependencies {
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin:${rootProject.extra.get("jacksonVersion")}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib:${rootProject.extra.get("kotlinVersion")}")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-common:${rootProject.extra.get("kotlinVersion")}")
-    implementation("com.alibaba:fastjson:${rootProject.extra.get("fastjsonVersion")}")
     implementation("org.yaml:snakeyaml:${rootProject.extra.get("snakeyamlVersion")}")
     implementation("com.squareup.okhttp3:okhttp:${rootProject.extra.get("okhttpVersion")}")
     implementation("io.springfox:springfox-boot-starter:${rootProject.extra.get("springfoxVersion")}")
