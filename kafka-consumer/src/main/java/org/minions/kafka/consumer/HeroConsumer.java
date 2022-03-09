@@ -1,6 +1,7 @@
 package org.minions.kafka.consumer;
 
 import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.minions.common.dto.kafka.HeroInfoDTO;
 import org.minions.common.model.kafka.HeroInfos;
@@ -31,7 +32,7 @@ public class HeroConsumer {
      * 会根据id生成一个消费者信息存储在kafka端
      */
     @KafkaListener(id = "minions01", topics = "hero", containerFactory = "kafkaListenerContainerFactory")
-    public void listen(ConsumerRecord<?, ?> record) {
+    public void listen(ConsumerRecord<?, ?> record) throws JsonProcessingException {
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
         if (kafkaMessage.isPresent()) {
             String message = kafkaMessage.get().toString();
