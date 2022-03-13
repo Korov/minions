@@ -4,7 +4,6 @@ package org.minions.common.vo
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import org.minions.common.constant.Constant
-import org.minions.common.utils.JsonUtil
 import org.minions.common.utils.StringUtil.Companion.isEmpty
 
 @ApiModel(value = "返回数据的格式")
