@@ -1,6 +1,7 @@
 package org.minions.common.model.kafka;
 
 import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 
 import java.math.BigDecimal;
@@ -14,6 +15,7 @@ import java.io.Serializable;
  * @author korov
  * @since 2021-09-07
  */
+@Data
 public class HeroWeapon implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -39,39 +41,6 @@ public class HeroWeapon implements Serializable {
      */
     private String weaponType;
 
-
-    public Integer getWeaponId() {
-        return weaponId;
-    }
-
-    public void setWeaponId(Integer weaponId) {
-        this.weaponId = weaponId;
-    }
-
-    public String getWeaponName() {
-        return weaponName;
-    }
-
-    public void setWeaponName(String weaponName) {
-        this.weaponName = weaponName;
-    }
-
-    public BigDecimal getWeaponPrice() {
-        return weaponPrice;
-    }
-
-    public void setWeaponPrice(BigDecimal weaponPrice) {
-        this.weaponPrice = weaponPrice;
-    }
-
-    public String getWeaponType() {
-        return weaponType;
-    }
-
-    public void setWeaponType(String weaponType) {
-        this.weaponType = weaponType;
-    }
-
     public static final String WEAPON_ID = "weapon_id";
 
     public static final String WEAPON_NAME = "weapon_name";
@@ -79,14 +48,4 @@ public class HeroWeapon implements Serializable {
     public static final String WEAPON_PRICE = "weapon_price";
 
     public static final String WEAPON_TYPE = "weapon_type";
-
-    @Override
-    public String toString() {
-        return "HeroWeapon{" +
-        "weaponId=" + weaponId +
-        ", weaponName=" + weaponName +
-        ", weaponPrice=" + weaponPrice +
-        ", weaponType=" + weaponType +
-        "}";
-    }
 }
