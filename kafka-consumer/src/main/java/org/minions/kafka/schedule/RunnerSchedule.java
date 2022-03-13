@@ -1,8 +1,9 @@
 package org.minions.kafka.schedule;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.minions.common.utils.HttpUtil;
+import org.minions.common.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -28,7 +29,7 @@ public class RunnerSchedule implements ApplicationRunner {
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
-        JSONObject result = HttpUtil.postSpider(host, port, project, "hero");
-        log.info(result.toJSONString());
+        JsonNode result = HttpUtil.postSpider(host, port, project, "hero");
+        log.info(JsonUtil.objectToJson(result, JsonUtil.SNAKE_CASE_MAPPER));
     }
 }

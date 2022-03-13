@@ -1,6 +1,7 @@
 package org.minions.common.utils;
 
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -14,8 +15,8 @@ class HttpUtilTest {
 
     @Disabled
     @Test
-    void httpPostConnect() {
-        JSONObject result = HttpUtil.postSpider("172.16.193.141", 6800, "test", "hero");
-        System.out.println(result.toJSONString());
+    void httpPostConnect() throws JsonProcessingException {
+        JsonNode result = HttpUtil.postSpider("172.16.193.141", 6800, "test", "hero");
+        System.out.println(JsonUtil.objectToJson(result, JsonUtil.SNAKE_CASE_MAPPER));
     }
 }
