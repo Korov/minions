@@ -1,7 +1,6 @@
 package org.minions.common.vo
 
 
-import com.fasterxml.jackson.databind.JsonNode
 import io.swagger.annotations.ApiModel
 import io.swagger.annotations.ApiModelProperty
 import org.minions.common.constant.Constant
@@ -12,7 +11,7 @@ import org.minions.common.utils.StringUtil.Companion.isEmpty
 class ResultVo<T>(
     code: Int = Constant.OPERATION_SUCCESS,
     description: String = Constant.DESCRIPTION_SUCCESS,
-    data: T = null!!
+    data: T? = null
 ) {
 
     @ApiModelProperty(value = "1表示执行成功，0表示执行失败")
@@ -22,7 +21,7 @@ class ResultVo<T>(
     var description: String
 
     @ApiModelProperty(value = "execute result")
-    var data: T
+    var data: T?
 
     init {
         this.code = code
@@ -35,9 +34,23 @@ class ResultVo<T>(
             return ResultVo()
         }
         val jsonNode = JsonUtil.jsonToNode(vo, JsonUtil.SNAKE_CASE_MAPPER)
-        val code = jsonNode.get("code").numberValue().toInt()
-        val description = jsonNode.get("description").textValue()
-        val data = JsonUtil.jsonToObject(jsonNode.get("data").textValue(), clazz, JsonUtil.SNAKE_CASE_MAPPER)
-        return ResultVo(code, description, data)
+        if (jsonNode == null) {
+            return ResultVo(Constant.OPERATION_FAIL, "")
+        } else {
+            val codeNode = jsonNode.get("code")
+            var code = Constant.OPERATION_FAIL
+            if (codeNode == null || !codeNode.isNumber) {
+                code = codeNode.numberValue().toInt()
+            }
+            val descriptionNode = jsonNode.get("description")
+            var description = Constant.DESCRIPTION_FAIL
+            if (descriptionNode == null || !descriptionNode.isTextual) {
+                description = descriptionNode.textValue()
+            }
+            val dataNode = jsonNode.get("data")
+
+            val data = JsonUtil.jsonToObject(dataNode.textValue(), clazz, JsonUtil.SNAKE_CASE_MAPPER)
+            return ResultVo(code, description, data)
+        }
     }
 }

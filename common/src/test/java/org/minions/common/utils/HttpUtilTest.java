@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.minions.common.constant.Constant;
 
 /**
  * Http测试
@@ -13,7 +14,6 @@ import org.junit.jupiter.api.Test;
  */
 class HttpUtilTest {
 
-    @Disabled
     @Test
     void httpPostConnect() throws JsonProcessingException {
         JsonNode result = HttpUtil.postSpider("172.16.193.141", 6800, "test", "hero");

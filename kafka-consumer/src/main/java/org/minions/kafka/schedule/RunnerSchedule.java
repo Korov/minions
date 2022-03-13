@@ -3,7 +3,6 @@ package org.minions.kafka.schedule;
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;
 import org.minions.common.utils.HttpUtil;
-import org.minions.common.utils.JsonUtil;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;

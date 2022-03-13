@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 import org.minions.common.model.kafka.HeroInfos;
-import org.minions.common.utils.JsonUtil;
 
 import java.math.BigDecimal;
 import java.util.List;
