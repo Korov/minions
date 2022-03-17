@@ -48,7 +48,7 @@ buildscript {
 allprojects {
 
     group = "org.minions"
-    version = rootProject.extra.get("minionsVersion")
+    version = rootProject.extra.get("minionsVersion")!!
 
     repositories {
         mavenLocal()
