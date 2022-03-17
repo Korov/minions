@@ -69,7 +69,7 @@ allprojects {
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        sourceCompatibility = "11"
+        sourceCompatibility = "17"
     }
 
     tasks.withType<Test> {
