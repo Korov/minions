@@ -1,5 +1,6 @@
 package org.minions.kafka.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.minions.common.constant.Constant;
 import org.minions.common.dto.kafka.HeroInfoDTO;
 import org.minions.common.model.kafka.HeroInfos;
@@ -28,7 +29,12 @@ public class HeroServiceImpl implements HeroService {
         List<HeroInfos> models = heroInfoMapper.selectList(null);
         List<HeroInfoDTO> dtos = new ArrayList<>(Constant.COLLECTION_INIT_SIZE);
         models.forEach(heroInfoModel -> {
-            HeroInfoDTO dto = new HeroInfoDTO(heroInfoModel);
+            HeroInfoDTO dto = null;
+            try {
+                dto = new HeroInfoDTO(heroInfoModel);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            }
             dtos.add(dto);
         });
         return dtos;
