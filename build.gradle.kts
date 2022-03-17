@@ -18,7 +18,7 @@ buildscript {
         set("spek2Version","2.0.15")
         set("spockVersion","2.0-groovy-3.0")
         set("junitVersion","5.7.2")
-        set("minionsVersion","0.0.2-SNAPSHOT")
+        set("minionsVersion","0.0.3-SNAPSHOT")
         set("generatorVersion","3.4.1")
         set("velocityVersion","2.3")
         set("mybatisPlusVersion","3.4.3.3")
