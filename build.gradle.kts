@@ -1,6 +1,6 @@
 buildscript {
     extra.apply {
-        set("springbootVersion", "2.4.6")
+        set("springbootVersion", "2.4.13")
         set("postgresVersion","42.2.23")
         set("mybatisGeneratorVersion","1.4.0")
         set("lombokVersion","1.18.20")
@@ -82,8 +82,8 @@ allprojects {
     // io.spring.dependency-management插件的功能
     the<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension>().apply {
         imports {
-            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2020.0.3")
-            mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2020.0.RC1")
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2020.0.5")
+            mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2021.0.1.0")
             mavenBom("org.springframework.boot:spring-boot-dependencies:${rootProject.extra.get("springbootVersion")}")
         }
     }
