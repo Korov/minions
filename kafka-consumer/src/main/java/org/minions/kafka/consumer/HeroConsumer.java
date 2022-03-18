@@ -1,10 +1,10 @@
 package org.minions.kafka.consumer;
 
-import com.alibaba.fastjson.JSONObject;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.minions.common.dto.kafka.HeroInfoDTO;
 import org.minions.common.model.kafka.HeroInfos;
+import org.minions.common.utils.JsonUtil;
 import org.minions.kafka.mapper.HeroInfosMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +36,7 @@ public class HeroConsumer {
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
         if (kafkaMessage.isPresent()) {
             String message = kafkaMessage.get().toString();
-            HeroInfoDTO infoDTO = JSONObject.parseObject(message, HeroInfoDTO.class);
+            HeroInfoDTO infoDTO = JsonUtil.jsonToObject(message, HeroInfoDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
             HeroInfos infoModel = infoDTO.getInfo();
             heroInfoMapper.insert(infoModel);
             logger.info("listen consumer the message. key: {}, message: {}!", record.key(), message);
