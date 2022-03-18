@@ -39,12 +39,12 @@ class ResultVo<T>(
         } else {
             val codeNode = jsonNode.get("code")
             var code = Constant.OPERATION_FAIL
-            if (codeNode == null || !codeNode.isNumber) {
+            if (codeNode != null && codeNode.isNumber) {
                 code = codeNode.numberValue().toInt()
             }
             val descriptionNode = jsonNode.get("description")
             var description = Constant.DESCRIPTION_FAIL
-            if (descriptionNode == null || !descriptionNode.isTextual) {
+            if (descriptionNode != null && descriptionNode.isTextual) {
                 description = descriptionNode.textValue()
             }
             val dataNode = jsonNode.get("data")
