@@ -1,9 +1,9 @@
 package org.minions.kafka.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.minions.common.utils.JsonUtil;
 import org.minions.kafka.KafkaConsumersTest;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.result.MockMvcResultHandlers;
@@ -20,7 +20,7 @@ public class HeroControllerTest extends KafkaConsumersTest {
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andDo(MockMvcResultHandlers.print())
                 .andReturn().getResponse().getContentAsString();
-        JSONObject resultVo = JSON.parseObject(response);
-        Assertions.assertEquals(1, resultVo.get("code"));
+        JsonNode resultVo = JsonUtil.jsonToNode(response);
+        Assertions.assertEquals(1, resultVo.get("code").asInt());
     }
 }
