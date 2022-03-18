@@ -7,7 +7,7 @@ buildscript {
         set("groovyVersion","3.0.8")
         set("okhttpVersion","4.9.1")
         set("jacksonVersion","2.12.5")
-        set("kotlinVersion","1.5.21")
+        set("kotlinVersion","1.6.10")
         set("snakeyamlVersion","1.29")
         set("guavaVersion","30.1.1-jre")
         set("flywayVersion","7.7.0")
@@ -35,7 +35,7 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject.extra.get("springbootVersion")}")
-        classpath("gradle.plugin.com.github.spotbugs.snom:spotbugs-gradle-plugin:4.7.1")
+        classpath("com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.6")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject.extra.get("springbootVersion")}")
         classpath("io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE")
         classpath("gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.3")
