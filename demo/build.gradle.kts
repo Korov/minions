@@ -15,7 +15,6 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-devtools")
     implementation("org.postgresql:postgresql:${rootProject.extra.get("postgresVersion")}")
     implementation("org.flywaydb:flyway-core:${rootProject.extra.get("flywayVersion")}")
-    implementation("com.alibaba:fastjson:${rootProject.extra.get("fastjsonVersion")}")
     implementation("io.springfox:springfox-boot-starter:${rootProject.extra.get("springfoxVersion")}")
     implementation("org.mybatis.spring.boot:mybatis-spring-boot-starter:${rootProject.extra.get("mybatisVersion")}")
     implementation("com.baomidou:mybatis-plus-boot-starter:${rootProject.extra.get("mybatisPlusVersion")}")
