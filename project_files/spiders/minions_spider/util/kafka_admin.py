@@ -1,5 +1,6 @@
 from kafka import KafkaAdminClient
 from loguru import logger
+from kafka.admin import ConfigResourceType, ConfigResource
 
 logger.add('test.log', rotation="100 MB",
            format="{time:YYYY-MM-DD HH:mm:ss.SSS} - {thread.name} - {file} - {level} - {name}:{function}:{line} {message}",
@@ -58,3 +59,25 @@ def list_consumer_group_offsets(bootstrap_servers="127.0.0.1:9092", group_ids=[]
     for group_id in group_ids:
         group_offset = client.list_consumer_group_offsets(group_id=group_id)
         logger.info(group_offset)
+
+
+def describe_configs(bootstrap_servers="127.0.0.1:9092"):
+    client = KafkaAdminClient(bootstrap_servers=bootstrap_servers)
+    cluster_infos = client.describe_cluster()
+    broker_resources = []
+    for cluster_info in cluster_infos["brokers"]:
+        broker_id = cluster_info["node_id"]
+        broker_resource = ConfigResource(resource_type=ConfigResourceType.BROKER, name=broker_id)
+        broker_resources.append(broker_resource)
+    configs = client.describe_configs(config_resources=broker_resources, include_synonyms=True)
+    logger.info(f"broker configs:{configs}")
+
+    topics = client.describe_topics()
+    topic_resources = []
+    for topic in topics:
+        topic_name = topic.get('topic')
+        topic_resource = ConfigResource(resource_type=ConfigResourceType.TOPIC, name=topic_name)
+        topic_resources.append(topic_resource)
+
+    configs = client.describe_configs(config_resources=topic_resources, include_synonyms=True)
+    logger.info(f"topic configs:{configs}")
