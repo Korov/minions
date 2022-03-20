@@ -17,3 +17,13 @@ logger.info(redis_server.keys(pattern="*"))
 for value in redis_server.scan_iter(match="*"):
     logger.info(redis_server.get(value))
 logger.info(redis_server.scan(cursor=0,match="*"))
+
+# 实现事务
+with redis_server.pipeline() as pipe:
+    # 监视一个key，如果在执行期间被修改了，抛出WatchError
+    pipe.watch("key_1")
+    pipe.multi()
+    pipe.set("key_1", "value1")
+    pipe.set("key_2", "value2")
+    pipe.execute()
+
