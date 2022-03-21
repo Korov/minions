@@ -10,3 +10,4 @@ redis==4.1.4
 loguru==0.6.0
 lz4==4.0.0
 python-snappy==0.6.1
+kazoo==2.8.0
