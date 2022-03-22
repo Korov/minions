@@ -13,7 +13,7 @@ def consumer_msg(topic, bootstrap_servers, group_id="default_group", auto_offset
                                  auto_offset_reset=auto_offset_reset)
     for msg in consumer:
         logger.info(
-            f"{msg.topic}:{msg.partition}:{msg.offset}: key={msg.key.decode('utf-8')} value={msg.value.decode('utf-8')}")
+            f"{msg.topic}:{msg.partition}:{msg.offset}: key={msg.key.decode('utf-8')} value={msg.key.decode('utf-8')}")
 
 
 def create_consumer(bootstrap_servers="127.0.0.1:9092", group_id="default_group"):
@@ -54,11 +54,11 @@ def consumer_seek(kafka_consumer=None, topic=None, partition=None, offset=0):
         message_key = msg.key
         if message_key is None:
             logger.info(
-                f"{msg.topic}:{msg.partition}:{msg.offset}: value={msg.value.decode('utf-8')}")
+                f"{msg.topic}:{msg.partition}:{msg.offset}: value={msg.key.decode('utf-8')}")
         else:
             logger.info(
                 f"{msg.topic}:{msg.partition}:{msg.offset}: key={msg.key.decode('utf-8')},"
-                f" value={msg.value.decode('utf-8')}")
+                f" value={msg.key.decode('utf-8')}")
 
 
 def display_authorized_topics(kafka_consumer=None):

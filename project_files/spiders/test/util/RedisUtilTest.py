@@ -14,9 +14,9 @@ redis_server = redis.StrictRedis(host='localhost', port=6379, db=0, password="re
 # for i in range(1,100):
 #     logger.info(redis_server.set(name=i, value=i, nx=True))
 logger.info(redis_server.keys(pattern="*"))
-for value in redis_server.scan_iter(match="*"):
-    logger.info(redis_server.get(value))
-logger.info(redis_server.scan(cursor=0,match="*"))
+for key in redis_server.scan_iter(match="*"):
+    logger.info(f"key:{key.decode('utf-8')}, value:{redis_server.get(key).decode('utf-8')}")
+logger.info(redis_server.scan(cursor=0, match="*"))
 
 # 实现事务
 with redis_server.pipeline() as pipe:
@@ -26,4 +26,3 @@ with redis_server.pipeline() as pipe:
     pipe.set("key_1", "value1")
     pipe.set("key_2", "value2")
     pipe.execute()
-
