@@ -58,7 +58,7 @@ spotbugs {
     ignoreFailures.set(true)
     tasks.spotbugsMain {
         reports.create("html") {
-            isEnabled = true
+            enabled = true
             destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
             setStylesheet("fancy-hist.xsl")
         }
@@ -66,7 +66,7 @@ spotbugs {
 
     tasks.spotbugsTest {
         reports.create("html") {
-            isEnabled = true
+            enabled = true
             destination = file("$buildDir/reports/spotbugs/test/spotbugs.html")
             setStylesheet("fancy-hist.xsl")
         }
