@@ -45,9 +45,9 @@ docker-compose -f .\project_files\docker-compose-dev.yaml rm --force
 
 == 接口文档 ==
 
-demo的接口文档：`http://localhost:8080/swagger-ui/index.html`
+demo的接口文档：`http://localhost:8081/swagger-ui/index.html`
 
-kafka消费者接口文档：`http://localhost:8081/swagger-ui/index.html`
+kafka消费者接口文档：`http://localhost:8082/swagger-ui/index.html`
 
 == 技术 ==
 
