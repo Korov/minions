@@ -2,6 +2,7 @@ package org.minions.demo.controller
 
 import com.fasterxml.jackson.databind.JsonNode
 import org.junit.jupiter.api.Assertions
+import org.minions.common.constant.Constant
 import org.minions.common.utils.JsonUtil
 import org.minions.demo.DemoApplicationTest
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders
@@ -21,6 +22,6 @@ class DemoControllerTest extends DemoApplicationTest {
                 .andReturn().getResponse().getContentAsString()
         JsonNode resultVo = JsonUtil.jsonToNode(response)
 
-        Assertions.assertEquals(1, resultVo.get("code").asInt())
+        Assertions.assertEquals(Constant.OPERATION_SUCCESS, resultVo.get("code").asInt())
     }
 }

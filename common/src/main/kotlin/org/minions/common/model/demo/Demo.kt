@@ -10,10 +10,6 @@ class Demo {
     @ApiModelProperty(value = Constant.BLACK)
     var name: String = Constant.BLACK
 
-    val ID: String = "id"
-
-    val NAME: String = "name"
-
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
