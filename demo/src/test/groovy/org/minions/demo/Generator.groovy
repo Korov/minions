@@ -1,11 +1,7 @@
 package org.minions.demo
 
 import com.baomidou.mybatisplus.generator.AutoGenerator
-import com.baomidou.mybatisplus.generator.config.DataSourceConfig
-import com.baomidou.mybatisplus.generator.config.GlobalConfig
-import com.baomidou.mybatisplus.generator.config.PackageConfig
-import com.baomidou.mybatisplus.generator.config.StrategyConfig
-import com.baomidou.mybatisplus.generator.config.TemplateConfig
+import com.baomidou.mybatisplus.generator.config.*
 import com.baomidou.mybatisplus.generator.config.converts.PostgreSqlTypeConvert
 import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy
 import com.baomidou.mybatisplus.generator.keywords.PostgreSqlKeyWordsHandler
@@ -22,45 +18,48 @@ class Generator {
         AutoGenerator generator = new AutoGenerator()
 
         // 全局配置
-        GlobalConfig gc = new GlobalConfig()
         String projectPath = System.getProperty("user.dir")
-        gc.setOutputDir(projectPath + File.separator + ImmutableList.of("src", "main", "java").join(File.separator))
-        gc.setFileOverride(true)
-        gc.setAuthor("korov")
-        gc.setOpen(false)
+        GlobalConfig gc = new GlobalConfig()
+                .setOutputDir(projectPath + File.separator + ImmutableList.of("src", "main", "java").join(File.separator))
+                .setFileOverride(true)
+                .setAuthor("korov")
+                .setOpen(false)
         generator.setGlobalConfig(gc)
+
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig()
-        dsc.setUrl("jdbc:postgresql://localhost:5432/minions?currentSchema=demo")
-        dsc.setDriverName("org.postgresql.Driver")
-        dsc.setSchemaName("demo")
-        dsc.setUsername("minions")
-        dsc.setPassword("postgres")
-        dsc.setKeyWordsHandler(new PostgreSqlKeyWordsHandler())
-        dsc.setTypeConvert(new PostgreSqlTypeConvert())
+                .setUrl("jdbc:postgresql://localhost:5432/minions?currentSchema=demo")
+                .setDriverName("org.postgresql.Driver")
+                .setSchemaName("demo")
+                .setUsername("minions")
+                .setPassword("postgres")
+                .setKeyWordsHandler(new PostgreSqlKeyWordsHandler())
+                .setTypeConvert(new PostgreSqlTypeConvert())
         generator.setDataSource(dsc)
+
 
         // 配置模板
         TemplateConfig templateConfig = new TemplateConfig()
-        templateConfig.setService(null)
-        templateConfig.setServiceImpl(null)
-        templateConfig.setController(null)
-        templateConfig.setXml(null)
+                .setService(null)
+                .setServiceImpl(null)
+                .setController(null)
+                .setXml(null)
         generator.setTemplate(templateConfig)
+
 
         // 包配置
         PackageConfig pc = new PackageConfig()
-        pc.setModuleName("demo")
-        pc.setParent("org.minions")
+                .setModuleName("demo")
+                .setParent("org.minions")
         generator.setPackageInfo(pc)
 
         // 策略配置
         StrategyConfig strategy = new StrategyConfig()
-        strategy.setNaming(NamingStrategy.underline_to_camel)
-        strategy.setColumnNaming(NamingStrategy.underline_to_camel)
-        strategy.setInclude("demo")
-        strategy.setEntityColumnConstant(true)
+                .setNaming(NamingStrategy.underline_to_camel)
+                .setColumnNaming(NamingStrategy.underline_to_camel)
+                .setInclude("demo")
+                .setEntityColumnConstant(true)
         generator.setStrategy(strategy)
         generator.execute()
     }
