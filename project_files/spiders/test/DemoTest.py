@@ -1,4 +1,4 @@
-import random
+import time
 import uuid
 
 from loguru import logger
@@ -14,3 +14,4 @@ id = uuid.uuid4().__str__()
 logger.info(id.__str__())
 id = uuid.uuid4()
 logger.info(id.__str__())
+logger.info(time.time())
