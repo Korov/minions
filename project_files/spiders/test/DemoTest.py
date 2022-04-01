@@ -1,5 +1,4 @@
-import time
-import uuid
+import random
 
 from loguru import logger
 
@@ -9,9 +8,11 @@ from loguru import logger
 # ua = UserAgent(use_cache_server=False, verify_ssl=False)
 #
 # logger.info(ua.random)
+value = "aa'ff'afe"
+ids = set()
+while len(ids) < 500:
+    ids.add(str(random.randrange(0, 10000000)))
+logger.info("('" + str.join("', '", ids) + "')")
 
-id = uuid.uuid4().__str__()
-logger.info(id.__str__())
-id = uuid.uuid4()
-logger.info(id.__str__())
-logger.info(time.time())
+
+logger.info(where_id)
