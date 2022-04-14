@@ -9,11 +9,11 @@ logger.add('mysql_insert.log', rotation="100 MB",
            format="{time:YYYY-MM-DD HH:mm:ss.SSS} - {thread.name} - {file} - {level} - {name}:{function}:{line} {message}",
            level="INFO")
 
-connection = pymysql.connect(host='localhost',
-                             port=3307,
-                             user='user',
-                             password='password',
-                             database='database',
+connection = pymysql.connect(host='192.168.205.135',
+                             port=30306,
+                             user='root',
+                             password='rizhiyi&2014',
+                             database='rizhiyi_system',
                              cursorclass=pymysql.cursors.DictCursor)
 
 
@@ -291,7 +291,7 @@ def insert_with_uui():
 
 
 if __name__ == "__main__":
-    insert_with_id()
+    # insert_with_id()
     # insert_with_uui()
-    # insert_with_compress()
+    insert_with_compress()
     # insert_with_no_key()
