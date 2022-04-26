@@ -18,7 +18,7 @@ dependencies {
     implementation("org.springframework.kafka:spring-kafka:2.7.6")
     implementation("com.baomidou:mybatis-plus-boot-starter:${rootProject.extra.get("mybatisPlusVersion")}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("org.scala-lang:scala-library:${rootProject.extra.get("scalaVersion")}")
+    testImplementation("org.scala-lang:scala3-library_3:${rootProject.extra.get("scalaVersion")}")
     testImplementation("org.springframework.boot:spring-boot-starter-actuator")
     testImplementation("org.springframework.boot:spring-boot-devtools")
     testImplementation("com.baomidou:mybatis-plus-generator:${rootProject.extra.get("generatorVersion")}")
