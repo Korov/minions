@@ -12,8 +12,14 @@ def consumer_msg(topic, bootstrap_servers, group_id="default_group", auto_offset
         consumer = KafkaConsumer(topic, bootstrap_servers=bootstrap_servers, group_id=group_id,
                                  auto_offset_reset=auto_offset_reset)
     for msg in consumer:
-        logger.info(
-            f"{msg.topic}:{msg.partition}:{msg.offset}: key={msg.key.decode('utf-8')} value={msg.value.decode('utf-8')}")
+        try:
+            logger.info(f"{msg.topic}:{msg.partition}:{msg.offset}: "
+                        f"key={'' if msg.key is None else msg.key.decode('utf-8')} "
+                        f"value={msg.value.decode('utf-8')}")
+        except UnicodeDecodeError:
+            logger.error(f"{msg.topic}:{msg.partition}:{msg.offset}: "
+                         f"key={msg.key} "
+                         f"value={msg.value}")
 
 
 def create_consumer(bootstrap_servers="127.0.0.1:9092", group_id="default_group"):
