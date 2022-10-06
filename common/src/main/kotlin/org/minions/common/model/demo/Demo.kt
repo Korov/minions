@@ -10,6 +10,10 @@ class Demo {
     @Schema(example = Constant.BLACK)
     var name: String = Constant.BLACK
 
+    companion object {
+        const val NAME = "name"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
         if (javaClass != other?.javaClass) return false
