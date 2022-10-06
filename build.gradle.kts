@@ -81,8 +81,8 @@ allprojects {
     // io.spring.dependency-management插件的功能
     the<io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension>().apply {
         imports {
-            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2020.0.5")
-            mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2021.0.1.0")
+            mavenBom("org.springframework.cloud:spring-cloud-dependencies:2021.0.4")
+            mavenBom("com.alibaba.cloud:spring-cloud-alibaba-dependencies:2021.0.4.0")
             mavenBom("org.springframework.boot:spring-boot-dependencies:${rootProject.extra.get("springbootVersion")}")
         }
     }

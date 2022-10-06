@@ -58,68 +58,68 @@ services:
       - "8848:8848"
       - "9848:9848"
 
-  elasticsearch:
-    image: elasticsearch:7.12.1
-    container_name: minions-elasticsearch
-    ports:
-      - 9200:9200
-      - 9300:9300
-    environment:
-      - "discovery.type=single-node"
-      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#  elasticsearch:
+#    image: elasticsearch:7.12.1
+#    container_name: minions-elasticsearch
+#    ports:
+#      - 9200:9200
+#      - 9300:9300
+#    environment:
+#      - "discovery.type=single-node"
+#      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
+#
+#  logstash:
+#    image: logstash:7.12.1
+#    container_name: minions-logstash
+#    volumes:
+#      - "./logstash.conf:/usr/share/logstash/config/logstash.conf:ro"
+#    ports:
+#      - "5044:5044"
+#      - "9600:9600"
+#    environment:
+#      LS_JAVA_OPTS: "-Xmx512m -Xms512m"
+#    depends_on:
+#      - elasticsearch
+#    links:
+#      - elasticsearch:elasticsearch
+#  kibana:
+#    image: kibana:7.12.1
+#    container_name: minions-kibana
+#    volumes:
+#      - "./kibana.yaml:/usr/share/kibana/config/kibana.yml:ro"
+#    ports:
+#      - 5601:5601
+#    depends_on:
+#      - elasticsearch
+#    links:
+#      - elasticsearch:elasticsearch
 
-  logstash:
-    image: logstash:7.12.1
-    container_name: minions-logstash
-    volumes:
-      - "./logstash.conf:/usr/share/logstash/config/logstash.conf:ro"
-    ports:
-      - "5044:5044"
-      - "9600:9600"
-    environment:
-      LS_JAVA_OPTS: "-Xmx512m -Xms512m"
-    depends_on:
-      - elasticsearch
-    links:
-      - elasticsearch:elasticsearch
-  kibana:
-    image: kibana:7.12.1
-    container_name: minions-kibana
-    volumes:
-      - "./kibana.yaml:/usr/share/kibana/config/kibana.yml:ro"
-    ports:
-      - 5601:5601
-    depends_on:
-      - elasticsearch
-    links:
-      - elasticsearch:elasticsearch
-
-  skywalking-oap:
-    image: apache/skywalking-oap-server:8.7.0-es7
-    container_name: minions-skywalking-oap
-    ports:
-      - 10800:10800
-      - 11800:11800
-      - 12800:12800
-    environment:
-      - SW_STORAGE=elasticsearch7
-      - SW_STORAGE_ES_CLUSTER_NODES=elasticsearch:9200
-    depends_on:
-      - elasticsearch
-    links:
-      - elasticsearch:elasticsearch
-
-  skywalking-ui:
-    image: apache/skywalking-ui:8.7.0
-    container_name: minions-skywalking-ui
-    ports:
-      - 8080:8080
-    environment:
-      - SW_OAP_ADDRESS=http://oap:12800
-    depends_on:
-      - skywalking-oap
-    links:
-      - skywalking-oap:oap
+#  skywalking-oap:
+#    image: apache/skywalking-oap-server:8.7.0-es7
+#    container_name: minions-skywalking-oap
+#    ports:
+#      - 10800:10800
+#      - 11800:11800
+#      - 12800:12800
+#    environment:
+#      - SW_STORAGE=elasticsearch7
+#      - SW_STORAGE_ES_CLUSTER_NODES=elasticsearch:9200
+#    depends_on:
+#      - elasticsearch
+#    links:
+#      - elasticsearch:elasticsearch
+#
+#  skywalking-ui:
+#    image: apache/skywalking-ui:8.7.0
+#    container_name: minions-skywalking-ui
+#    ports:
+#      - 8080:8080
+#    environment:
+#      - SW_OAP_ADDRESS=http://oap:12800
+#    depends_on:
+#      - skywalking-oap
+#    links:
+#      - skywalking-oap:oap
 
 
 

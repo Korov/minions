@@ -28,8 +28,10 @@ docker-compose -f .\project_files\docker-compose-dev.yaml stop
 docker-compose -f .\project_files\docker-compose-dev.yaml rm --force
 
 #linux
-./minions dev up
-./minions dev stop
+docker-compose -f ./project_files/docker-compose-dev.yaml up -d
+docker-compose -f ./project_files/docker-compose-dev.yaml ps
+docker-compose -f ./project_files/docker-compose-dev.yaml stop
+docker-compose -f ./project_files/docker-compose-dev.yaml rm --force
 ----
 
 == 测试环境 ==
@@ -53,11 +55,11 @@ kafka消费者接口文档：`http://localhost:8082/swagger-ui/index.html`
 
 === SpringCloud ===
 
-版本：2020.0.5
+版本：2021.0.4
 
 === SpringBoot ===
 
-版本：2.4.13
+版本：2.7.4
 
 === JDK ===
 
@@ -65,7 +67,7 @@ OpenJDK 17
 
 === Gradle ===
 
-版本：7.4.1
+版本：7.5.1
 
 === 其他组件 ===
 
