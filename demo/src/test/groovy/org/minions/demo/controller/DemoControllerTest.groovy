@@ -24,4 +24,12 @@ class DemoControllerTest extends DemoApplicationTest {
 
         Assertions.assertEquals(Constant.OPERATION_SUCCESS, resultVo.get("code").asInt())
     }
+
+    def "test transaction"() {
+        expect: "test transaction"
+        mockMvc.perform(MockMvcRequestBuilders.get("/demo/transaction/test2"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andDo(MockMvcResultHandlers.print())
+                .andReturn().getResponse().getContentAsString()
+    }
 }

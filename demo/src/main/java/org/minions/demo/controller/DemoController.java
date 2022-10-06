@@ -27,4 +27,10 @@ public class DemoController {
         Demo demo = demoService.queryDemoById(id);
         return new ResultVo<>(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, demo);
     }
+
+    @GetMapping(value = "/demo/transaction/{name}")
+    public ResultVo<String> transaction(@PathVariable(value = "name") String name) throws Exception {
+        demoService.testTransaction(name);
+        return new ResultVo<>(Constant.OPERATION_SUCCESS, Constant.DESCRIPTION_SUCCESS, name);
+    }
 }
