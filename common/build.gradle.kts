@@ -12,7 +12,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-common:${rootProject.extra.get("kotlinVersion")}")
     implementation("org.yaml:snakeyaml:${rootProject.extra.get("snakeyamlVersion")}")
     implementation("com.squareup.okhttp3:okhttp:${rootProject.extra.get("okhttpVersion")}")
-    implementation("io.springfox:springfox-boot-starter:${rootProject.extra.get("springfoxVersion")}")
+    implementation("org.springdoc:springdoc-openapi-ui:${rootProject.extra.get("springDocVersion")}")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.boot:spring-boot-starter-data-mongodb")
     implementation("com.google.guava:guava:${rootProject.extra.get("guavaVersion")}")

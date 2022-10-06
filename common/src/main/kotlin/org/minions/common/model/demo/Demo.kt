@@ -1,13 +1,13 @@
 package org.minions.common.model.demo
 
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 import org.minions.common.constant.Constant
 
 class Demo {
-    @ApiModelProperty(value = "0")
+    @Schema(example = "0")
     var id: Long = 0
 
-    @ApiModelProperty(value = Constant.BLACK)
+    @Schema(example = Constant.BLACK)
     var name: String = Constant.BLACK
 
     override fun equals(other: Any?): Boolean {

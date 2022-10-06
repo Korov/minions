@@ -1,7 +1,7 @@
 package org.minions.demo.controller;
 
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.minions.common.constant.Constant;
 import org.minions.common.model.demo.Demo;
 import org.minions.common.vo.ResultVo;
@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-@Api(tags = "测试用接口", value = "目前只有id为1的用户")
+@Tag(name = "测试用接口", description = "目前只有id为1的用户")
 @RestController
 public class DemoController {
     private DemoService demoService;
@@ -21,7 +21,7 @@ public class DemoController {
         this.demoService = demoService;
     }
 
-    @ApiOperation(value = "获取用户名", notes = "目前只有id为1的用户")
+    @Operation(summary = "获取用户名", description = "目前只有id为1的用户")
     @GetMapping(value = "/demo/get/{id}")
     public ResultVo<Demo> getDemo(@PathVariable(value = "id") Integer id) {
         Demo demo = demoService.queryDemoById(id);

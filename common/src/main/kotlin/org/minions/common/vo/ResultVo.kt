@@ -1,26 +1,25 @@
 package org.minions.common.vo
 
 
-import io.swagger.annotations.ApiModel
-import io.swagger.annotations.ApiModelProperty
+import io.swagger.v3.oas.annotations.media.Schema
 import org.minions.common.constant.Constant
 import org.minions.common.utils.JsonUtil
 import org.minions.common.utils.StringUtil.Companion.isEmpty
 
-@ApiModel(value = "返回数据的格式")
+@Schema(description = "返回数据的格式")
 class ResultVo<T>(
     code: Int = Constant.OPERATION_SUCCESS,
     description: String = Constant.DESCRIPTION_SUCCESS,
     data: T? = null
 ) {
 
-    @ApiModelProperty(value = "1表示执行成功，0表示执行失败")
+    @Schema(description = "1表示执行成功，0表示执行失败")
     var code: Int
 
-    @ApiModelProperty(value = "description")
+    @Schema(description = "description")
     var description: String
 
-    @ApiModelProperty(value = "execute result")
+    @Schema(description = "execute result")
     var data: T?
 
     init {

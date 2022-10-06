@@ -2,7 +2,7 @@ package org.minions.common.dto.kafka;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import io.swagger.annotations.ApiModel;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,7 +24,7 @@ import java.util.List;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(value = "org-minions-common-moedel-kafka-HeroInfoModel")
+@Schema(description = "org-minions-common-moedel-kafka-HeroInfoModel")
 public class HeroInfoDTO {
 
     /**
@@ -108,59 +108,59 @@ public class HeroInfoDTO {
 
     public HeroInfoDTO(HeroInfos model) throws JsonProcessingException {
         heroId = model.getHeroId().toString();
-        beRestrainedHero = JsonUtil.jsonToList(model.getBeRestrainedHero(), BeRestrainedHeroDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
+        beRestrainedHero = JsonUtil.jsonToList(model.getBeRestrainedHero(), BeRestrainedHeroDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
         bigImg = model.getBigImg();
 
-        equipChoice = JsonUtil.jsonToList(model.getEquipChoice(), EquipChoiceDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
+        equipChoice = JsonUtil.jsonToList(model.getEquipChoice(), EquipChoiceDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
         diamondPrice = model.getHeroDiamondPrice().toString();
         diamondPrice = diamondPrice.substring(0, diamondPrice.indexOf("."));
         goldPrice = model.getHeroGoldPrice().toString();
         goldPrice = goldPrice.substring(0, goldPrice.indexOf("."));
-        levels = JsonUtil.jsonToObject(model.getHeroLevels(), LevelsDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
+        levels = JsonUtil.jsonToObject(model.getHeroLevels(), LevelsDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
         name = model.getHeroName();
         backgroundStory = model.getHeroStory();
         ticketPrice = model.getHeroTicketPrice().toString();
         ticketPrice = ticketPrice.substring(0, ticketPrice.indexOf("."));
         heroTips = model.getHeroTips();
-        type = JsonUtil.jsonToList(model.getHeroType(), String.class,JsonUtil.SNAKE_CASE_MAPPER);
+        type = JsonUtil.jsonToList(model.getHeroType(), String.class, JsonUtil.SNAKE_CASE_MAPPER);
         historyIntro = model.getHistoryIntro();
         meleeTips = model.getMeleeTips();
-        partnerHero = JsonUtil.jsonToList(model.getPartnerHero(), PartnerHeroDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
-        recInscriptions = JsonUtil.jsonToList(model.getRecInscriptions(), RecInscriptionsDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
-        recommendSummonerSkill = JsonUtil.jsonToList(model.getRecommendSummonerSkill(), RecommendSummonerSkillDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
+        partnerHero = JsonUtil.jsonToList(model.getPartnerHero(), PartnerHeroDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
+        recInscriptions = JsonUtil.jsonToList(model.getRecInscriptions(), RecInscriptionsDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
+        recommendSummonerSkill = JsonUtil.jsonToList(model.getRecommendSummonerSkill(), RecommendSummonerSkillDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
         recommendSummonerSkillTips = model.getRecommendSummonerSkillTips();
-        skillList = JsonUtil.jsonToList(model.getSkillList(), SkillListDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
+        skillList = JsonUtil.jsonToList(model.getSkillList(), SkillListDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
         skillTips = model.getSkillTips();
-        skinImgs = JsonUtil.jsonToList(model.getSkinImgs(), SkinImgsDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
+        skinImgs = JsonUtil.jsonToList(model.getSkinImgs(), SkinImgsDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
         title = "";
         halfImg = "";
         textPrice = "";
-        restrainedHero = JsonUtil.jsonToList(model.getBeRestrainedHero(), RestrainedHeroDTO.class,JsonUtil.SNAKE_CASE_MAPPER);
+        restrainedHero = JsonUtil.jsonToList(model.getBeRestrainedHero(), RestrainedHeroDTO.class, JsonUtil.SNAKE_CASE_MAPPER);
     }
 
     public HeroInfos getInfo() throws JsonProcessingException {
         HeroInfos model = new HeroInfos();
-        model.setBeRestrainedHero(JsonUtil.objectToJson(beRestrainedHero,JsonUtil.SNAKE_CASE_MAPPER));
+        model.setBeRestrainedHero(JsonUtil.objectToJson(beRestrainedHero, JsonUtil.SNAKE_CASE_MAPPER));
         model.setBigImg(bigImg);
-        model.setEquipChoice(JsonUtil.objectToJson(equipChoice,JsonUtil.SNAKE_CASE_MAPPER));
+        model.setEquipChoice(JsonUtil.objectToJson(equipChoice, JsonUtil.SNAKE_CASE_MAPPER));
         model.setHeroDiamondPrice(BigDecimal.valueOf(Long.parseLong(diamondPrice)));
         model.setHeroGoldPrice(BigDecimal.valueOf(Long.parseLong(goldPrice)));
-        model.setHeroLevels(JsonUtil.objectToJson(levels,JsonUtil.SNAKE_CASE_MAPPER));
+        model.setHeroLevels(JsonUtil.objectToJson(levels, JsonUtil.SNAKE_CASE_MAPPER));
         model.setHeroName(name);
         model.setHeroNickname(name);
         model.setHeroStory(backgroundStory);
         model.setHeroTicketPrice(BigDecimal.valueOf(Long.parseLong(ticketPrice)));
         model.setHeroTips(heroTips);
-        model.setHeroType(JsonUtil.objectToJson(type,JsonUtil.SNAKE_CASE_MAPPER));
+        model.setHeroType(JsonUtil.objectToJson(type, JsonUtil.SNAKE_CASE_MAPPER));
         model.setHistoryIntro(historyIntro);
         model.setMeleeTips(meleeTips);
-        model.setPartnerHero(JsonUtil.objectToJson(partnerHero,JsonUtil.SNAKE_CASE_MAPPER));
-        model.setRecInscriptions(JsonUtil.objectToJson(recInscriptions,JsonUtil.SNAKE_CASE_MAPPER));
-        model.setRecommendSummonerSkill(JsonUtil.objectToJson(recommendSummonerSkill,JsonUtil.SNAKE_CASE_MAPPER));
+        model.setPartnerHero(JsonUtil.objectToJson(partnerHero, JsonUtil.SNAKE_CASE_MAPPER));
+        model.setRecInscriptions(JsonUtil.objectToJson(recInscriptions, JsonUtil.SNAKE_CASE_MAPPER));
+        model.setRecommendSummonerSkill(JsonUtil.objectToJson(recommendSummonerSkill, JsonUtil.SNAKE_CASE_MAPPER));
         model.setRecommendSummonerSkillTips(recommendSummonerSkillTips);
-        model.setSkillList( JsonUtil.objectToJson(skillList,JsonUtil.SNAKE_CASE_MAPPER));
+        model.setSkillList(JsonUtil.objectToJson(skillList, JsonUtil.SNAKE_CASE_MAPPER));
         model.setSkillTips(skillTips);
-        model.setSkinImgs(JsonUtil.objectToJson(skinImgs,JsonUtil.SNAKE_CASE_MAPPER));
+        model.setSkinImgs(JsonUtil.objectToJson(skinImgs, JsonUtil.SNAKE_CASE_MAPPER));
         return model;
     }
 

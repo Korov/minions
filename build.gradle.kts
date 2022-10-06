@@ -13,6 +13,7 @@ buildscript {
         set("scalaVersion","3.1.2")
         set("mybatisVersion","2.2.2")
         set("springfoxVersion","3.0.0")
+        set("springDocVersion","1.6.11")
         set("spek2Version","2.0.18")
         set("spockVersion","2.1-groovy-3.0")
         set("junitVersion","5.7.2")
