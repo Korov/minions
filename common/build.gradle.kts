@@ -43,8 +43,8 @@ spotbugs {
     effort.set(com.github.spotbugs.snom.Effort.MAX)
     tasks.spotbugsMain {
         reports.create("html") {
-            isEnabled = true
-            destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+            enabled = true
+            outputLocation.set(file("$buildDir/reports/spotbugs/main/spotbugs.html"))
             setStylesheet("fancy-hist.xsl")
         }
     }

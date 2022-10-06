@@ -55,16 +55,16 @@ spotbugs {
     ignoreFailures.set(true)
     tasks.spotbugsMain {
         reports.create("html") {
-            isEnabled = true
-            destination = file("$buildDir/reports/spotbugs/main/spotbugs.html")
+            enabled = true
+            outputLocation.set(file("$buildDir/reports/spotbugs/main/spotbugs.html"))
             setStylesheet("fancy-hist.xsl")
         }
     }
 
     tasks.spotbugsTest {
         reports.create("html") {
-            isEnabled = true
-            destination = file("$buildDir/reports/spotbugs/test/spotbugs.html")
+            enabled = true
+            outputLocation.set(file("$buildDir/reports/spotbugs/test/spotbugs.html"))
             setStylesheet("fancy-hist.xsl")
         }
     }
