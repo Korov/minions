@@ -18,7 +18,7 @@ dependencies {
     implementation("com.google.guava:guava:${rootProject.extra.get("guavaVersion")}")
     implementation("org.jetbrains.kotlin:kotlin-reflect:${rootProject.extra.get("kotlinVersion")}")
     implementation("com.baomidou:mybatis-plus-annotation:${rootProject.extra.get("mybatisPlusVersion")}")
-    testImplementation("org.codehaus.groovy:groovy:${rootProject.extra.get("groovyVersion")}")
+    testImplementation("org.apache.groovy:groovy-all:${rootProject.extra.get("groovyVersion")}")
     testImplementation("org.spekframework.spek2:spek-dsl-jvm:${rootProject.extra.get("spek2Version")}")
     testImplementation("org.spekframework.spek2:spek-runner-junit5:${rootProject.extra.get("spek2Version")}")
     testImplementation("org.springframework.boot:spring-boot-starter-test")

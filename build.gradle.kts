@@ -1,24 +1,25 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 buildscript {
     extra.apply {
-        set("springbootVersion", "2.7.4")
-        set("postgresVersion","42.3.4")
+        set("springbootVersion", "2.7.7")
+        set("postgresVersion","42.5.1")
         set("lombokVersion","1.18.24")
-        set("groovyVersion","3.0.10")
-        set("okhttpVersion","4.9.3")
-        set("jacksonVersion","2.13.2")
-        set("kotlinVersion","1.6.21")
-        set("snakeyamlVersion","1.30")
-        set("springKafkaVersion","2.9.1")
+        set("groovyVersion","4.0.7")
+        set("okhttpVersion","5.0.0-alpha.11")
+        set("jacksonVersion","2.14.1")
+        set("kotlinVersion","1.7.10")
+        set("snakeyamlVersion","1.33")
+        set("springKafkaVersion","3.0.1")
         set("guavaVersion","31.1-jre")
-        set("flywayVersion","8.5.9")
-        set("scalaVersion","3.1.2")
-        set("mybatisVersion","2.2.2")
-        set("springDocVersion","1.6.11")
+        set("flywayVersion","9.10.2")
+        set("scalaVersion","3.2.1")
+        set("mybatisVersion","3.0.1")
+        set("springDocVersion","1.6.14")
         set("spek2Version","2.0.18")
-        set("spockVersion","2.1-groovy-3.0")
-        set("junitVersion","5.7.2")
+        set("spockVersion","2.4-M1-groovy-4.0")
         set("minionsVersion","0.0.3-SNAPSHOT")
-        set("generatorVersion","3.5.2")
+        set("generatorVersion","3.5.3.1")
         set("velocityVersion","2.3")
         set("mybatisPlusVersion","3.5.1")
     }
@@ -35,9 +36,9 @@ buildscript {
 
     dependencies {
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject.extra.get("springbootVersion")}")
-        classpath("com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.6")
+        classpath("com.github.spotbugs.snom:spotbugs-gradle-plugin:5.0.13")
         classpath("org.springframework.boot:spring-boot-gradle-plugin:${rootProject.extra.get("springbootVersion")}")
-        classpath("io.spring.gradle:dependency-management-plugin:1.0.11.RELEASE")
+        classpath("io.spring.gradle:dependency-management-plugin:1.1.0")
         classpath("gradle.plugin.com.thinkimi.gradle:mybatis-generator-plugin:2.3")
         classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:${rootProject.extra.get("kotlinVersion")}")
     }
@@ -68,7 +69,12 @@ allprojects {
 
     tasks.withType<JavaCompile> {
         options.encoding = "UTF-8"
-        sourceCompatibility = "17"
+        sourceCompatibility = JavaVersion.VERSION_17.toString()
+        targetCompatibility = JavaVersion.VERSION_17.toString()
+    }
+
+    tasks.withType<KotlinCompile> {
+        kotlinOptions.jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     tasks.withType<Test> {

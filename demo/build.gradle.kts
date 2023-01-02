@@ -23,7 +23,7 @@ dependencies {
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.spockframework:spock-core:${rootProject.extra.get("spockVersion")}")
     testImplementation("org.spockframework:spock-spring:${rootProject.extra.get("spockVersion")}")
-    testImplementation("org.codehaus.groovy:groovy:${rootProject.extra.get("groovyVersion")}")
+    testImplementation("org.apache.groovy:groovy-all:${rootProject.extra.get("groovyVersion")}")
     testImplementation("com.baomidou:mybatis-plus-generator:${rootProject.extra.get("generatorVersion")}")
     testImplementation("org.apache.velocity:velocity-engine-core:${rootProject.extra.get("velocityVersion")}")
 }
