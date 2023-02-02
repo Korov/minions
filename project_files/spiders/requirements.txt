@@ -10,5 +10,5 @@ redis==4.4
 loguru==0.6.0
 lz4==4.3
 python-snappy==0.6.1
-kazoo==2.9.0
+kazoo==2.8.0
 PyMySQL==1.0.2
