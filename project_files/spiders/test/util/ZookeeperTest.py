@@ -9,18 +9,21 @@ zk = KazooClient(hosts='192.168.50.115:2181')
 # zk = KazooClient(hosts='localhost:2181')
 
 zk.start()
-data, stat = zk.get('/')
-logger.info(data.decode("utf-8"))
-logger.info(stat)
+# data, stat = zk.get('/')
+# logger.info(data.decode("utf-8"))
+# logger.info(stat)
 
-# children = zk.get_children("/cn/yottabyte/yotta_siem")
-# logger.info(children)
+# data, stat = zk.get("/cn/yottabyte/yotta_siem/leader")
+# logger.info(data.decode("utf-8"))
+# logger.info(stat)
+
+# zk.delete(path="/cn/yottabyte/yotta_siem/leader", version=-1, recursive=True)
 
 # actionCode = zk.delete(path="/cn/yottabyte/yotta_siem/leader")
 # logger.info(actionCode)
-#
-# children = zk.get_children("/cn/yottabyte/yotta_siem")
-# logger.info(children)
+
+children = zk.get_children("/")
+logger.info(children)
 
 zk.stop()
 zk.close()
