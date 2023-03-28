@@ -5,8 +5,8 @@ logger.add('test.log', rotation="100 MB",
            format="{time:YYYY-MM-DD HH:mm:ss.SSS} - {thread.name} - {file} - {level} - {name}:{function}:{line} {message}",
            level="INFO")
 
-zk = KazooClient(hosts='192.168.50.115:2181')
-# zk = KazooClient(hosts='localhost:2181')
+# zk = KazooClient(hosts='192.168.50.220:2181')
+zk = KazooClient(hosts='localhost:2181')
 
 zk.start()
 # data, stat = zk.get('/')
@@ -24,6 +24,10 @@ zk.start()
 
 children = zk.get_children("/")
 logger.info(children)
+
+# 集群的详细信息
+mntr = zk.command(b'mntr')
+logger.info(mntr)
 
 zk.stop()
 zk.close()

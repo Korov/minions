@@ -6,24 +6,15 @@ from loguru import logger
 
 import logging.handlers
 
-logger.add('test_hisec.log', rotation="200 MB",
+logger.add('test_hisec1.log', rotation="200 MB",
            format="{time:YYYY-MM-DD HH:mm:ss.SSS} - {thread.name} - {file} - {level} - "
                   "{name}:{function}:{line} {message}",
            level="INFO")
 
-
-
-sysLog = logging.getLogger()
-fh = logging.handlers.SysLogHandler(('192.168.50.27', 514), logging.handlers.SysLogHandler.LOG_AUTH)
-formatter = logging.Formatter('%(message)s')
-
-fh.setFormatter(formatter)
-sysLog.addHandler(fh)
-
 # servers = "localhost:9095"
-# servers = "192.168.50.27:9092"
-servers = "192.168.1.19:9092"
-consumer = KafkaConsumer("logriver_siem", bootstrap_servers=servers, group_id="monitor1", auto_offset_reset="earliest")
+servers = "192.168.50.27:9092"
+# servers = "192.168.1.19:9092"
+consumer = KafkaConsumer("logriver_siem", bootstrap_servers=servers, group_id="monitor1", auto_offset_reset="latest")
 
 for msg in consumer:
     try:
@@ -39,8 +30,6 @@ for msg in consumer:
             # logger.info(f"{msg.topic}:{msg.partition}:{msg.offset}: ignore")
             continue
 
-        rawMessage = record_value_dic['raw_message']
-        sysLog.error(rawMessage)
         logger.info(f"{msg.topic}:{msg.partition}:{msg.offset}: "
                     f"key={'' if msg.key is None else msg.key.decode('utf-8')} "
                     f"value={record_value}")
