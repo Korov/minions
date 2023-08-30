@@ -11,10 +11,8 @@ logger.add('test_hisec.log', rotation="200 MB",
                   "{name}:{function}:{line} {message}",
            level="INFO")
 
-
-
 sysLog = logging.getLogger()
-fh = logging.handlers.SysLogHandler(('192.168.50.27', 514), logging.handlers.SysLogHandler.LOG_AUTH)
+fh = logging.handlers.SysLogHandler(('192.168.1.201', 514), logging.handlers.SysLogHandler.LOG_AUTH)
 formatter = logging.Formatter('%(message)s')
 
 fh.setFormatter(formatter)
@@ -32,7 +30,6 @@ for msg in consumer:
             # logger.info(f"{msg.topic}:{msg.partition}:{msg.offset}: ignore not contains hisec")
             continue
 
-
         record_value_dic = json.loads(record_value)
 
         if ('appname' not in record_value_dic.keys()) or (record_value_dic['appname'] != 'hisec'):
@@ -40,7 +37,8 @@ for msg in consumer:
             continue
 
         rawMessage = record_value_dic['raw_message']
-        sysLog.error(rawMessage)
+        except_info = sysLog.error(rawMessage)
+        logger.info(f"except_info:{except_info}")
         logger.info(f"{msg.topic}:{msg.partition}:{msg.offset}: "
                     f"key={'' if msg.key is None else msg.key.decode('utf-8')} "
                     f"value={record_value}")

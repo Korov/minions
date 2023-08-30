@@ -9,11 +9,11 @@ logger.add('test.log', rotation="100 MB",
            level="INFO")
 
 # servers = "localhost:9095"
-servers = "192.168.50.27:9092"
+servers = "192.168.50.115:9092"
 # servers = "192.168.1.19:9092"
 consumer = kConsumer.create_consumer(bootstrap_servers=servers, group_id="monitor")
 
-# kConsumer.consumer_msg(topic="logriver_siem", bootstrap_servers=servers, group_id="monitor_1", auto_offset_reset="earliest")
+kConsumer.consumer_msg(topic="logriver_siem", bootstrap_servers=servers, group_id="monitor_1", auto_offset_reset="earliest")
 # kConsumer.display_topic_consumers_count(consumer, ["kafka_topic", "kafka_log_river"])
 # kConsumer.display_authorized_topics(kafka_consumer=consumer)
 # kConsumer.consumer_seek(consumer, "sink_log_river", 0, 1)
@@ -22,6 +22,6 @@ consumer = kConsumer.create_consumer(bootstrap_servers=servers, group_id="monito
 # kAdmin.list_topics(bootstrap_servers=servers)
 # kAdmin.describe_topics(bootstrap_servers=servers, topics=['alert_topic'])
 # kAdmin.list_consumer_groups(bootstrap_servers=servers)
-kAdmin.list_consumer_group_offsets(bootstrap_servers=servers, group_ids=["SiemFlink_flink_rizhiyi"])
+# kAdmin.list_consumer_group_offsets(bootstrap_servers=servers, group_ids=["SiemFlink_flink_rizhiyi"])
 
 # kAdmin.describe_configs(bootstrap_servers=servers)
